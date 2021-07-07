@@ -1,0 +1,10 @@
+//some stuff here
+//this adds meta to cart after saved
+www/wp-content/themes/vgc/inc/custom-woo-functions.php
+
+//more here
+//calcualtes price whne adding to baset
+/www/wp-content/themes/vgc/woocommerce/inc/classes/calculate-price.php
+
+//gets availabel addons by postcode
+/www/wp-content/themes/vgc/woocommerce/inc/classes/define-addons-by-postcode.php
