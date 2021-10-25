@@ -124,7 +124,8 @@ function calculate_price_on_cart_addition($cart_item_data, $product_id) {
 add_filter( 'woocommerce_add_to_cart_redirect', 'my_custom_add_to_cart_redirect' );
 
 function my_custom_add_to_cart_redirect( $url ) {
-	$url = WC()->cart->get_cart_url();
+	//$url = WC()->cart->get_cart_url();
+    $url = wc_get_cart_url();
 	return $url;
 }
 
