@@ -26,7 +26,7 @@ get_header(); ?>
 		<div class="col-12 pl-0 pr-0">
 			<div class="owl-carousel owl-theme intro">
 			<?php
-				if(have_rows('slides')):
+				if( have_rows('slides')):
 				while ( have_rows('slides') ) : the_row();
 				
 				$img = get_sub_field('image');
@@ -38,7 +38,7 @@ get_header(); ?>
 						
 						?>
 						<div class="item" style="background-image: url('<?php echo($slide);?>');">							
-							<img src="<?php echo($slide);?>" alt="<?php echo($alt);?>" />	
+							<img loading="lazy" src="<?php echo($slide);?>" alt="<?php echo($alt);?>" />
 							<div class="html">
     							<?php the_sub_field('html');?>
 							</div>						
@@ -57,7 +57,7 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/garden-maintenance/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2018/12/garden-maintenance-services-hampshire-west-sussex-surrey.jpg')">
+                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/garden-maintenance-services-hampshire-west-sussex-surrey-55.webp')">
                         <span>Garden Maintenance</span>
                     </div>
                     </a>
@@ -67,7 +67,7 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/landscaping/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2018/12/landscaping-services-hampshire-west-sussex-surrey-1.jpg')">
+                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/landscaping-services-hampshire-west-sussex-surrey-1-55.webp')">
                         <span>Landscaping</span>
                     </div>
                     </a>
@@ -77,7 +77,7 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/commercial-grounds-care/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2018/12/commercial-grounds-care.jpg')">
+                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/commercial-grounds-care-55.webp')">
                         <span>Commercial Grounds Care</span>
                     </div>
                     </a>
@@ -87,7 +87,7 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/tree-surgery/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2018/08/ideas01_12.jpg')">
+                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/ideas01_12-55.webp')">
                         <span>Tree Surgery</span>
                     </div>
                     </a>
@@ -97,7 +97,7 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/garden-buildings/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2018/08/ideas01_14.jpg')">
+                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/ideas01_14-55.webp')">
                         <span>Garden Buildings</span>
                     </div>
                     </a>
@@ -107,7 +107,7 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/artificial-grass/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2018/11/artificial-grass-image.jpg');background-position: 0 20%">
+                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/artificial-grass-image-55.webp');background-position: 0 20%">
                         <span>Artificial Grass</span>
                     </div>
                     </a>
@@ -145,7 +145,7 @@ get_header(); ?>
         <div class="houses owl-theme owl-carousel">
             
 			<?php
-				if(have_rows('houses')):
+				if (have_rows('houses')):
 				while ( have_rows('houses') ) : the_row();
 				
 				$img = get_sub_field('image');
@@ -160,8 +160,8 @@ get_header(); ?>
 						?>
 						<div class="item">	
     						<div class="inner">						
-							<img class="tall" src="<?php echo($slide);?>" alt="<?php echo($alt);?>" />
-							<img class="short"  style="display:none;" src="<?php echo($slide2);?>" alt="<?php echo($alt);?>" />	
+							<img class="tall" loading="lazy" width="400" height="480" src="<?php echo($slide);?>" alt="<?php echo($alt);?>" />
+							<img class="short" loading="lazy"  style="display:none;" src="<?php echo($slide2);?>" alt="<?php echo($alt);?>" />
 							<div class="html">
     							
 							</div>	
