@@ -34,6 +34,7 @@ if ( ! function_exists( 'vgc_setup' ) ) :
 		 * provide it for us.
 		 */
 		add_theme_support( 'title-tag' );
+        remove_theme_support( 'widgets-block-editor' );
 
 		/*
 		 * Enable support for Post Thumbnails on posts and pages.
