@@ -15,8 +15,8 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-    <link rel="stylesheet" href="https://use.typekit.net/vyh3vpj.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://use.typekit.net">
+    <link rel="preconnect" href="https://www.google-analytics.com">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12709496-1"></script>
     <script>
@@ -54,7 +54,7 @@
         <ul class="mob-only mob-nav row">
             <li class="col align-self-center pl-1 pr-1">
             <a class="menu" href="/">
-                <img class="mob-logo" src="/wp-content/uploads/2019/10/vgc_logo_2019-25_white.png" height="44" /></a>
+                <img class="mob-logo" src="/wp-content/uploads/2019/10/vgc_logo_2019-25_white-300x169.png" height="44" /></a>
             </li>
             <li class="col">
                     <a href="#" class="menu-btn" tabindex="0">
