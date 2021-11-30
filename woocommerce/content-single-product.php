@@ -99,7 +99,7 @@ else {
     <?php
      if ( $product->is_on_sale() )  {    ?>
      <div style='background: #c31313;margin-bottom: 10px; margin-top: -10px;padding: 10px;'> 
-     <p style="color:#ffffff;font-size: 25px;margin: 0px;text-align:center;">ON SALE FROM: £<?php echo $product->get_sale_price(); ?></p>                      
+     <p style="color:#ffffff;font-size: 25px;margin: 0px;text-align:center;">ON SALE FROM: £<?php echo number_format($product->get_sale_price(),2); ?></p>                      
      </div>
      <?php
      } 
@@ -124,7 +124,7 @@ else {
                     <?php
                     if ( $product->is_on_sale() )  {    ?>
                    <span style="color:rgb(62, 96, 111);font-size: 23px;margin-top: 0px;display: inline-block;"> <strike><?php echo "From: £" . $product->get_regular_price(); ?></strike></span>
-                    <span style="color:red;font-size: 25px;margin-top: 0px;display: inline-block;">SALE <?php echo "From: £" . $product->get_sale_price(); ?></span>                      
+                    <span style="color:red;font-size: 25px;margin-top: 0px;display: inline-block;">SALE <?php echo "From: £" . number_format($product->get_sale_price(),2); ?></span>                      
                     <?php
                     } else {                        
                     ?>
@@ -163,7 +163,7 @@ else {
     <?php
      if ( $product->is_on_sale() )  {    ?>
      <div style='background: #c31313;margin-bottom: -40px;padding: 10px;'> 
-     <p style="color:#ffffff;font-size: 25px;margin-top: 0px;text-align:center;">ON SALE FROM: £<?php echo $product->get_sale_price(); ?></p>                      
+     <p style="color:#ffffff;font-size: 25px;margin-top: 0px;text-align:center;">ON SALE FROM: £<?php echo number_format($product->get_sale_price(),2) ?></p>                      
      </div>
      <?php
      } 
