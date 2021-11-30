@@ -978,7 +978,7 @@ body {
 }
 
 #menu-item-40 a {
-    content: url(/wp-content/uploads/2019/10/vgc_logo_2019-25-300x169.png);
+    content: url(/wp-content/themes/vgc/images/webp/vgc_logo_2019-25-300x169.webp);
     width: 50%;
     min-width: 140px;
     padding: 10px 0;
@@ -1218,7 +1218,7 @@ a.btn.btn_primary, a.btn.btn-primary {
 }
 
 .house {
-  background: #3496a7 url('/wp-content/uploads/2021/10/grass-55.webp');
+  background: #3496a7 url('/wp-content/themes/vgc/images/webp/grass-55.webp');
   padding: 50px 50px 30px 50px;
   margin: 50px 0 30px 0;
   background-size: cover;
@@ -1309,7 +1309,7 @@ a.btn.btn_primary, a.btn.btn-primary {
 }
 
 .cta-bottom {
-  background: url('/wp-content/uploads/2021/10/landscape-and-garden-design-maintenance-55.webp');
+  background: url('/wp-content/themes/vgc/images/webp/landscape-and-garden-design-maintenance-55.webp');
   min-height: 600px;
   background-size: cover;
   background-position: center top;
