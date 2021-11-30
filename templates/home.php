@@ -26,9 +26,14 @@ get_header(); ?>
 		<div class="col-12 pl-0 pr-0">
 			<div class="owl-carousel owl-theme intro">
 			<?php
+                $count = 0;
+                $limit = 7; // Max is currently 7
 				if( have_rows('slides')):
 				while ( have_rows('slides') ) : the_row();
-				
+
+				$count++;
+				if ( $count > $limit)
+				    continue;
 				$img = get_sub_field('image');
 		
 					if( !empty($img) ):
@@ -51,13 +56,14 @@ get_header(); ?>
 			</div>
 		</div>	
         </div>
-        
+
+        <?php if ( true ): ?>
         <div class="row align-items-center ctas">
             
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/garden-maintenance/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/garden-maintenance-services-hampshire-west-sussex-surrey-55.webp')">
+                    <div class="child" style="background-image: url('/wp-content/themes/vgc/images/webp/garden-maintenance-services-hampshire-west-sussex-surrey-55.webp')">
                         <span>Garden Maintenance</span>
                     </div>
                     </a>
@@ -67,7 +73,7 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/landscaping/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/landscaping-services-hampshire-west-sussex-surrey-1-55.webp')">
+                    <div class="child" style="background-image: url('/wp-content/themes/vgc/images/webp/landscaping-services-hampshire-west-sussex-surrey-1-55.webp')">
                         <span>Landscaping</span>
                     </div>
                     </a>
@@ -77,7 +83,7 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/commercial-grounds-care/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/commercial-grounds-care-55.webp')">
+                    <div class="child" style="background-image: url('/wp-content/themes/vgc/images/webp/commercial-grounds-care-55.webp')">
                         <span>Commercial Grounds Care</span>
                     </div>
                     </a>
@@ -87,7 +93,7 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/tree-surgery/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/ideas01_12-55.webp')">
+                    <div class="child" style="background-image: url('/wp-content/themes/vgc/images/webp/ideas01_12-55.webp')">
                         <span>Tree Surgery</span>
                     </div>
                     </a>
@@ -97,7 +103,7 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/garden-buildings/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/ideas01_14-55.webp')">
+                    <div class="child" style="background-image: url('/wp-content/themes/vgc/images/webp/ideas01_14-55.webp')">
                         <span>Garden Buildings</span>
                     </div>
                     </a>
@@ -107,13 +113,14 @@ get_header(); ?>
             <div class="col-md-4 col-6">
                 <div class="parent">
                     <a href="/artificial-grass/">
-                    <div class="child" style="background-image: url('/wp-content/uploads/2021/10/artificial-grass-image-55.webp');background-position: 0 20%">
+                    <div class="child" style="background-image: url('/wp-content/themes/vgc/images/webp/artificial-grass-image-55.webp');background-position: 0 20%">
                         <span>Artificial Grass</span>
                     </div>
                     </a>
                 </div>                
             </div>
-        </div>        
+        </div>
+        <?php endif; ?>
 
 
     		
@@ -146,7 +153,12 @@ get_header(); ?>
             
 			<?php
 				if (have_rows('houses')):
+                    $count = 0;
+                    $limit = 12; // Max is currently 12
 				while ( have_rows('houses') ) : the_row();
+                    $count++;
+                    if ( $count > $limit)
+                        continue;
 				
 				$img = get_sub_field('image');
 		
