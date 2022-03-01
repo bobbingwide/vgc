@@ -9,7 +9,10 @@ $productWidths = get_query_var('productWidth');
 //$installCost = floatval($installCost) * ( floatval($productLength) * floatval($productWidths) );
 
 // set manually
-$installCost = get_field('installation_cost', $product->ID);
+$installCost = get_field('installation_cost', $product->get_id());
+if ( empty( $installCost )) {
+    $installCost = 0;
+}
 
 
 
