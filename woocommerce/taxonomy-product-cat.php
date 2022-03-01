@@ -10,9 +10,13 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
+ * This is a modified version of the archive-product.php file.
+ * It is no longer similar to the woocommerce template called taxonomy-product-cat
+ * and can't be replaces by it due to the changes that were implemented in the if $yn test.
+ *
  * @see https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 3.4.0
+ * @version 4.7.0
  */
  
 session_start();
