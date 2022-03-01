@@ -743,4 +743,43 @@ if (!function_exists('loop_columns')) {
 	}
 }
 
+function vgc_prime_name( $name ) {
+    $name = str_replace( '"', '&Prime;', $name );
+    $name = str_replace( "'", '&prime;', $name );
+    return $name;
+}
 
+/**
+ * Returns a select drop down for product's option.
+ *
+ */
+function vgc_option_select( $inputValue, $product, $option) {
+    $base_price = $product->get_price();
+    $length = $product->get_length();
+    $width = $product->get_width();
+    $html = '<select name="';
+    $html .= $inputValue;
+    $html .= '" onchange="addAddonToCart(event, \'select\')">';
+    $html .= '<option value="" data-price="0" selected>Please select an option</option>';
+    foreach ($option['options'] as $opt ) {
+       $extra = "";
+       $price = calc_vgc_price($option, $length, $width, $base_price, $opt['price']);
+       if (isset($opt["increase_base_size_by"])) {
+          $extra = 'data-addsize="'.$opt["increase_base_size_by"].'"';
+       }
+       $html .= '<option value="';
+       $html .= vgc_prime_name( $opt['name'] );
+       $html .= '" data-price="';
+       $html .= $price;
+       $html .= '" ';
+       $html .= $extra;
+       $html .= '>';
+       $html .= $opt['name'] . ' + £' . $price;
+       $html .= '</option>';
+
+    }
+    $html .= '</select>';
+    return $html;
+
+
+}

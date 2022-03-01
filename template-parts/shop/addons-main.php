@@ -80,22 +80,8 @@ $record = [];
                       <?php 
                         $record[] = $inputValue;	              
                         $base_price = $product->get_price();
+                        echo vgc_option_select( $inputValue, $product, $options[$i] );
                       ?>
-                      <select name="<?php echo $inputValue; ?>" onchange="addAddonToCart(event, 'select')">
-                          <option value="" data-price="0" selected>Please select an option</option>
-                          <?php foreach ($options[$i]['options'] as $opt) : ?>
-                            <?php
-                            $extra = "";
-                            $price = calc_vgc_price($options[$i], $length, $width, $base_price, $opt['price']);	 
-                            if(isset($opt["increase_base_size_by"])) {
-                                $extra =  'data-addsize="'.$opt["increase_base_size_by"].'"';
-                            }
-                            ?>
-                            <option value="<?php echo $opt['name']; ?>" data-price="<?php echo $price ?>" <?php echo($extra);?>>
-                               <?php echo $opt['name'] . ' + £' . $price ?>
-                             </option>
-                          <?php endforeach; ?>
-                        </select>
                       </p>
                       <?php } ?>
                       <?php if(!empty($options[$i]['description'])) { ?>
