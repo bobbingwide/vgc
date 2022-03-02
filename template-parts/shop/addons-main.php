@@ -9,6 +9,10 @@ $deliveryStatus = get_query_var('deliveryStatus');
 $length = $product->get_length();
 $width = $product->get_width();
 $record = [];
+$options_discount = null;
+if ( $product->is_on_sale()  ) {
+    $options_discount = get_field('options_discount', $product->get_ID(), false);
+}
 ?>
 
 <?php foreach ($addons as $addon) : ?>
@@ -53,6 +57,7 @@ $record = [];
       	              $width = $product->get_width();	              
       	              $base_price = $product->get_price();
       	              $price = calc_vgc_price($options[$i], $length, $width, $base_price,NULL);
+      	              $price = vgc_adjust_price( $price, $options_discount );
                       ?>
                       <div class="addon-price d-flex pb-4">
                         <div>+ £</div>
