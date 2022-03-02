@@ -20,12 +20,17 @@ if (post_password_required()) {
 global $product;
 
 $options_allowed = array();
+$options_allowed['delivery_cost'] = [ 0,0,0,0,0];
+$options_allowed['postcode_excluded'] = [];
+$options_allowed['installation_cost'] = 0;
+
 
 if(function_exists('get_field')) {
 	// Get the optional upgrades
 	$addons = get_field('optional_upgrades');
 	// Get the brand relation
 	$brandRelation = get_field('brand');
+
 	if(!empty($brandRelation)) {
 		
 		$delivery_cost 	  = get_field('delivery_cost', $brandRelation[0]->ID);
@@ -79,6 +84,7 @@ if(isset($_POST['postcode'])) {
 	// Hide the section no-search-default
 	$display = "display:none;";
 	$postcode = filter_var($_POST['postcode'], FILTER_SANITIZE_STRING);
+	$postcode = trim( $postcode );
 	// Return the addon fields to display based on the provided data and the postcode
 	$ppq = new define_addons_by_postcode($postcode, $options_allowed);
 	// Now we know if delivery is allowed
@@ -97,12 +103,22 @@ else {
 <?php get_template_part('/template-parts/shop/usp', 'strip'); ?>
 
     <?php
-     if ( $product->is_on_sale() )  {    ?>
-     <div style='background: #c31313;margin-bottom: 10px; margin-top: -10px;padding: 10px;'> 
-     <p style="color:#ffffff;font-size: 25px;margin: 0px;text-align:center;">ON SALE FROM: £<?php echo number_format($product->get_sale_price(),2); ?></p>                      
-     </div>
-     <?php
-     } 
+    $variation = ( $product->is_type( 'simple')) ? false : true;
+    $regular_price = ( $product->is_type( 'simple')) ? $product->get_regular_price() : $product->get_variation_regular_price();
+    $regular_price = number_format( $regular_price, 2 );
+    $sale_price = null;
+    if ( $product->is_on_sale()  ) {
+        $sale_price = ($product->is_type('simple')) ? $product->get_sale_price() : $product->get_variation_sale_price();
+        $sale_price = number_format($sale_price, 2);
+    }
+
+    if ( $sale_price ) {
+        echo "<div style='background: #c31313;margin-bottom: 10px; margin-top: -10px;padding: 10px;'>";
+        echo '<p style="color:#ffffff;font-size: 25px;margin: 0px;text-align:center;">ON SALE FROM: £';
+        echo $sale_price;
+        echo '</p>';
+        echo '</div>';
+    }
      ?>	
 
 <!-- Start product single main -->
@@ -122,13 +138,13 @@ else {
 				<h1 class="font-weight-bold font-colour-primary">
     				<?php the_title(); ?><br>
                     <?php
-                    if ( $product->is_on_sale() )  {    ?>
-                   <span style="color:rgb(62, 96, 111);font-size: 23px;margin-top: 0px;display: inline-block;"> <strike><?php echo "From: £" . $product->get_regular_price(); ?></strike></span>
-                    <span style="color:red;font-size: 25px;margin-top: 0px;display: inline-block;">SALE <?php echo "From: £" . number_format($product->get_sale_price(),2); ?></span>                      
+                    if ( $sale_price )  {    ?>
+                   <span style="color:rgb(62, 96, 111);font-size: 23px;margin-top: 0px;display: inline-block;"> <strike><?php echo "From: £" . $regular_price; ?></strike></span>
+                    <span style="color:red;font-size: 25px;margin-top: 0px;display: inline-block;">SALE <?php echo "from: £" . $sale_price; ?></span>
                     <?php
                     } else {                        
                     ?>
-                    <span style="color:rgb(62, 96, 111);font-size: 23px;margin-top: 0px;display: block;"><?php echo "From: £" . $product->get_regular_price(); ?></span>
+                    <span style="color:rgb(62, 96, 111);font-size: 23px;margin-top: 0px;display: block;"><?php echo "From: £" . $regular_price; ?></span>
                     <?php
                     }
                     ?>
@@ -154,6 +170,14 @@ else {
 					<?php } ?>
 					<h3 class="w-100 clearfix font-weight-bold mb-4 font-colour-primary">Product Description</h3>
 					<p><?php echo nl2br($product->get_description()); ?></p>
+                    <?php
+                     if ( $variation ) {
+                         //echo 'Variation options go here';
+                         vgc_variable_product_selection();
+                     } else {
+                         vgc_single_product_description( $product );
+                     }
+                     ?>
 				</div>
 			</div>
 		</div>
@@ -161,9 +185,9 @@ else {
 
 
     <?php
-     if ( $product->is_on_sale() )  {    ?>
+     if ( $sale_price )  {    ?>
      <div style='background: #c31313;margin-bottom: -40px;padding: 10px;'> 
-     <p style="color:#ffffff;font-size: 25px;margin-top: 0px;text-align:center;">ON SALE FROM: £<?php echo number_format($product->get_sale_price(),2) ?></p>                      
+     <p style="color:#ffffff;font-size: 25px;margin-top: 0px;text-align:center;">ON SALE FROM: £<?php echo $sale_price ?></p>
      </div>
      <?php
      } 
