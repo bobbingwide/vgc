@@ -755,6 +755,17 @@ function vgc_prime_name( $name ) {
  */
 function vgc_option_select( $inputValue, $product, $option) {
     $base_price = $product->get_price();
+
+    //$sale_price = $product->get_sale_price();
+    $sale_price = null;
+    $regular_price = null;
+    $options_discount = null;
+    if ( $product->is_on_sale()  ) {
+        //$regular_price = ( $product->is_type( 'simple')) ? $product->get_regular_price() : $product->get_variation_regular_price();
+        //$sale_price = ($product->is_type('simple')) ? $product->get_sale_price() : $product->get_variation_sale_price();
+        $options_discount = get_field( 'options_discount', $product->get_ID(), false );
+        //vgc_report_options_discount( $options_discount );
+    }
     $length = $product->get_length();
     $width = $product->get_width();
     $html = '<select name="';
@@ -764,6 +775,7 @@ function vgc_option_select( $inputValue, $product, $option) {
     foreach ($option['options'] as $opt ) {
        $extra = "";
        $price = calc_vgc_price($option, $length, $width, $base_price, $opt['price']);
+       $price = vgc_adjust_price( $price, $options_discount );
        if (isset($opt["increase_base_size_by"])) {
           $extra = 'data-addsize="'.$opt["increase_base_size_by"].'"';
        }
@@ -780,6 +792,33 @@ function vgc_option_select( $inputValue, $product, $option) {
     }
     $html .= '</select>';
     return $html;
+}
 
+function vgc_adjust_price( $price, $options_discount ) {
+    //echo "Adjust: $price, $options_discount";
+    if ( $options_discount && is_numeric( $options_discount ) ) {
+        $discount = ( $price * $options_discount ) / 100;
+        $price -= $discount;
+        $price = number_format( $price, 2, '.', '' );
+    }
+    return $price;
+}
 
+function vgc_variable_product_selection() {
+    woocommerce_variable_add_to_cart();
+}
+
+function vgc_single_product_description( $product ) {
+    $html = '<p>';
+    $html .= nl2br($product->get_short_description());
+    $html .= '</p>';
+    echo $html;
+
+}
+
+function vgc_report_options_discount( $options_discount ) {
+    if( $options_discount && is_numeric( $options_discount ) ) {
+        echo "<p>Discount: $options_discount%</p>";
+
+    }
 }
