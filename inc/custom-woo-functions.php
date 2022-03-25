@@ -77,7 +77,7 @@ function calculate_price_on_cart_addition($cart_item_data, $product_id) {
     $delivery = WC_Shipping_Zones::get_shipping_method(3);
     $deliveryCost = $delivery->cost;
     // Run calculations to get the custom price / get the prices from the addons array  
-    $calculator = new calculate_price($_POST, $addonsFieldArray, $productPrice, $productLength, $productWidth, $product_id, $deliveryCost);
+    $calculator = new calculate_price($_POST, $addonsFieldArray, $productPrice, $productLength, $productWidth, $product_id, $deliveryCost, $product);
     // Fetch the calculated custom price
     $customPrice = $calculator->getCustomPrice();
     // Set unique meta data for the cart addition
@@ -87,7 +87,7 @@ function calculate_price_on_cart_addition($cart_item_data, $product_id) {
     //the price
     $cart_item_data['custom_price'] = $customPrice;
     // ge the meta addon bits.....
-    $cart_item_data['addon_titles'][] = "<div><strong>".$product->get_title()." : </strong> <span>£".$productPrice."</span></div>";
+    $cart_item_data['addon_titles'][] = "<div><strong>".$product->get_title()." : </strong> <span>£".number_format( $productPrice, 2, '.', '' ) ."</span></div>";
     $cart_item_data['addon_titles'] = array_merge($cart_item_data['addon_titles'],$calculator->getCustomCartDescriptions());
     // Format the addon titles in a readable way read to be used in the cart
     // foreach($_POST as $key => $value) {
@@ -624,14 +624,16 @@ function getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $postc
 	//check our terms	
     $isGreenHouse = false;
     $isLogCabin = false;    
-	
-    foreach($terms as $term) {
-        if(strtolower($term->slug) == "log-cabin") {
-            $isLogCabin = true;
-        }	
-        if(strtolower($term->slug) == "greenhouses") {
-            $isGreenHouse = true;
-        }   
+
+    if ( is_array( $terms ) && count( $terms )) {
+        foreach ($terms as $term) {
+            if (strtolower($term->slug) == "log-cabin") {
+                $isLogCabin = true;
+            }
+            if (strtolower($term->slug) == "greenhouses") {
+                $isGreenHouse = true;
+            }
+        }
     }
 	
 	//greenhouse_only
@@ -743,9 +745,28 @@ if (!function_exists('loop_columns')) {
 	}
 }
 
+/**
+ * Converts quotes to HTML entities.
+ *
+ * @param $name
+ * @return array|string|string[]
+ */
 function vgc_prime_name( $name ) {
     $name = str_replace( '"', '&Prime;', $name );
     $name = str_replace( "'", '&prime;', $name );
+    return $name;
+}
+
+/**
+ * Converts the Unicode equivalent of HTML entities back to quotes.
+ *
+ * @param $name
+ * @return array|string|string[]
+ */
+function vgc_reverse_prime( $name ) {
+    $name = str_replace( "\u{2032}", "'", $name  );
+    $name = str_replace( "\u{2033}", '"', $name );
+    //bw_trace2( $name, "name", false );
     return $name;
 }
 
@@ -763,7 +784,7 @@ function vgc_option_select( $inputValue, $product, $option) {
     if ( $product->is_on_sale()  ) {
         //$regular_price = ( $product->is_type( 'simple')) ? $product->get_regular_price() : $product->get_variation_regular_price();
         //$sale_price = ($product->is_type('simple')) ? $product->get_sale_price() : $product->get_variation_sale_price();
-        $options_discount = get_field( 'options_discount', $product->get_ID(), false );
+        $options_discount = get_field( 'options_discount', $product->get_id(), false );
         //vgc_report_options_discount( $options_discount );
     }
     $length = $product->get_length();
@@ -821,4 +842,24 @@ function vgc_report_options_discount( $options_discount ) {
         echo "<p>Discount: $options_discount%</p>";
 
     }
+}
+
+
+/**
+ * Checks if we need to offer base options.
+ *
+ * Deponti (Brands postID 7603) and Lugarde (Brands post ID 2330) don't need bases.
+ *
+ * Note: Each product is only associated with one brand.
+ *
+ * @param $product
+ */
+function vgc_offer_base_options( $product ) {
+    $offer = true;
+    $brand = get_field( 'brand', $product->get_id());
+    if( $brand && count( $brand )) {
+        $id = $brand[0]->ID;
+        $offer = ( $id <> 7603 && $id <> 2330  );
+    }
+    return $offer;
 }

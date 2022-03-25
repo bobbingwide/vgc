@@ -121,10 +121,12 @@ get_template_part('/template-parts/shop/addons/installation', 'addon');
 
 <!-- Get the section for base addons -->
 <?php
-set_query_var('ppq', $ppq);
-set_query_var('productLength', $length);
-set_query_var('productWidth', $width);
-get_template_part('/template-parts/shop/addons/base', 'addon');
+if ( vgc_offer_base_options( $product )  ) {
+    set_query_var('ppq', $ppq);
+    set_query_var('productLength', $length);
+    set_query_var('productWidth', $width);
+    get_template_part('/template-parts/shop/addons/base', 'addon');
+}
 ?>
   
 <!-- Get the section for delivery addons -->
