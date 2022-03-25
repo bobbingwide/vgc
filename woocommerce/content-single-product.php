@@ -250,7 +250,7 @@ else {
 
 
                                         <div class="text-left w-100 clearfix"><div class="d-flex minilist"><div class="minilist__name">
-                      Starting at                     </div><div class="price minilist__price"> £<?php echo $product->get_price(); ?></div></div></div>
+                      Starting at                     </div><div class="price minilist__price"> £<?php echo number_format( $product->get_price(), 2, '.', ''); ?></div></div></div>
 
 									<h3 class="pb-2" style="margin-top: 20px">Current Cart</h3>
 									<div class="items">
