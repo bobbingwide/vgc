@@ -40,12 +40,17 @@ get_header( 'shop' );
       <div class="col-lg-10">
           <div class="top__banner">
           <?php
+          $yn = true;
           // Get the child terms of the current category page
-          $term_id = get_queried_object()->term_id;
-          $post_id = 'product_cat_'.$term_id;
-          the_field('content_above_category_title', $post_id);
-          $yn = get_field('hide_description', $post_id);
-          
+          $queried_object = get_queried_object();
+          if ( property_exists( $queried_object, 'term_id ')) {
+              // This only works on a category archive page, not the store page.
+
+              $term_id = $queried_object->term_id;
+              $post_id = 'product_cat_' . $term_id;
+              the_field('content_above_category_title', $post_id);
+              $yn = get_field('hide_description', $post_id);
+          }
           
           ?>
           </div>
