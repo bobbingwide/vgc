@@ -35,7 +35,7 @@ class calculate_price {
     if(!empty($choosen)) : $this->choosen = $choosen; endif;
     //echo "Choosen (sic)";
     //print_r( $choosen );
-    bw_trace2( $choosen, "choosen (sic)");
+    //bw_trace2( $choosen, "choosen (sic)");
     // The provided data from the product global array
     if(!empty($addons)) {
 	  $tmpArray = array();
@@ -81,43 +81,32 @@ class calculate_price {
             //bw_trace2( $value, $key, false );
             $value = vgc_reverse_prime( $value );
 
-			
-			
 			if(substr($key, 0, 5) == "multi") {	
 				// Make sure the addon is an array / multi options field
 				if(is_array($this->addons[$key])) {
 					// Loop through the options and get the price for the addon that has been choosen
 					foreach($this->addons[$key] as $option) {
 
+					    $price = $option['price'];
 						if($option['name'] == $value) {
 							if(substr($key, 0, 12) == "multi-single") {
-							    $price = $this->adjust_price( $option['price'] );
-								$this->customPrice += $price;
-								$this->customBasket[] = "<div><strong>".$value."</strong> <span class='addon__cost'>£". $price ."</span></div>";
-							}
+							    // Don't adjust the price
+                            }
 							if(substr($key, 0, 13) == "multi-squared") {
-								$price = ($option['price'] * ($this->productLength * $this->productWidth));
-								$this->customPrice += $price;
-								$this->customBasket[] = "<div><strong>".$value."</strong> <span class='addon__cost'>£".to_decimal($price)."</span></div>"; 
+								$price *= $this->productLength * $this->productWidth;
 							}
 							if(substr($key, 0, 12) == "multi-length") {
-								$price = $option['price'] * $this->productLength;
-								$this->customPrice += $price;
-								$this->customBasket[] = "<div><strong>".$value."</strong> <span class='addon__cost'>£".to_decimal($price)."</span></div>"; 
+								$price *= $this->productLength;
 							}
 							if(substr($key, 0, 13) == "multi-percent") {
-								$price = ($option['price'] / 100) * $this->productPrice;
-								$this->customPrice += $price;
-								$this->customBasket[] = "<div><strong>".$value."</strong> <span class='addon__cost'>£".to_decimal($price)."</span></div>"; 
+								$price *= $this->productPrice / 100;
 							}
 						}
-						else
-						{
-    						//throw new Exception("Error Processing Request", 1);
-						}
+                        $price = $this->adjust_price( $price );
+                        $this->customPrice += $price;
+                        $this->customBasket[] = "<div><strong>".$value."</strong> <span class='addon__cost'>£". $price ."</span></div>";
+
 					}
-					
-					//die();
 					
 				} else {
 					// Stop the process if the options are not an array, something has gone wrong
@@ -128,28 +117,32 @@ class calculate_price {
 				*  Handle the single price addons
 				*/
 				$title = cleanKey2($key, $value);
-				
-				if(substr($key, 0, 13) == "single-single" && $value == "true") {
-    				$price = ( float ) $this->addons[$key];
-                    $price = $this->adjust_price( $price );
-					$this->customPrice += $price;
-					$this->customBasket[] = "<div><strong>A".$title."</strong> <span class='addon__cost'>£". $price  ."</span></div>";
-				}
-				if(substr($key, 0, 13) == "single-length" && $value == "true") {
-					$price = $this->addons[$key] * ($this->productLength);					
-					$this->customPrice += $price;
-					$this->customBasket[] = "<div><strong>B".$title."</strong> <span class='addon__cost'>£".to_decimal($price)."</span></div>";  
-				}
-				if(substr($key, 0, 14) == "single-squared" && $value == "true") {
-					$price = $this->addons[$key] * ($this->productLength * $this->productWidth);
-					$this->customPrice += $price;
-					$this->customBasket[] = "<div><strong>C".$title."</strong> <span class='addon__cost'>£".to_decimal($price)."</span></div>";  
-				}	
-				if(substr($key, 0, 14) == "single-percent" && $value == "true") {
-					$price = ($this->addons[$key] / 100) * $this->productPrice;
-					$this->customPrice += $price;
-					$this->customBasket[] = "<div><strong>D".$title."</strong> <span class='addon__cost'>£".to_decimal($price)."</span></div>";  
-				}
+				$price = (float) $this->addons[$key];
+				if ( "true" === $value ) {
+                    $prefix = '';
+
+                    if (substr($key, 0, 13) == "single-single") {
+                        $prefix = 'A';
+                    }
+
+                    if (substr($key, 0, 13) == "single-length") {
+                        $price *= $this->productLength;
+                        $prefix = 'B';
+
+                    }
+                    if (substr($key, 0, 14) == "single-squared") {
+                        $price *= $this->productLength * $this->productWidth;
+                        $prefix = 'C';
+
+                    }
+                    if (substr($key, 0, 14) == "single-percent") {
+                        $price *= $this->productPrice / 100;
+                        $prefix = 'D';
+                    }
+                    $price = $this->adjust_price($price);
+                    $this->customPrice += $price;
+                    $this->customBasket[] = "<div><strong>" . $prefix . $title . "</strong> <span class='addon__cost'>£" . $price . "</span></div>";
+                }
 			}
 
 			// Handle the base price
@@ -391,14 +384,13 @@ class calculate_price {
      * @return mixed|string
      */
     function adjust_price( $price ) {
-
         if ( $this->options_discount  ) {
             $discount = ( $price * $this->options_discount ) / 100;
             $discount = round( $discount, 2 );
             $this->savings += $discount;
             $price -= $discount;
-            $price = number_format( $price, 2, '.', '' );
         }
+        $price = number_format( $price, 2, '.', '' );
         return $price;
     }
 }
