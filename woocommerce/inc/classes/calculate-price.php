@@ -1,4 +1,10 @@
 <?php
+/**
+ * Price calculation for a product
+ * If the product is on sale and there is an options_discount setting then we adjust the price for each addon option
+ * accordingly, and work out the saving at the same time as calculating the custom price.
+ *
+ */
 
 class calculate_price {
 	
@@ -9,7 +15,11 @@ class calculate_price {
   	private $productWidth;
   	private $productId;
   	private $deliveryCost;
-  	private $customPrice;  	
+  	private $customPrice;
+  	private $product;
+  	private $options_discount;
+  	// Savings applied to addons only.
+  	private $savings;
   
   function __construct(
   	$choosen, 
@@ -18,9 +28,14 @@ class calculate_price {
   	$productLength = null, 
   	$productWidth = null, 
   	$productId = null,
-  	$deliveryCost = null) {
+  	$deliveryCost = null,
+    $product = null
+  ) {
     // The inputted postcode to determine the returned options
     if(!empty($choosen)) : $this->choosen = $choosen; endif;
+    //echo "Choosen (sic)";
+    //print_r( $choosen );
+    bw_trace2( $choosen, "choosen (sic)");
     // The provided data from the product global array
     if(!empty($addons)) {
 	  $tmpArray = array();
@@ -39,44 +54,19 @@ class calculate_price {
     if(!empty($productId)) : $this->productId = $productId; endif;
     // Set the delivery Price
     if(!empty($deliveryPrice)) : $this->deliveryPrice = $deliveryPrice; endif;
+
+    $this->product = $product;
+    $this->set_options_discount();
+    $this->savings = 0;
     // Start calculating the price
     $this->calculatePrice();
   }
 
-  /*
-  * Calculate the price before checkout
-  
-    We've moved the below out of calculate_price_on_cart_addition
-    and int here as we wat the title fo the itme AND the price in a niceley lined up title
-  
-    // Format the addon titles in a readable way read to be used in the cart
-    // foreach($_POST as $key => $value) {
-    //     if($key !== "b" && $key !== "building_removal" && $key !== "building_removal_removal-and-taking-away-of-timber-building" && $key !== "building_removal_removal-of-greenhouses" && $key !== "base_extra") {
-    //         $newkey = cleanKey($key, $value);
-    //         if(($newkey != "") && trim($value != "")) {   
-    //             $cart_item_data['addon_titles'][] = $newkey;
-    //         }
-    //     }
-    //     if($key == "building_removal_removal-of-greenhouses" && $value != "no") {
-    //         $cart_item_data['addon_titles'][] = "<div><strong>Greenhouse Removal: </strong> ".$value."</div>";
-    //     }
-    //     if($key == "building_removal_removal-and-taking-away-of-timber-building" && $value != "no") {
-    //         $cart_item_data['addon_titles'][] = "<div><strong>Garden Building Removal: </strong> ".$value."</div>";
-    //     }
-    // }  
-  
-  
 
-  
-  
-  
-  
-  
-  
-  
-  
-  */
-  
+    /**
+     * Calculates the price including addons, options.
+     * @throws Exception
+     */
   public function calculatePrice() : void {
 
 	    // Get the base price
@@ -88,6 +78,9 @@ class calculate_price {
 			*  Handle the multi price addons
 			*/
 			$value = str_replace("\\","",$value);
+            //bw_trace2( $value, $key, false );
+            $value = vgc_reverse_prime( $value );
+
 			
 			
 			if(substr($key, 0, 5) == "multi") {	
@@ -95,15 +88,12 @@ class calculate_price {
 				if(is_array($this->addons[$key])) {
 					// Loop through the options and get the price for the addon that has been choosen
 					foreach($this->addons[$key] as $option) {
-    					
-    					//echo($option['name']);
-    					//echo("--");    					
-    					//echo($value);    					
-    					
+
 						if($option['name'] == $value) {
 							if(substr($key, 0, 12) == "multi-single") {
-								$this->customPrice += $option['price'];
-								$this->customBasket[] = "<div><strong>".$value."</strong> <span class='addon__cost'>£".to_decimal($option['price'])."</span></div>";  
+							    $price = $this->adjust_price( $option['price'] );
+								$this->customPrice += $price;
+								$this->customBasket[] = "<div><strong>".$value."</strong> <span class='addon__cost'>£". $price ."</span></div>";
 							}
 							if(substr($key, 0, 13) == "multi-squared") {
 								$price = ($option['price'] * ($this->productLength * $this->productWidth));
@@ -140,9 +130,10 @@ class calculate_price {
 				$title = cleanKey2($key, $value);
 				
 				if(substr($key, 0, 13) == "single-single" && $value == "true") {
-    				
-					$this->customPrice += (float) $this->addons[$key];
-					$this->customBasket[] = "<div><strong>A".$title."</strong> <span class='addon__cost'>£".to_decimal($this->addons[$key])."</span></div>";  
+    				$price = ( float ) $this->addons[$key];
+                    $price = $this->adjust_price( $price );
+					$this->customPrice += $price;
+					$this->customBasket[] = "<div><strong>A".$title."</strong> <span class='addon__cost'>£". $price  ."</span></div>";
 				}
 				if(substr($key, 0, 13) == "single-length" && $value == "true") {
 					$price = $this->addons[$key] * ($this->productLength);					
@@ -269,7 +260,7 @@ class calculate_price {
                 // // price is per sq ft
                 // $installCost = floatval($installCost) * ($this->productLength * $this->productWidth);       		
 
-        		$this->customPrice += $installCost;
+        		$this->customPrice += (float) $installCost;
         		$this->customBasket[] = "<div><strong>Installation:</strong> <span class='addon__cost'>£".to_decimal($installCost)."</span></div>";
             }
             
@@ -373,5 +364,41 @@ class calculate_price {
   
   public function getCustomCartDescriptions() : array {
     return (array) $this->customBasket;
-  }  
+  }
+
+  /**
+   * Sets the options discount
+   *
+   * - If the product is on sale
+   * - And the discount is a numeric value
+   * - Other than 0.
+   */
+  public function set_options_discount() {
+      $this->options_discount = null;
+      if ( $this->product->is_on_sale()  ) {
+          $options_discount = get_field( 'options_discount', $this->product->get_ID(), false );
+          if ( $options_discount && is_numeric( $options_discount ) && $options_discount <> 0 ) {
+              $this->options_discount = $options_discount;
+          }
+      }
+
+  }
+
+    /**
+     * Applies the options_discount to the addon price, accumulating the savings.
+     *
+     * @param $price
+     * @return mixed|string
+     */
+    function adjust_price( $price ) {
+
+        if ( $this->options_discount  ) {
+            $discount = ( $price * $this->options_discount ) / 100;
+            $discount = round( $discount, 2 );
+            $this->savings += $discount;
+            $price -= $discount;
+            $price = number_format( $price, 2, '.', '' );
+        }
+        return $price;
+    }
 }
