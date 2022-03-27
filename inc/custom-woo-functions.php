@@ -770,23 +770,31 @@ function vgc_reverse_prime( $name ) {
     return $name;
 }
 
+function vgc_get_options_discount( $product ) {
+    $options_discount = null;
+    if ( $product->is_on_sale()  ) {
+        //$regular_price = ( $product->is_type( 'simple')) ? $product->get_regular_price() : $product->get_variation_regular_price();
+        //$sale_price = ($product->is_type('simple')) ? $product->get_sale_price() : $product->get_variation_sale_price();
+        $discount = get_field( 'options_discount', $product->get_id(), false );
+        if ( $discount && is_numeric( $discount ) && $discount <> 0 ) {
+            $options_discount = $discount;
+        }
+    }
+    return $options_discount;
+}
+
 /**
  * Returns a select drop down for product's option.
  *
  */
-function vgc_option_select( $inputValue, $product, $option) {
+function vgc_option_select( $inputValue, $product, $option, $options_discount ) {
     $base_price = $product->get_price();
 
     //$sale_price = $product->get_sale_price();
     $sale_price = null;
     $regular_price = null;
-    $options_discount = null;
-    if ( $product->is_on_sale()  ) {
-        //$regular_price = ( $product->is_type( 'simple')) ? $product->get_regular_price() : $product->get_variation_regular_price();
-        //$sale_price = ($product->is_type('simple')) ? $product->get_sale_price() : $product->get_variation_sale_price();
-        $options_discount = get_field( 'options_discount', $product->get_id(), false );
-        //vgc_report_options_discount( $options_discount );
-    }
+    //$options_discount = vgc_get_options_discount();
+
     $length = $product->get_length();
     $width = $product->get_width();
     $html = '<select name="';
@@ -795,8 +803,8 @@ function vgc_option_select( $inputValue, $product, $option) {
     $html .= '<option value="" data-price="0" selected>Please select an option</option>';
     foreach ($option['options'] as $opt ) {
        $extra = "";
-       $price = calc_vgc_price($option, $length, $width, $base_price, $opt['price']);
-       $price = vgc_adjust_price( $price, $options_discount );
+       $original = calc_vgc_price($option, $length, $width, $base_price, $opt['price']);
+       $price = vgc_adjust_price( $original, $options_discount );
        if (isset($opt["increase_base_size_by"])) {
           $extra = 'data-addsize="'.$opt["increase_base_size_by"].'"';
        }
@@ -807,11 +815,24 @@ function vgc_option_select( $inputValue, $product, $option) {
        $html .= '" ';
        $html .= $extra;
        $html .= '>';
-       $html .= $opt['name'] . ' + £' . $price;
+       //$html .= $opt['name'] . ' + £' . $price;
+       $html .= vgc_option_text( $opt['name'], $original, $price);
        $html .= '</option>';
 
     }
     $html .= '</select>';
+    return $html;
+}
+
+function vgc_option_text( $name, $original, $price ) {
+    $html = $name;
+    if ( $original <> $price ) {
+        $html .= ' was + £';
+        $html .= $original;
+        $html .= ' now ';
+    }
+    $html .= '+ £';
+    $html .= $price;
     return $html;
 }
 
@@ -820,11 +841,38 @@ function vgc_adjust_price( $price, $options_discount ) {
     if ( $options_discount && is_numeric( $options_discount ) ) {
         $discount = ( $price * $options_discount ) / 100;
         $price -= $discount;
-        $price = number_format( $price, 2, '.', '' );
     }
+    $price = number_format( $price, 2, '.', '' );
     return $price;
 }
 
+function vgc_single_addon_prices( $original, $price ) {
+    $html = '';
+    $now = '';
+    if ( $original <> $price ) {
+        $html .= '<div class="addon-original d-flex pb-0">';
+        $html .= '<div>was + £</div>';
+        $html .= '<div class="price">';
+        $html .= '<strike>';
+        $html .= $original;
+        $html .= '</strike>';
+        $html .= '</div>';
+        $html .= '</div>';
+        $now = 'now';
+
+    }
+    $html .= '<div class="addon-price d-flex pb-4">';
+    $html .= "<div>$now + £</div>";
+    $html .= '<div class="price">';
+    $html .= $price;
+    $html .= '</div>';
+    $html .= '</div>';
+    return $html;
+}
+
+/**
+ * Prototype support for product variations.
+ */
 function vgc_variable_product_selection() {
     woocommerce_variable_add_to_cart();
 }
@@ -834,32 +882,43 @@ function vgc_single_product_description( $product ) {
     $html .= nl2br($product->get_short_description());
     $html .= '</p>';
     echo $html;
-
 }
 
-function vgc_report_options_discount( $options_discount ) {
-    if( $options_discount && is_numeric( $options_discount ) ) {
-        echo "<p>Discount: $options_discount%</p>";
-
+/**
+ * Reports the Discount on options percentage.
+ *
+ * @param $product
+ * @return string
+ */
+function vgc_report_options_discount( $product ) : string {
+    $html = '';
+    $options_discount = vgc_get_options_discount( $product );
+    if ( $options_discount ) {
+        $html = '<span class="ps-2">';
+        $html .= " Discount on options: $options_discount%";
+        $html .= '</span>';
     }
+    return $html;
 }
-
 
 /**
  * Checks if we need to offer base options.
  *
- * Deponti (Brands postID 7603) and Lugarde (Brands post ID 2330) don't need bases.
+ * Notes:
+ * - Each product is only associated with one brand.
+ * - The default value of 'offer_base_options' is true.
+ * - Deponti (Brands post ID 7603) and Lugarde (Brands post ID 2330) don't need bases.
  *
- * Note: Each product is only associated with one brand.
- *
- * @param $product
+ * @param $product - The Product from which we determine the Brand
+ * @return bool - true if offer_base_options is checked ( default ).
  */
 function vgc_offer_base_options( $product ) {
     $offer = true;
     $brand = get_field( 'brand', $product->get_id());
     if( $brand && count( $brand )) {
-        $id = $brand[0]->ID;
-        $offer = ( $id <> 7603 && $id <> 2330  );
+        $offer_base_options = get_field( 'offer_base_options', $brand[0]->ID );
+        //bw_trace2( $offer_base_options, 'offer_base_options' );
+        $offer = $offer_base_options !== false;
     }
     return $offer;
 }
