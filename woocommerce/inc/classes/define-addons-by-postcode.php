@@ -13,7 +13,8 @@ class define_addons_by_postcode
   private $options_allowed = null;  
   private $acceptedPostcodes = [];
   private $baseWoodCosts = 0;
-  private $baseConcreteCosts = 0; 
+  private $baseConcreteCosts = 0;
+  private $deliveryCost = 0;
 
   function __construct($postcode, $options_allowed) {
     // The inputted postcode to determine the returned options
@@ -153,25 +154,29 @@ class define_addons_by_postcode
   	}
   	if($this->postcodeBand == 1) {
       	if($this->options["delivery_cost"][1]) {
-      	$this->deliveryCost = $this->options["delivery_cost"][1]; $this->deliveryAccepted = true;
+      	$this->deliveryCost = $this->options["delivery_cost"][1];
+      	$this->deliveryAccepted = true;
       	$this->deliveryType = 1;
       	}
     }
   	if($this->postcodeBand == 2) {
       	if($this->options["delivery_cost"][1]) {
-      	$this->deliveryCost = $this->options["delivery_cost"][2]; $this->deliveryAccepted = true;
+      	$this->deliveryCost = $this->options["delivery_cost"][2];
+      	$this->deliveryAccepted = true;
       	$this->deliveryType = 2;
       	}
     }
   	if($this->postcodeBand == 3) {
       	if($this->options["delivery_cost"][1]) {
-      	$this->deliveryCost = $this->options["delivery_cost"][3]; $this->deliveryAccepted = true;
+      	$this->deliveryCost = $this->options["delivery_cost"][3];
+      	$this->deliveryAccepted = true;
       	$this->deliveryType = 3;
       	}
     }
   	if($this->postcodeBand == 4) {
       	if($this->options["delivery_cost"][1]) {
-      	$this->deliveryCost = $this->options["delivery_cost"][4]; $this->deliveryAccepted = true;
+      	$this->deliveryCost = $this->options["delivery_cost"][4];
+      	$this->deliveryAccepted = true;
       	$this->deliveryType = 4;
       	}
     }
@@ -225,7 +230,11 @@ class define_addons_by_postcode
     return $this->postcodeBand;
   }   
   public function getDeliveryCost() : int {
-    return $this->deliveryCost;
+    if ( is_numeric( $this->deliveryCost ) ) {
+        return $this->deliveryCost;
+    }
+    return 0;
+
   }
   public function getBaseCostConcrete() : int {
     return $this->baseConcreteCosts;  
