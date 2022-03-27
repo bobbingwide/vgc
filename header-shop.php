@@ -12,18 +12,13 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-  <link rel="stylesheet" href="https://use.typekit.net/vyh3vpj.css">
-  <!-- INCLUDE BOOTSTRAP -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- INCLUDE FONT AWESOME -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-12709496-1"></script>
-  <!-- INCLUDE BOOTSTRAP JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script>
+
+
+    <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -45,7 +40,7 @@
     <div class="row align-items-center">
       <div class="col-lg-2 mw">
         <?php $themeLogo = get_header_image(); ?>
-        <a href="/shop_test" title="Garden Vista Group | Go to the Homepage"><img src="/wp-content/uploads/2019/10/vgc_logo_2019-25.png" alt="Logo" style="max-width: 140px"></a>
+        <a href="/store" title="Garden Vista Group | Go to the Homepage"><img src="/wp-content/uploads/2019/10/vgc_logo_2019-25.png" alt="Logo" style="max-width: 140px"></a>
       </div>
       <div class="col-lg-6 mobeshop">
         <?php echo do_shortcode('[wcas-search-form]'); ?>
