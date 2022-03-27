@@ -12,7 +12,7 @@
  *
  * This is a modified version of the archive-product.php file.
  * It is no longer similar to the woocommerce template called taxonomy-product-cat
- * and can't be replaces by it due to the changes that were implemented in the if $yn test.
+ * and can't be replaced by it due to the changes that were implemented in the if $yn test.
  *
  * @see https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
@@ -73,7 +73,7 @@ get_header( 'shop' );
               $a = term_description($currentTerm->term_taxonomy_id, 'product_cat'); 
               if($a!="")
               {?>
-              <div class="text-center font-weight-medium pb-5">
+              <div class="text-center fw-medium pb-5">
                 <p><?php echo($a); ?></p>
               </div>
               <?php
@@ -87,12 +87,12 @@ get_header( 'shop' );
             $currentTerm = get_queried_object();                      
             if(!empty($currentTerm->term_taxonomy_id)) {
               //$parentTerm = get_term_top_parent($currentTerm->term_taxonomy_id); ?>
-              <h1 class="w-100 clearfix text-center font-weight-bold font-colour-primary"><?php woocommerce_page_title(); ?></h1>
+              <h1 class="w-100 clearfix text-center fw-bold font-colour-primary"><?php woocommerce_page_title(); ?></h1>
               <?php
               $a = term_description($currentTerm->term_taxonomy_id, 'product_cat'); 
               if($a!="")
               {?>
-              <div class="text-center font-weight-medium pb-5">
+              <div class="text-center fw-medium pb-5">
                 <p><?php echo($a); ?></p>
               </div>
               <?php

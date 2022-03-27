@@ -12,7 +12,7 @@ $globalOptionsTable = get_field('buildings', 'options');
 
 <div class="section-addon-wrap">
     <div class="section-options pb-4 pt-4">
-        <h3 class="w-100 clearfix font-weight-bold mb-0 h5 font-colour-primary text-center toggle-next">
+        <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
             <?php the_field('building_removal_title','options'); ?>
             <img src="<?php echo get_template_directory_uri(); ?>/images/down-arrow-blue.png" alt="icon" class="ml-4">
         </h3>
@@ -39,7 +39,7 @@ $globalOptionsTable = get_field('buildings', 'options');
                           <img style='width:100%; height: auto;padding: 2rem 10px' src="<?php echo $row["image"]["url"]; ?>" alt="<?php echo $base["title"]; ?>" />
                     </div>
                     <div class="addon-details">
-                    <p class="font-weight-bold mb-0 addon-name"><?php echo $row["title"]; ?></p>                    
+                    <p class="fw-bold mb-0 addon-name"><?php echo $row["title"]; ?></p>                    
                         <p class="options__select">
                         <select name="building_removal_<?php echo(sanitize_title($row["title"]));?>" onchange="addAddonToCart(event, 'select')">
                             <option value="" data-price="0" selected="">Please choose</option>    

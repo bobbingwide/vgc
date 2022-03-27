@@ -47,10 +47,10 @@ else {
 								<?php the_post_thumbnail('full'); ?>
 							</div>
 							<div class="post-details">
-								<h3 class="font-weight-bold font-colour-primary"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+								<h3 class="fw-bold font-colour-primary"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
 								<p><?php echo substr(get_the_excerpt(), 0, 250).' [..]' ?></p>
 								<?php if(isset($_GET['post_type']) && $_GET['post_type'] == 'products') { ?>
-									<h4 class="mb-1 font-colour-primary font-weight-bold w-100 text-right pt-3"><small>From:</small> £<?php echo get_post_meta(get_the_ID(), '_regular_price', true); ?></h4>
+									<h4 class="mb-1 font-colour-primary fw-bold w-100 text-right pt-3"><small>From:</small> £<?php echo get_post_meta(get_the_ID(), '_regular_price', true); ?></h4>
 								<?php } ?>
 							</div>
 						</div>

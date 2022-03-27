@@ -1,5 +1,5 @@
 <sidebar class="shop-filter p-4 d-block mb-5">
-  <h2 class="font-weight-bold h5">Filter Search</h2>
+  <h2 class="fw-bold h5">Filter Search</h2>
   <div>
     
 
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class='cat__wrap'>
-                    <h3 class="h5 font-weight-bold"><?php echo $term->name; ?></h3>
+                    <h3 class="h5 fw-bold"><?php echo $term->name; ?></h3>
                     <ul>
                   <?php }
                   else { ?>

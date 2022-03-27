@@ -5,7 +5,7 @@
 <?php
 // If there is anything in the cart
 if(count($cart) > 0) { ?>
-  <h2 class="w-100 clearfix font-weight-bold mb-4 text-white text-left" style="font-size: 1.5rem">Order Breakdown</h2>
+  <h2 class="w-100 clearfix fw-bold mb-4 text-white text-start" style="font-size: 1.5rem">Order Breakdown</h2>
   <?php
   // Loop through the cart items and display them
   foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item ) {

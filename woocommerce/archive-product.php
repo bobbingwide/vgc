@@ -75,12 +75,12 @@ get_header( 'shop' );
             $currentTerm = get_queried_object();                      
             if(!empty($currentTerm->term_taxonomy_id)) {
               $parentTerm = get_term_top_parent($currentTerm->term_taxonomy_id); ?>
-              <h1 class="w-100 clearfix text-center font-weight-bold font-colour-primary"><?php echo $parentTerm->name; ?></h1>
+              <h1 class="w-100 clearfix text-center fw-bold font-colour-primary"><?php echo $parentTerm->name; ?></h1>
               <?php
               $a = term_description($parentTerm->term_id, 'product_cat'); 
               if($a!="")
               {?>
-              <div class="text-center font-weight-medium pb-5">
+              <div class="text-center fw-medium pb-5">
                 <p><?php echo($a); ?></p>
               </div>
               <?php

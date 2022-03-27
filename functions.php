@@ -182,7 +182,7 @@ if ( ! function_exists( 'vgc_setup' ) ) :
 			'id' => 'postcode-search-text',
       'before_widget' => '<div class="text-white">',
       'after_widget' => '</div>',
-      'before_title' => '<h3 class="w-100 text-center clearfix font-weight-bold">',
+      'before_title' => '<h3 class="w-100 text-center clearfix fw-bold">',
       'after_title' => '</h3>',
       )
     );

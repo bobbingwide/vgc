@@ -22,7 +22,7 @@ if ($installationStatus == true && isset($installCost)) : ?>
   <!-- Lets give them the option -->
     <div class="section-addon-wrap">
       <div class="section-options pb-4 pt-4 addon-select-required addon-select-radio">
-        <h3 class="w-100 clearfix font-weight-bold mb-0 h5 font-colour-primary text-center toggle-next">
+        <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
         <?php the_field('installation_title','options'); ?>
         <img src="<?php echo get_template_directory_uri(); ?>/images/down-arrow-blue.png" alt="icon" class="ml-4">          
         </h3>
@@ -41,7 +41,7 @@ if ($installationStatus == true && isset($installCost)) : ?>
                 <img src="/wp-content/uploads/2020/01/installation.png" style="padding: 20px;" />
               </div>
               <div class="addon-details">
-                <p class="font-weight-bold mb-0 addon-name"><?php the_field('installationf','options'); ?></p>
+                <p class="fw-bold mb-0 addon-name"><?php the_field('installationf','options'); ?></p>
                 <div class="addon-price d-flex pb-4">
                   <div>FREE</div>
                   <div class="price" style="opacity: 0">
@@ -60,7 +60,7 @@ if ($installationStatus == true && isset($installCost)) : ?>
                 <img src="/wp-content/uploads/2020/01/installation.png" style="padding: 20px;" />
               </div>
               <div class="addon-details">
-                <p class="font-weight-bold mb-0 addon-name"><?php the_field('installationn','options'); ?></p>
+                <p class="fw-bold mb-0 addon-name"><?php the_field('installationn','options'); ?></p>
                 <div class="addon-price d-flex pb-4">
                   <div>+ £</div>
                   <div class="price">
@@ -78,7 +78,7 @@ if ($installationStatus == true && isset($installCost)) : ?>
                 <img src="/wp-content/uploads/2020/01/installation.png" style="padding: 20px;" />
               </div>
               <div class="addon-details">
-                <p class="font-weight-bold mb-0 addon-name"><?php the_field('installationy','options'); ?></p>
+                <p class="fw-bold mb-0 addon-name"><?php the_field('installationy','options'); ?></p>
                 <div class="addon-price d-flex pb-4">
                   <div>+ £</div>
                   <div class="price">

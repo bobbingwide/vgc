@@ -7,7 +7,7 @@ if ($deliveryStatus) :
 ?>
 <div class="section-addon-wrap">
 	<div class="section-options pb-4 pt-4 addon-select-required addon-select-radio">
-		<h3 class="w-100 clearfix font-weight-bold mb-0 h5 font-colour-primary text-center toggle-next">
+		<h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
          <?php the_field('delivery_title','options'); ?>
         </h3>
         <div style="text-align: center">
@@ -27,7 +27,7 @@ if ($deliveryStatus) :
                 <img src="https://www.gardenvista.co.uk/wp-content/uploads/2020/01/delivery.png" style="width: 100%;height: auto;padding: 20px;" />
               </div>
               <div class="addon-details">
-                <p class="font-weight-bold mb-0 addon-name"><?php the_field('no_delivery','options');?></p>
+                <p class="fw-bold mb-0 addon-name"><?php the_field('no_delivery','options');?></p>
                 <div class="addon-price d-flex pb-4">
                   <div>+ £</div>
                   <div class="price">
@@ -49,7 +49,7 @@ if ($deliveryStatus) :
                 <img src="https://www.gardenvista.co.uk/wp-content/uploads/2020/01/delivery.png" style="width: 100%;height: auto;padding: 20px;" />
               </div>
               <div class="addon-details">
-                <p class="font-weight-bold mb-0 addon-name"><?php the_field('add_delivery','options');?></p>
+                <p class="fw-bold mb-0 addon-name"><?php the_field('add_delivery','options');?></p>
                 <div class="addon-price d-flex pb-4">
                     <?php
                     // If delivery is free

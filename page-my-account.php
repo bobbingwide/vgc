@@ -23,7 +23,7 @@ get_header('shop');
 			</div>
 		</div>
 		<div class="row">
-			<h1 class="font-weight-bold pt-2 w-100">Login</h1>
+			<h1 class="fw-bold pt-2 w-100">Login</h1>
 	  	<?php
 	  		if(have_posts()) : while (have_posts()) : the_post();
 	  			the_content();

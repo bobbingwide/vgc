@@ -44,7 +44,7 @@ get_header('shop');
 <section class="shop-main pb-4">
   <div class="container">
     <div class="row">
-      <div class="col-lg-12 text-center font-weight-medium">
+      <div class="col-lg-12 text-center fw-medium">
         <!-- Output the shop page content -->
         <?php if(have_posts()) : while(have_posts()) : the_post(); ?>
           <?php the_content(); ?>
@@ -60,7 +60,7 @@ get_header('shop');
   ]);
 ?>
 <!-- Show product categories -->
-<h2 class="w-100 clearfix text-center font-weight-bold pb-5 font-colour-primary">Popular Products</h2>
+<h2 class="w-100 clearfix text-center fw-bold pb-5 font-colour-primary">Popular Products</h2>
 <section class="product-category-nav pb-6 section-gutters">
   <div class="container-fluid">
     <div class="row product__list">
@@ -76,7 +76,7 @@ get_header('shop');
               <a href="/product-category/<?php echo $terms->slug ?>" title="View category <?php echo $terms->name ?>">
                 <img src="<?php echo $image; ?>" alt="<?php echo $terms->name ?>">
               </a>
-              <h3 class="font-weight-bold pt-2 w-100"><a href="/product-category/<?php echo $terms->slug ?>" class="text-decoration-none font-colour-primary" title="View category <?php echo $terms->name ?>"><?php echo $terms->name ?></a></h3>
+              <h3 class="fw-bold pt-2 w-100"><a href="/product-category/<?php echo $terms->slug ?>" class="text-decoration-none font-colour-primary" title="View category <?php echo $terms->name ?>"><?php echo $terms->name ?></a></h3>
             </div>
           <?php } ?>
         <?php } ?>
@@ -109,7 +109,7 @@ $args = array(
 <?php
   $query= new WP_Query($args);
   if ($query->have_posts()) : ?>
-  <h2 class="w-100 clearfix text-center font-weight-bold pb-5 font-colour-primary">Sale Special Offers</h2>
+  <h2 class="w-100 clearfix text-center fw-bold pb-5 font-colour-primary">Sale Special Offers</h2>
   <section class="section-special-offers section-gutters pb-6">
     <div class="container-fluid">
       <div class="row">
@@ -140,7 +140,7 @@ wp_reset_postdata();
   $query = new WP_Query($args);
   if ($query->have_posts()) :
 ?>
-<h2 class="w-100 clearfix text-center font-weight-bold pb-5 font-colour-primary">Best Sellers</h2>
+<h2 class="w-100 clearfix text-center fw-bold pb-5 font-colour-primary">Best Sellers</h2>
 <section class="section-best-sellers section-gutters pb-6">
   <div class="container-fluid">
     <div class="row">
@@ -168,7 +168,7 @@ wp_reset_postdata();
   $query = new WP_Query($args);
   if ($query->have_posts()) :
 ?>
-<h2 class="w-100 clearfix text-center font-weight-bold pb-5 font-colour-primary">Brands</h2>
+<h2 class="w-100 clearfix text-center fw-bold pb-5 font-colour-primary">Brands</h2>
 <section class="section-brands section-gutters pb-6">
   <div class="container-fluid">
     <div class="row">
@@ -196,7 +196,7 @@ wp_reset_postdata();
   $query = new WP_Query($args);
   if ($query->have_posts()) :
 ?>
-<h2 class="w-100 clearfix text-center font-weight-bold pb-5 font-colour-primary">Discontinued Ex-Display Buildings</h2>
+<h2 class="w-100 clearfix text-center fw-bold pb-5 font-colour-primary">Discontinued Ex-Display Buildings</h2>
 <section class="section-discontinued-products section-gutters pb-6">
   <div class="container-fluid">
     <div class="row">

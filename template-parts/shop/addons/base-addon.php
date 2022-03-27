@@ -19,7 +19,7 @@ $baseSizes = getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $p
 ?>
 <div class="section-addon-wrap">
   <div class="section-options pb-4 pt-4 addon-select-required addon-select-radio">
-    <h3 class="w-100 clearfix font-weight-bold mb-0 h5 font-colour-primary text-center toggle-next">
+    <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
           <?php the_field('base_title','options'); ?>
           <img src="<?php echo get_template_directory_uri(); ?>/images/down-arrow-blue.png" alt="icon" class="ml-4">
       </h3>
@@ -37,7 +37,7 @@ $baseSizes = getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $p
                     <img style='width:100%; height: auto;padding: 2rem 10px' src="<?php echo $base["image"]; ?>" alt="<?php echo $base["title"]; ?>" />
                   </div>
                   <div class="addon-details">
-                    <p class="font-weight-bold mb-0 addon-name">
+                    <p class="fw-bold mb-0 addon-name">
                      <?php echo $base["title"]; ?>
                     </p>
                     <div class="addon-price d-flex pb-4">

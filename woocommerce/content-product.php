@@ -28,24 +28,24 @@ if (empty($product) || ! $product->is_visible() ) {
 	    <a href="<?php the_permalink(); ?>" title="View product: <?php the_title() ?>"><?php the_post_thumbnail('large'); ?></a>
   </div>
   <div class="product-attributes">
-    <h3 class="pt-3 pb-0 mb-0 h5"><a href="<?php the_permalink(); ?>" class="font-weight-bold font-colour-primary text-decoration-none" title="View product: <?php the_title() ?>"><?php the_title(); ?></a></h3>
+    <h3 class="pt-3 pb-0 mb-0 h5"><a href="<?php the_permalink(); ?>" class="fw-bold font-colour-primary text-decoration-none" title="View product: <?php the_title() ?>"><?php the_title(); ?></a></h3>
     <?php
     // If custom fields plugin is active
     if(function_exists('the_field')) {
       $type = get_field('building_type');
       if(!empty($type)) { ?>
-        <p class="mb-1 font-colour-primary font-weight-medium">Building Type: <?php echo $type; ?></p>
+        <p class="mb-1 font-colour-primary fw-medium">Building Type: <?php echo $type; ?></p>
       <?php }
     } ?>
     
     <?php
     if ( $product->is_on_sale() )  {
     ?>
-    <p class="mb-1 font-colour-primary font-weight-medium" style="font-size: .9rem"><span style='background:#c31313;color:#fff;padding: 3px; display:inline-block;'>SALE</span> from: £<?php echo $product->get_sale_price(); ?></p>
+    <p class="mb-1 font-colour-primary fw-medium" style="font-size: .9rem"><span style='background:#c31313;color:#fff;padding: 3px; display:inline-block;'>SALE</span> from: £<?php echo $product->get_sale_price(); ?></p>
     <?php
     } else {                        
     ?>
-    <p class="mb-1 font-colour-primary font-weight-medium" style="font-size: .9rem">Price from: £<?php echo get_post_meta(get_the_ID(), '_regular_price', true); ?></p>
+    <p class="mb-1 font-colour-primary fw-medium" style="font-size: .9rem">Price from: £<?php echo get_post_meta(get_the_ID(), '_regular_price', true); ?></p>
     <?php
     }
     ?>    

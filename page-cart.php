@@ -20,7 +20,7 @@ get_header('shop');
 	<div class="container-fluid pl-5 pr-5">
 	<div class="row">
       <div class="col-lg-12">
-				<h1 class="font-weight-bold pt-2 w-100">Your Basket</h1>
+				<h1 class="fw-bold pt-2 w-100">Your Basket</h1>
 	  		<?php
 	  			if(have_posts()) : while (have_posts()) : the_post();
 	  				the_content();
