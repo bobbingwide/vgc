@@ -116,6 +116,7 @@ else {
         echo "<div style='background: #c31313;margin-bottom: 10px; margin-top: -10px;padding: 10px;'>";
         echo '<p style="color:#ffffff;font-size: 25px;margin: 0px;text-align:center;">ON SALE FROM: £';
         echo $sale_price;
+        echo vgc_report_options_discount( $product );
         echo '</p>';
         echo '</div>';
     }
@@ -135,7 +136,7 @@ else {
 					}
 					?>
     			</div>
-				<h1 class="font-weight-bold font-colour-primary">
+				<h1 class="fw-bold font-colour-primary">
     				<?php the_title(); ?><br>
                     <?php
                     if ( $sale_price )  {    ?>
@@ -156,7 +157,7 @@ else {
 				<?php get_template_part('/template-parts/shop/flexslider', 'carousel') ?>
 			</div>
 			<div class="col-lg-6 offset-lg-1">
-				<h3 class="w-100 clearfix font-weight-bold mb-2 font-colour-primary">Standard Features</h3>
+				<h3 class="w-100 clearfix fw-bold mb-2 font-colour-primary">Standard Features</h3>
 				<?php
 					if(function_exists('get_field')) { ?>
 						<div class="row">
@@ -168,7 +169,7 @@ else {
 							</div>
 						</div>
 					<?php } ?>
-					<h3 class="w-100 clearfix font-weight-bold mb-4 font-colour-primary">Product Description</h3>
+					<h3 class="w-100 clearfix fw-bold mb-4 font-colour-primary">Product Description</h3>
 					<p><?php echo nl2br($product->get_description()); ?></p>
                     <?php
                      if ( $variation ) {
@@ -187,7 +188,7 @@ else {
     <?php
      if ( $sale_price )  {    ?>
      <div style='background: #c31313;margin-bottom: -40px;padding: 10px;'> 
-     <p style="color:#ffffff;font-size: 25px;margin-top: 0px;text-align:center;">ON SALE FROM: £<?php echo $sale_price ?></p>
+     <p style="color:#ffffff;font-size: 25px;margin-top: 0px;text-align:center;">ON SALE FROM: £<?php echo $sale_price; echo vgc_report_options_discount( $product ); ?></p>
      </div>
      <?php
      } 
@@ -203,12 +204,12 @@ else {
 				<div class="row">
 					<div class="col-lg-10 text-center">
 						<img src="/wp-content/themes/vgc/images/icons/shed_500x500.png" alt="House icon">
-						<h2 class="w-100 clearfix font-weight-bold mb-4 font-colour-primary text-center">Enter your postcode above to see the options available for this product</h2>
+						<h2 class="w-100 clearfix fw-bold mb-4 font-colour-primary text-center">Enter your postcode above to see the options available for this product</h2>
 					</div>
 					<div class="col-lg-2 bg-brand-third text-center sidebar-checkout">
 						<div class="sticky-cart">
 							<div class="hov w-100">
-								<a href="/checkout" class="btn-primary btn bg-brand-secondary font-weight-bold" style="margin-bottom:100px;">Checkout</a>
+								<a href="/checkout" class="btn-primary btn bg-brand-secondary fw-bold" style="margin-bottom:100px;">Checkout</a>
 							</div>
 						</div>
 					</div>
@@ -246,10 +247,10 @@ else {
 						</div>
 						<div class="col-lg-2 bg-brand-third text-center sidebar-checkout">
 							<div class="sticky-cart">
-								<div class="current-cart-session text-white text-left">
+								<div class="current-cart-session text-white text-start">
 
 
-                                        <div class="text-left w-100 clearfix"><div class="d-flex minilist"><div class="minilist__name">
+                                        <div class="text-start w-100 clearfix"><div class="d-flex minilist"><div class="minilist__name">
                       Starting at                     </div><div class="price minilist__price"> £<?php echo number_format( $product->get_price(), 2, '.', ''); ?></div></div></div>
 
 									<h3 class="pb-2" style="margin-top: 20px">Current Cart</h3>
