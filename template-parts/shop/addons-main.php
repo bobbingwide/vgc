@@ -9,16 +9,15 @@ $deliveryStatus = get_query_var('deliveryStatus');
 $length = $product->get_length();
 $width = $product->get_width();
 $record = [];
-$options_discount = null;
-if ( $product->is_on_sale()  ) {
-    $options_discount = get_field('options_discount', $product->get_ID(), false);
-}
+$options_discount = vgc_get_options_discount( $product );
 ?>
 
-<?php foreach ($addons as $addon) : ?>
+<?php if ( $addons && count( $addons ) ) :
+    foreach ($addons as $addon) : ?>
+
   <div class="section-addon-wrap">
     <div class="section-options pb-4 pt-4 <?php echo $addon['required_addon'] == true ? "addon-select-required" : "addon-select addon-non-required"; ?>  <?php echo $addon['allow_only_one_choice_eg_if_choosing_a_colour'] == true ? "addon-select-radio" : "" ; ?>">
-      <h3 class="w-100 clearfix font-weight-bold mb-0 h5 font-colour-primary text-center toggle-next">
+      <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
         <?php echo $addon['title_of_area']; ?>
         <?php echo $addon['required_addon'] == true ? "*" : ""; ?>
           <img src="<?php echo get_template_directory_uri(); ?>/images/down-arrow-blue.png" alt="icon" class="ml-4">
@@ -48,7 +47,7 @@ if ( $product->is_on_sale()  ) {
                 <img class="<?php echo($cl);?>" src="<?php echo !empty($options[$i]['image']) ? $options[$i]['image'] : get_template_directory_uri() . "/images/placeholder-image.jpg"; ?>" />
                   </div>
                   <div class="addon-details">
-                    <p class="font-weight-bold mb-0 addon-name">
+                    <p class="fw-bold mb-0 addon-name">
                       <?php echo $options[$i]['name']; ?>
                     </p>
                     <?php $key_bit = getKeyForStart($options[$i]);
@@ -56,13 +55,11 @@ if ( $product->is_on_sale()  ) {
       	              $length = $product->get_length();
       	              $width = $product->get_width();	              
       	              $base_price = $product->get_price();
-      	              $price = calc_vgc_price($options[$i], $length, $width, $base_price,NULL);
-      	              $price = vgc_adjust_price( $price, $options_discount );
+      	              $original = calc_vgc_price($options[$i], $length, $width, $base_price,NULL);
+      	              $price = vgc_adjust_price( $original, $options_discount );
+                      echo vgc_single_addon_prices( $original, $price );
                       ?>
-                      <div class="addon-price d-flex pb-4">
-                        <div>+ £</div>
-                        <div class="price"><?php echo $price ?></div>
-                      </div>
+
                       <!-- Define the value for the checkbox -->
                       <?php $inputValue = "single-".$key_bit."-addon-".strtolower(str_replace(' ','-', vgc_sm_replace($addon['title_of_area']) . ':' . vgc_sm_replace($options[$i]['name']))); ?>
                       <label for="size" class="checkbox-container">
@@ -85,7 +82,7 @@ if ( $product->is_on_sale()  ) {
                       <?php 
                         $record[] = $inputValue;	              
                         $base_price = $product->get_price();
-                        echo vgc_option_select( $inputValue, $product, $options[$i] );
+                        echo vgc_option_select( $inputValue, $product, $options[$i], $options_discount );
                       ?>
                       </p>
                       <?php } ?>
@@ -99,7 +96,9 @@ if ( $product->is_on_sale()  ) {
           </div>
         </div>
       </div>
-<?php endforeach; ?>
+<?php endforeach;
+endif;
+?>
 
 <input type="hidden" name="base_extra" id="base_extra" value="0" />
 
