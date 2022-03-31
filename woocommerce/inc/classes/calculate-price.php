@@ -72,8 +72,10 @@ class calculate_price {
 	    // Get the base price
 	    $this->customPrice = $this->productPrice;
 	    $this->customBasket = array();
-	   	
+
+	    //bw_trace2( $this->choosen, "Choosen sic", false );
 	    foreach($this->choosen as $key => $value) {
+
 	    	/*
 			*  Handle the multi price addons
 			*/
@@ -85,26 +87,28 @@ class calculate_price {
 				// Make sure the addon is an array / multi options field
 				if(is_array($this->addons[$key])) {
 					// Loop through the options and get the price for the addon that has been choosen
+                    //bw_trace2( $this->addons, "addons:$key#$value#", false );
 					foreach($this->addons[$key] as $option) {
 
 					    $price = $option['price'];
 						if($option['name'] == $value) {
-							if(substr($key, 0, 12) == "multi-single") {
-							    // Don't adjust the price
+                            if (substr($key, 0, 12) == "multi-single") {
+                                // Don't adjust the price
                             }
-							if(substr($key, 0, 13) == "multi-squared") {
-								$price *= $this->productLength * $this->productWidth;
-							}
-							if(substr($key, 0, 12) == "multi-length") {
-								$price *= $this->productLength;
-							}
-							if(substr($key, 0, 13) == "multi-percent") {
-								$price *= $this->productPrice / 100;
-							}
-						}
-                        $price = $this->adjust_price( $price );
-                        $this->customPrice += $price;
-                        $this->customBasket[] = "<div><strong>".$value."</strong> <span class='addon__cost'>£". $price ."</span></div>";
+                            if (substr($key, 0, 13) == "multi-squared") {
+                                $price *= $this->productLength * $this->productWidth;
+                            }
+                            if (substr($key, 0, 12) == "multi-length") {
+                                $price *= $this->productLength;
+                            }
+                            if (substr($key, 0, 13) == "multi-percent") {
+                                $price *= $this->productPrice / 100;
+                            }
+
+                            $price = $this->adjust_price($price);
+                            $this->customPrice += $price;
+                            $this->customBasket[] = "<div><strong>" . $value . "</strong> <span class='addon__cost'>£" . $price . "</span></div>";
+                        }
 
 					}
 					
