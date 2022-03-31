@@ -804,20 +804,23 @@ function vgc_option_select( $inputValue, $product, $option, $options_discount ) 
     foreach ($option['options'] as $opt ) {
        $extra = "";
        $original = calc_vgc_price($option, $length, $width, $base_price, $opt['price']);
-       $price = vgc_adjust_price( $original, $options_discount );
-       if (isset($opt["increase_base_size_by"])) {
-          $extra = 'data-addsize="'.$opt["increase_base_size_by"].'"';
+
+       if ( is_numeric( $original ) ) {
+           $price = vgc_adjust_price($original, $options_discount);
+           if (isset($opt["increase_base_size_by"])) {
+               $extra = 'data-addsize="' . $opt["increase_base_size_by"] . '"';
+           }
+           $html .= '<option value="';
+           $html .= vgc_prime_name($opt['name']);
+           $html .= '" data-price="';
+           $html .= $price;
+           $html .= '" ';
+           $html .= $extra;
+           $html .= '>';
+           //$html .= $opt['name'] . ' + £' . $price;
+           $html .= vgc_option_text($opt['name'], $original, $price);
+           $html .= '</option>';
        }
-       $html .= '<option value="';
-       $html .= vgc_prime_name( $opt['name'] );
-       $html .= '" data-price="';
-       $html .= $price;
-       $html .= '" ';
-       $html .= $extra;
-       $html .= '>';
-       //$html .= $opt['name'] . ' + £' . $price;
-       $html .= vgc_option_text( $opt['name'], $original, $price);
-       $html .= '</option>';
 
     }
     $html .= '</select>';
@@ -836,13 +839,23 @@ function vgc_option_text( $name, $original, $price ) {
     return $html;
 }
 
+/**
+ * Applies options_discount when applicable & possible.
+ *
+ * @param $price
+ * @param $options_discount
+ * @return mixed|string
+ *
+ */
 function vgc_adjust_price( $price, $options_discount ) {
     //echo "Adjust: $price, $options_discount";
-    if ( $options_discount && is_numeric( $options_discount ) ) {
-        $discount = ( $price * $options_discount ) / 100;
-        $price -= $discount;
+    if ( is_numeric( $price) ) {
+        if ($options_discount && is_numeric($options_discount)) {
+            $discount = ($price * $options_discount) / 100;
+            $price -= $discount;
+        }
+        $price = number_format($price, 2, '.', '');
     }
-    $price = number_format( $price, 2, '.', '' );
     return $price;
 }
 
