@@ -2,8 +2,8 @@
 Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
-Tested up to: 5.8.2
-Stable tag: 1.1.0
+Tested up to: 5.9.3
+Stable tag: 1.2.0
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -26,6 +26,36 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 1.2.1 = 
+* Fixed: number_format() doesn't work with 3 parameters on PHP 7.4. #36
+
+= 1.2.0 = 
+* Changed: Reduce width of main menu item links. Style Onlie Shop link. Reduce floating links image size
+* Changed: Don't display product quantity; it can't be adjusted. #35
+* Changed: Don't apply options discount where price is percentage of starting price #19
+* Changed: Correct calculate_price for multi- options. #32
+* Fixed: Cater for badly defined options - with no price #32
+* Fixed: Format price with 2 decimal places eg 1,234.50
+* Added: Style Online Shop in the main menu as red
+* Fixed: Avoid Fatal when delivery_cost not numeric #27
+* Changed: Support options-discount #19. Change CSS classes for bootstrap 5 #30
+* Changed: Support options discount #19. Support offer_base_options field #27
+* Added: Add Google site verification code #26
+* Changed: Don't enqueue typescript CSS or bootstrap CSS or JS. #30 Change /shop_test to /store #26
+* Changed: Change CSS classnames for bootstrap 5 #30
+* Added: Apply options_discount to all optional addon types #19
+* Fixed: Avoid Warning if term_id property is not set. Probably unnecessary code #22
+* Added: Start to apply options_discount #19
+* Changed: Format product price with 2 decimal places #19
+* Added: Don't offer Base options for Deponti or Lugarde #27
+* Fixed: Avoid notices #22. Experiment with supporting variations #17. Trim postcode #25
+* Added: Support options_discount on single choice addons #19
+* Added: Support options_discount #19. Display Product short description #17
+* Changed: Add vgc_option_select() #23
+* Fixed: Use $product->get_id() to avoid Notices #22
+* Changed: Update with changes in v5.2.0 #16
+* Fixed: Pragmatically up the version to 4.7.0 #16
+
 = 1.1.0 = 
 * Changed: Replace rand() with harcoded value. #12 
 * Changed: Don't enqueue wc-atc #13
