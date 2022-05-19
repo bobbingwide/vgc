@@ -41,7 +41,7 @@ if (empty($product) || ! $product->is_visible() ) {
     <?php
     if ( $product->is_on_sale() )  {
     ?>
-    <p class="mb-1 font-colour-primary fw-medium" style="font-size: .9rem"><span style='background:#c31313;color:#fff;padding: 3px; display:inline-block;'>SALE</span> from: £<?php echo number_format(  $product->get_sale_price(), 2, '.' ); ?></p>
+    <p class="mb-1 font-colour-primary fw-medium" style="font-size: .9rem"><span style='background:#c31313;color:#fff;padding: 3px; display:inline-block;'>SALE</span> from: £<?php echo number_format(  $product->get_sale_price(), 2, '.', '' ); ?></p>
     <?php
     } else {                        
     ?>
