@@ -18,6 +18,7 @@ class calculate_price {
   	private $customPrice;
   	private $product;
   	private $options_discount;
+  	private $apply_discount; // False when options discount is not to be applied.
   	// Savings applied to addons only.
   	private $savings;
   
@@ -57,6 +58,7 @@ class calculate_price {
 
     $this->product = $product;
     $this->set_options_discount();
+    $this->options_discount = true;
     $this->savings = 0;
     // Start calculating the price
     $this->calculatePrice();
@@ -75,6 +77,7 @@ class calculate_price {
 
 	    //bw_trace2( $this->choosen, "Choosen sic", false );
 	    foreach($this->choosen as $key => $value) {
+            $this->options_discount = true;
 
 	    	/*
 			*  Handle the multi price addons
@@ -103,6 +106,7 @@ class calculate_price {
                             }
                             if (substr($key, 0, 13) == "multi-percent") {
                                 $price *= $this->productPrice / 100;
+                                $this->options_discount = false;
                             }
 
                             $price = $this->adjust_price($price);
@@ -126,6 +130,7 @@ class calculate_price {
                     $prefix = '';
 
                     if (substr($key, 0, 13) == "single-single") {
+                        // Don't adjust the price.
                         $prefix = 'A';
                     }
 
@@ -141,11 +146,12 @@ class calculate_price {
                     }
                     if (substr($key, 0, 14) == "single-percent") {
                         $price *= $this->productPrice / 100;
+                        $this->options_discount = false;
                         $prefix = 'D';
                     }
                     $price = $this->adjust_price($price);
                     $this->customPrice += $price;
-                    $this->customBasket[] = "<div><strong>" . $prefix . $title . "</strong> <span class='addon__cost'>£" . $price . "</span></div>";
+                    $this->customBasket[] = "<div><strong>" . $title . "</strong> <span class='addon__cost'>£" . $price . "</span></div>";
                 }
 			}
 
@@ -382,13 +388,13 @@ class calculate_price {
   }
 
     /**
-     * Applies the options_discount to the addon price, accumulating the savings.
+     * Applies the options_discount to the addon price, if required, accumulating the savings.
      *
      * @param $price
      * @return mixed|string
      */
     function adjust_price( $price ) {
-        if ( $this->options_discount  ) {
+        if ( $this->options_discount && $this->apply_discount  ) {
             $discount = ( $price * $this->options_discount ) / 100;
             $discount = round( $discount, 2 );
             $this->savings += $discount;

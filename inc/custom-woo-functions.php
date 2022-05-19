@@ -806,7 +806,7 @@ function vgc_option_select( $inputValue, $product, $option, $options_discount ) 
        $original = calc_vgc_price($option, $length, $width, $base_price, $opt['price']);
 
        if ( is_numeric( $original ) ) {
-           $price = vgc_adjust_price($original, $options_discount);
+           $price = vgc_adjust_price($original, $options_discount, $option);
            if (isset($opt["increase_base_size_by"])) {
                $extra = 'data-addsize="' . $opt["increase_base_size_by"] . '"';
            }
@@ -847,12 +847,16 @@ function vgc_option_text( $name, $original, $price ) {
  * @return mixed|string
  *
  */
-function vgc_adjust_price( $price, $options_discount ) {
+function vgc_adjust_price( $price, $options_discount, $options ) {
     //echo "Adjust: $price, $options_discount";
     if ( is_numeric( $price) ) {
-        if ($options_discount && is_numeric($options_discount)) {
-            $discount = ($price * $options_discount) / 100;
-            $price -= $discount;
+        $pricing_model = $options["pricing_route"];
+        if ( $pricing_model !== "Percentage of stating price") {
+
+            if ($options_discount && is_numeric($options_discount)) {
+                $discount = ($price * $options_discount) / 100;
+                $price -= $discount;
+            }
         }
         $price = number_format($price, 2, '.', '');
     }

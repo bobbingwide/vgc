@@ -56,7 +56,7 @@ $options_discount = vgc_get_options_discount( $product );
       	              $width = $product->get_width();	              
       	              $base_price = $product->get_price();
       	              $original = calc_vgc_price($options[$i], $length, $width, $base_price,NULL);
-      	              $price = vgc_adjust_price( $original, $options_discount );
+      	              $price = vgc_adjust_price( $original, $options_discount, $options[$i] );
                       echo vgc_single_addon_prices( $original, $price );
                       ?>
 
