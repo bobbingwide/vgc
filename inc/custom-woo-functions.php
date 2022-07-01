@@ -863,10 +863,11 @@ function vgc_adjust_price( $price, $options_discount, $options ) {
     return $price;
 }
 
-function vgc_single_addon_prices( $original, $price ) {
+function vgc_single_addon_prices( $original, $price )
+{
     $html = '';
     $now = '';
-    if ( $original <> $price ) {
+    if ($original <> $price) {
         $html .= '<div class="addon-original d-flex pb-0">';
         $html .= '<div>was + £</div>';
         $html .= '<div class="price">';
@@ -878,11 +879,14 @@ function vgc_single_addon_prices( $original, $price ) {
         $now = 'now';
 
     }
-    $html .= '<div class="addon-price d-flex pb-4">';
-    $html .= "<div>$now + £</div>";
-    $html .= '<div class="price">';
-    $html .= $price;
-    $html .= '</div>';
+    $hidden = ( $price === '0.00' ) ? 'hidden' : '';
+    $html .= "<div class=\"addon-price d-flex pb-4 $hidden\">";
+
+        $html .= "<div>$now + £</div>";
+        $html .= '<div class="price">';
+        $html .= $price;
+        $html .= '</div>';
+    //}
     $html .= '</div>';
     return $html;
 }
