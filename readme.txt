@@ -2,8 +2,8 @@
 Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
-Tested up to: 5.9.3
-Stable tag: 1.2.0
+Tested up to: 6.0.0
+Stable tag: 1.3.0
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -26,6 +26,14 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 1.3.0 = 
+* Changed: Enable Bootstrap.js v5.1.3, then disable again #30
+* Changed: Hide price of 0.00 on Optional Upgrades #40
+* Changed: Don't display Installation options when optional upgrade for Installation is being displayed #40
+* Tested: With WordPress 6.0.0
+* Tested: With PHP 8.0
+* Tested: With WooCommerce 6.6.1
+
 = 1.2.1 = 
 * Fixed: number_format() doesn't work with 3 parameters on PHP 7.4. #36
 
