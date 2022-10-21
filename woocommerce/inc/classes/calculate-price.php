@@ -124,9 +124,14 @@ class calculate_price {
 				/*
 				*  Handle the single price addons
 				*/
-				$title = cleanKey2($key, $value);
-				$price = (float) $this->addons[$key];
+
+
+
 				if ( "true" === $value ) {
+                    if ( 'single-' === substr( $key, 0, 7)) {
+                        $title = cleanKey2($key, $value);
+                    }
+                    $price = (float) $this->addons[$key];
                     $prefix = '';
 
                     if (substr($key, 0, 13) == "single-single") {
@@ -335,6 +340,7 @@ class calculate_price {
 	      	// Handle delivery costs
 	      	if($key == "delivery" && $value != "no") {
 	      		$brandRelation = get_field('brand', $this->productId);
+                //  bw_trace2( $brandRelation, 'brandRelation', false);
 	      		if(!empty($brandRelation)) {
 		            if($value == 0) {
 		                $delivery_cost = get_field('delivery_cost', $brandRelation[0]->ID);   
@@ -351,7 +357,8 @@ class calculate_price {
 		            if($value == 4) {
 		              $delivery_cost = get_field('delivery_cost_band_4', $brandRelation[0]->ID);  
 		            }
-	            	$this->customPrice += ($delivery_cost*1);
+                    //bw_trace2( $delivery_cost, "delivery_cost: $value", false );
+	            	$this->customPrice += ( (float)$delivery_cost*1);
 	            	$this->customBasket[] = "<div><strong>Delivery:</strong> <span class='addon__cost'>£".to_decimal($delivery_cost).'</span></div>';
 	    		}        
 	      	}
