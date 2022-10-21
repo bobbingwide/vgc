@@ -108,7 +108,8 @@ function calculate_price_on_cart_addition($cart_item_data, $product_id) {
     
     //var_dump($cart_item_data['addon_array']);	
     //this doesnt do anything.........hmmmmmmmm
-    $cart_item_data['addon_array'] = $addons;
+    // Except produce a Warning since $addons is not defined.
+    //$cart_item_data['addon_array'] = $addons;
     
     //this is still the origional price :) 
     //var_dump($productPrice);	
@@ -149,7 +150,7 @@ function to_decimal($num)
 */
 function cleanKey2($key, $value) {			    	
 	// Remove the first part of the array key which is no longer needed
-	switch($key) {
+    switch($key) {
 		case substr($key, 0, 19) == "single-single-addon" :
 			$cleanKey = str_replace('-',' ', substr($key, 19, strlen($key)));
 			break;
