@@ -12,7 +12,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce/Templates
- * @version 4.1.0
+ * @version 6.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,7 +23,7 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 <?php if ( get_option( 'woocommerce_enable_myaccount_registration' ) === 'yes' ) : ?>
 <div class="u-columns col2-set" id="customer_login">
-  <div class="u-column1 col-1">
+  <div class="u-column1 ">
   <?php endif; ?>
   <form class="woocommerce-form woocommerce-form-login login" method="post">
       <?php do_action( 'woocommerce_login_form_start' ); ?>
@@ -50,8 +50,8 @@ do_action( 'woocommerce_before_customer_login_form' ); ?>
 	</form>
 <?php if ( get_option( 'woocommerce_enable_myaccount_registration' ) === 'yes' ) : ?>
 </div>
-<div class="u-column2 col-2">
-  <h2><?php esc_html_e( 'Register', 'woocommerce' ); ?></h2>
+<div class="u-column2">
+  <h2 class="fw-bold"><?php esc_html_e( 'Register', 'woocommerce' ); ?></h2>
 		<form method="post" class="woocommerce-form woocommerce-form-register register" <?php do_action( 'woocommerce_register_form_tag' ); ?> >
 			<?php do_action( 'woocommerce_register_form_start' ); ?>
 			<?php if ( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) : ?>
