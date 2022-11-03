@@ -17,7 +17,7 @@ class calculate_price {
   	private $deliveryCost;
   	private $customPrice;
   	private $product;
-  	private $options_discount;
+  	private $options_discount; // set to a percentage when on sale and options discount is numeric
   	private $apply_discount; // False when options discount is not to be applied.
   	// Savings applied to addons only.
   	private $savings;
@@ -58,7 +58,7 @@ class calculate_price {
 
     $this->product = $product;
     $this->set_options_discount();
-    $this->options_discount = true;
+    $this->apply_discount = true;
     $this->savings = 0;
     // Start calculating the price
     $this->calculatePrice();
@@ -71,13 +71,14 @@ class calculate_price {
      */
   public function calculatePrice() : void {
 
+
 	    // Get the base price
 	    $this->customPrice = $this->productPrice;
 	    $this->customBasket = array();
 
 	    //bw_trace2( $this->choosen, "Choosen sic", false );
 	    foreach($this->choosen as $key => $value) {
-            $this->options_discount = true;
+            $this->apply_discount = true;
 
 	    	/*
 			*  Handle the multi price addons
@@ -106,7 +107,7 @@ class calculate_price {
                             }
                             if (substr($key, 0, 13) == "multi-percent") {
                                 $price *= $this->productPrice / 100;
-                                $this->options_discount = false;
+                                $this->apply_discount = false;
                             }
 
                             $price = $this->adjust_price($price);
@@ -151,7 +152,7 @@ class calculate_price {
                     }
                     if (substr($key, 0, 14) == "single-percent") {
                         $price *= $this->productPrice / 100;
-                        $this->options_discount = false;
+                        $this->apply_discount = false;
                         $prefix = 'D';
                     }
                     $price = $this->adjust_price($price);
@@ -401,6 +402,8 @@ class calculate_price {
      * @return mixed|string
      */
     function adjust_price( $price ) {
+        //bw_trace2( $this->options_discount, 'options_discount');
+        //bw_trace2( $this->apply_discount, 'apply_discount', false);
         if ( $this->options_discount && $this->apply_discount  ) {
             $discount = ( $price * $this->options_discount ) / 100;
             $discount = round( $discount, 2 );
