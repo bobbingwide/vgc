@@ -204,7 +204,7 @@
     }); 
     
     jQuery('.houses').slick({
-        centerMode: true,        
+        centerMode: false,
         slidesToShow: 3.4,
         slidesToScroll: 2,
         autoplay: true,
