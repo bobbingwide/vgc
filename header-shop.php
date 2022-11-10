@@ -68,7 +68,7 @@
 
           <ul class="shop-mob-only shop-mob-nav row">
               <li class="col align-self-center pl-1 pr-1">
-              <a class="menu" href="/shop_test">
+              <a class="menu" href="/store">
                   <img class="mob-logo" src="/wp-content/uploads/2019/10/vgc_logo_2019-25_white.png" height="30" width="53" /></a>
               </li>
               <li class="col">
