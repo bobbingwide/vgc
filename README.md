@@ -27,6 +27,9 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 ## Changelog 
+# 1.3.4 
+* Fixed: Replace /shop_test by /store to resolve 404 on mobile/tablet #46
+
 # 1.3.3 
 * Fixed: Re-enable houses slick slider for WordPress 6.1 and new jQuery 3.6.1 #45
 * Tested: With WordPress 6.0.3
