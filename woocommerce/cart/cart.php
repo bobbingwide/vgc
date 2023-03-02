@@ -167,7 +167,7 @@ defined( 'ABSPATH' ) || exit;
 
 </div>
 <div style="text-align: center; padding-top: 30px; clear: both;">
-<a class="btn btn_primary" tabindex="0" href="/shop_test/">Continue shopping</a> 
+<a class="btn btn_primary" tabindex="0" href="/store/">Continue shopping</a>
 
 
 <?php
@@ -177,7 +177,5 @@ if ( is_user_logged_in() ) {
 ?><a class="btn btn_primary" tabindex="0" href="/my-account/">Create Account to Save Basket for Later</a><?php
 }
 ?>
-
-
 
 </div>
