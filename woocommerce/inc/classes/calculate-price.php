@@ -196,7 +196,9 @@ class calculate_price {
                 {   
 
                     if(trim($value) == trim(strtolower($row["title"])))
-                    {   
+                    {
+                        $key_temp = vgc_get_base_area_key( $origionalBaseSqFeet );
+                        /*
                         if($origionalBaseSqFeet < 17) {
                           $key_temp = "under_16";
                     	}
@@ -211,7 +213,8 @@ class calculate_price {
                     	}
                     	if($origionalBaseSqFeet >= 121) {
                           $key_temp = "over_121";
-                    	}   
+                    	}
+                        */
                     	
                         // price per sq ft                     	
                     	$price_per_ft = $row[$key_temp];                  	
