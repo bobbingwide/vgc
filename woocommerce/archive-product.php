@@ -64,8 +64,11 @@ get_header( 'shop' );
         <?php
         if($yn == true)
         {
+            // It's not obvious why we need this paragraph
+            // <p>&nbsp;</p>
+            vgc_maybe_display_shop_banner();
             ?>
-            <p>&nbsp;</p>
+
             <?php
                 
         }
@@ -90,6 +93,7 @@ get_header( 'shop' );
           
           ?>
           <?php
+          do_action( 'woocommerce_before_shop_loop');
           if(woocommerce_product_loop()) {
           	woocommerce_product_loop_start();
           	if(wc_get_loop_prop( 'total' )) : while (have_posts()) : the_post();
