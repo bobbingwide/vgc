@@ -125,11 +125,14 @@ if ( ! function_exists( 'vgc_woocommerce_product_columns_wrapper' ) ) {
 	 * @return  void
 	 */
 	function vgc_woocommerce_product_columns_wrapper() {
+
 		$columns = vgc_woocommerce_loop_columns();
 		echo '<div class="columns-' . absint( $columns ) . '">';
 	}
 }
-add_action( 'woocommerce_before_shop_loop', 'vgc_woocommerce_product_columns_wrapper', 40 );
+//add_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+//add_action( 'woocommerce_before_shop_loop', 'vgc_woocommerce_product_columns_wrapper', 40 );
 
 if ( ! function_exists( 'vgc_woocommerce_product_columns_wrapper_close' ) ) {
 	/**
@@ -141,7 +144,7 @@ if ( ! function_exists( 'vgc_woocommerce_product_columns_wrapper_close' ) ) {
 		echo '</div>';
 	}
 }
-add_action( 'woocommerce_after_shop_loop', 'vgc_woocommerce_product_columns_wrapper_close', 40 );
+//add_action( 'woocommerce_after_shop_loop', 'vgc_woocommerce_product_columns_wrapper_close', 40 );
 
 /**
  * Remove default WooCommerce wrapper.
@@ -337,3 +340,21 @@ function custom_button_after_product_summary() {
  */
 //do_action( 'woocommerce_single_product_summary' );
 
+/**
+ * Displays a banner image on the shop page.
+ *
+ * The banner image is the full sized featured image attached to the page that's identified as the sohop page.
+ * It should be the same shape as the banner image used for categories,
+ * which is defined in the `content_above_category_title` field.
+ * @return void
+ */
+function vgc_maybe_display_shop_banner() {
+    $is_shop = is_shop();
+    if ( $is_shop ) {
+        $id = wc_get_page_id( 'shop');
+        //echo "shop_banne for: $id";
+        echo get_the_post_thumbnail( $id, 'full' );
+    } else {
+        //echo "no shop banner";
+    }
+}
