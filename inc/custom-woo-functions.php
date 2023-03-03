@@ -114,8 +114,21 @@ function calculate_price_on_cart_addition($cart_item_data, $product_id) {
     //this is still the origional price :) 
     //var_dump($productPrice);	
     //die();
+
+    bw_trace2( $cart_item_data, 'cart_item_data', false);
+
     
     return $cart_item_data;
+}
+
+add_action( 'woocommerce_add_to_cart', 'vgc_add_to_cart', 10, 2 );
+
+function vgc_add_to_cart( $cart_item_key ) {
+	$cart_item=WC()->cart->get_cart_item( $cart_item_key );
+	if ( isset( $cart_item['awcdp_deposit'], $cart_item['awcdp_deposit']['enable'] ) && $cart_item['awcdp_deposit']['enable'] == 1 ) {
+		//  bw_trace2( $cart_item, 'cart_item', false );
+		WC()->cart->cart_contents[ $cart_item_key ]['awcdp_deposit']['original_price']= $cart_item['custom_price'];
+	}
 }
 
 /**
@@ -260,7 +273,7 @@ function cleanKey($key, $value) {
 /*
 * Deal with how the addon info is displayed in the shopping cart
 */
-add_filter( 'woocommerce_get_item_data', 'display_addon_info_in_cart', 10, 2 );
+add_filter( 'woocommerce_get_item_data', 'display_addon_info_in_cart', 9, 2 );
 
 function display_addon_info_in_cart( $item_data, $cart_item ) {
     if (empty($cart_item['addon_titles'])) {
@@ -606,21 +619,8 @@ function getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $postc
 	$baseSqFeet = $productLength * $productWidth;
     
     //which price are we going to use
-	if($baseSqFeet < 17) {
-      $key = "under_16";
-	}
-	if($baseSqFeet >= 17 && $baseSqFeet <=47) {
-      $key = "17_47";
-	}
-	if($baseSqFeet >= 48 && $baseSqFeet <=71) {
-      $key = "48_71";
-	}
-	if($baseSqFeet >= 72 && $baseSqFeet <=120) {
-      $key = "72_120";
-	}
-	if($baseSqFeet >= 121) {
-      $key = "over_121";
-	}				
+    $key = vgc_get_base_area_key( $baseSqFeet );
+
 	
 	//check our terms	
     $isGreenHouse = false;
@@ -943,4 +943,77 @@ function vgc_offer_base_options( $product ) {
         $offer = $offer_base_options !== false;
     }
     return $offer;
+}
+
+/**
+ * Returns the key to determine cost per square foot for base.
+ *
+ * Original code used fewer keys: under_16, 17_47, 48_71, 72_120, over_121
+ * These are still being used for base removal.
+ *
+ * @param integer $baseSqFeet area of base
+ * @return string key to access for rate
+ */
+function vgc_get_base_area_key_new( $baseSqFeet ) {
+
+    if ($baseSqFeet < 17) {
+        $key = "under_16";
+    }
+    if ($baseSqFeet >= 17 && $baseSqFeet <= 32) {
+        $key = "17_32";
+    }
+    if ($baseSqFeet >= 33 && $baseSqFeet <= 48) {
+        $key = "33_48";
+    }
+    if ($baseSqFeet >= 49 && $baseSqFeet <= 64) {
+        $key = "49_64";
+    }
+    if ($baseSqFeet >= 65 && $baseSqFeet <= 80) {
+        $key = "65_80";
+    }
+    if ($baseSqFeet >= 81 && $baseSqFeet <= 96) {
+        $key = "81_96";
+    }
+    if ($baseSqFeet >= 97 && $baseSqFeet <= 120) {
+        $key = "97_120";
+    }
+    if ($baseSqFeet >= 121) {
+        $key = "over_121";
+    }
+    return $key;
+}
+
+function vgc_get_base_area_key_old( $baseSqFeet ) {
+    if ($baseSqFeet < 17) {
+        $key = "under_16";
+    }
+    if ($baseSqFeet >= 17 && $baseSqFeet <= 47) {
+        $key = "17_47";
+    }
+    if ($baseSqFeet >= 48 && $baseSqFeet <= 71) {
+        $key = "48_71";
+    }
+    if ($baseSqFeet >= 72 && $baseSqFeet <= 120) {
+        $key = "72_120";
+    }
+    if ($baseSqFeet >= 121) {
+        $key = "over_121";
+    }
+    return $key;
+}
+
+/**
+ * Returns the key to access the lookup table.
+ *
+ * @param $baseSqFeet
+ * @param $new_key - true to use the new lookup table keys, false otherwise
+ * @return string
+ */
+function vgc_get_base_area_key( $baseSqFeet, $new_key=true ) {
+    if ( $new_key ) {
+        $key = vgc_get_base_area_key_new( $baseSqFeet );
+    } else {
+        $key = vgc_get_base_area_key_old( $baseSqFeet );
+    }
+    return $key;
 }
