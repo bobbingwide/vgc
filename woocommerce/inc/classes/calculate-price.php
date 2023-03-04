@@ -197,7 +197,7 @@ class calculate_price {
 
                     if(trim($value) == trim(strtolower($row["title"])))
                     {
-                        $key_temp = vgc_get_base_area_key( $origionalBaseSqFeet );
+                        $key_temp = vgc_get_base_area_key( $origionalBaseSqFeet, vgc_maybe_use_new_key( false ) );
                         /*
                         if($origionalBaseSqFeet < 17) {
                           $key_temp = "under_16";

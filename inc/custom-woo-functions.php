@@ -619,7 +619,7 @@ function getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $postc
 	$baseSqFeet = $productLength * $productWidth;
     
     //which price are we going to use
-    $key = vgc_get_base_area_key( $baseSqFeet );
+    $key = vgc_get_base_area_key( $baseSqFeet, vgc_maybe_use_new_key( false ) );
 
 	
 	//check our terms	
@@ -1016,4 +1016,26 @@ function vgc_get_base_area_key( $baseSqFeet, $new_key=true ) {
         $key = vgc_get_base_area_key_old( $baseSqFeet );
     }
     return $key;
+}
+
+/**
+ * Returns true if the new keys are available.
+ *
+ * Old keys: under_16, 17-47, 48-71, 72-120, over_121
+ * New keys: under_16, 17-32, 33-48, 49-64, 65-80, 81-96, 97-120, over_121
+ *
+ * If key 17_32 is defined in the global options table then we're using new keys.
+ *
+ * Note: This logic is only applied when the $new_key parameter is false.
+ *
+ * @param $new_key
+ * @return bool
+ */
+function vgc_maybe_use_new_key( $new_key=true ) {
+    if ( false === $new_key ) {
+        $globalOptionsTable = get_field('bases', 'options');
+        //bw_trace2($globalOptionsTable, "globalOptionsTable", false);
+        $new_key = isset($globalOptionsTable[0]['17_32']);
+    }
+    return $new_key;
 }
