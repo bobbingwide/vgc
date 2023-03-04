@@ -3,8 +3,8 @@
 * Contributors: automattic, Hotbox Studios, bobbingwide
 * Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 * Requires at least: 4.5
-* Tested up to: 6.1
-* Stable tag: 1.3.3
+* Tested up to: 6.2-beta4
+* Stable tag: 1.4.0
 * License: GNU General Public License v2 or later
 * License URI: LICENSE
 
@@ -27,6 +27,14 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 ## Changelog 
+# 1.4.0 
+* Changed: Support new ranges for global base options #49
+* Changed: Add logic to display a banner image on the shop home page #47
+* Changed: Tested with WooCommerce 7.4.0 #44
+* Fixed: Change Continue shopping link from shop_test to store #46
+* Changed: Add sort by drop box on product page #48
+* Changed: Add suppport for Deposits and Partial Payments for WooCommerce by Acowebs #29
+
 # 1.3.4 
 * Fixed: Replace /shop_test by /store to resolve 404 on mobile/tablet #46
 
