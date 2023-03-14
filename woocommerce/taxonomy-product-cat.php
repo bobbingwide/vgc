@@ -102,6 +102,7 @@ get_header( 'shop' );
           
           ?>
           <?php
+          do_action( 'woocommerce_before_shop_loop');
           if(woocommerce_product_loop()) {
           	woocommerce_product_loop_start();
           	if(wc_get_loop_prop( 'total' )) : while (have_posts()) : the_post();
