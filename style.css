@@ -5758,3 +5758,8 @@ dd.variation-ProductAddons div span {
 .addon-price.hidden div {
   display: none;
 }
+
+
+form.woocommerce-ordering {
+  margin-bottom: 1rem;
+}
