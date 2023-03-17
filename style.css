@@ -5763,3 +5763,18 @@ dd.variation-ProductAddons div span {
 form.woocommerce-ordering {
   margin-bottom: 1rem;
 }
+
+li.product-category a {
+  color: #2F87A0 !important;
+  text-decoration: none !important;
+}
+
+h2.woocommerce-loop-category__title {
+  font-weight: 500;
+}
+
+
+
+
+
+
