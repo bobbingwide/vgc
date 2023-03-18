@@ -105,6 +105,7 @@ get_header( 'shop' );
             <?php wc_get_template_part('content', 'product');
           	endwhile; endif;
           	woocommerce_product_loop_end();
+
           	/**
           	 * Hook: woocommerce_after_shop_loop.
           	 * @hooked woocommerce_pagination - 10
@@ -121,13 +122,15 @@ get_header( 'shop' );
            * Hook: woocommerce_after_main_content.
            * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
            */
+          add_action( 'woocommerce_after_main_content', 'vgc_woocommerce_after_main_content');
           do_action( 'woocommerce_after_main_content' );
 
           /**
            * Hook: woocommerce_sidebar.
            * @hooked woocommerce_get_sidebar - 10
            */
-          do_action( 'woocommerce_sidebar' );
+          //do_action( 'woocommerce_sidebar' );
+          //woocommerce_get_sidebar();
         
         ?>
 

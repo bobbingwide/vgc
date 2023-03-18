@@ -5774,6 +5774,10 @@ h2.woocommerce-loop-category__title {
   font-size: calc(1rem + .5vw);
 }
 
+div.woocommerce.columns-4 {
+  margin-top: 1rem;
+}
+
 
 
 

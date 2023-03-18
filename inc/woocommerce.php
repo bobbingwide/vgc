@@ -341,20 +341,92 @@ function custom_button_after_product_summary() {
 //do_action( 'woocommerce_single_product_summary' );
 
 /**
- * Displays a banner image on the shop page.
+ * Prevent the count of products in the category from being displayed
+ */
+add_filter( 'woocommerce_subcategory_count_html', '__return_null');
+/**
+ * Displays a banner image and popular categories on the shop page.
  *
  * The banner image is the full sized featured image attached to the page that's identified as the sohop page.
  * It should be the same shape as the banner image used for categories,
  * which is defined in the `content_above_category_title` field.
+ *
  * @return void
  */
 function vgc_maybe_display_shop_banner() {
     $is_shop = is_shop();
     if ( $is_shop ) {
         $id = wc_get_page_id( 'shop');
-        //echo "shop_banne for: $id";
         echo get_the_post_thumbnail( $id, 'full' );
+
+        // Manual solution to display the popular categories replaced by automatic solution
+        // that uses the ACF popular_category field.
+        //vgc_shop_page_content( $id );
+
+        $categories = vgc_get_popular_categories();
+        vgc_display_popular_categories( $categories );
+
     } else {
         //echo "no shop banner";
     }
+}
+
+/**
+ * Display the content of the shop page.
+ *
+ * This assumes that the shop page has not been created with Elementor.
+ * It's intended that the page contains a [product_categories] shortcode
+ * with the ids of the 4 or 8 most important categories.
+ *
+ * @param $id
+ * @return void
+ */
+function vgc_shop_page_content( $id ) {
+    $content = get_the_content( null, false, $id );
+    $content = apply_filters( 'the_content', $content);
+    echo $content;
+}
+
+/**
+ * Displays Brand categories after the main content.
+ *
+ * Term ID 634 is our-brands.
+ *
+ * @return void
+ */
+function vgc_woocommerce_after_main_content() {
+    $content = do_shortcode( '[product_categories parent=634 hide_empty=1 number=0]');
+    echo $content;
+}
+
+/**
+ * Get the popular categories
+ *
+ * @return void
+ */
+function vgc_get_popular_categories() {
+	$productCats = get_terms([ 'taxonomy' => 'product_cat',
+		'hide_empty' => true,
+		'meta_query' => array(
+		    array(
+			    'key'       => 'popular_category',
+			    'value'     => true,
+			    'compare'   => '='
+			     )
+		)]);
+    //bw_trace2( $productCats, "product cats" );
+    $popular_cats = [];
+	foreach($productCats as $term) {
+        // Discard any Brand categories
+        if ( $term->parent !== 634) {
+	        $popular_cats[]=$term->term_id;
+        }
+    }
+    return $popular_cats;
+}
+
+function vgc_display_popular_categories( $categories ) {
+    $category_ids = implode( ',', $categories );
+    $content = do_shortcode( "[product_categories ids=$category_ids]");
+    echo $content;
 }
