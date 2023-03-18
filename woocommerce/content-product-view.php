@@ -32,7 +32,7 @@ if (empty( $product ) || ! $product->is_visible() ) {
 	*/
 	do_action('woocommerce_before_shop_loop_item');
 	/**
-	* Get the poroduct image
+	* Get the product image
 	*/
 	the_post_thumbnail('full');
   /**
