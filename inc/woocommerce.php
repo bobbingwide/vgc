@@ -390,13 +390,28 @@ function vgc_shop_page_content( $id ) {
 /**
  * Displays Brand categories after the main content.
  *
- * Term ID 634 is our-brands.
+ * - Term ID 634 is our-brands.
+ * - We need full sized images, not cropped thumbnails
+ * - No real need to display the title
  *
  * @return void
  */
 function vgc_woocommerce_after_main_content() {
+	add_filter( 'subcategory_archive_thumbnail_size', 'vgc_subcategory_archive_thumbnail_size' );
+    remove_action( 'woocommerce_shop_loop_subcategory_title', 'woocommerce_template_loop_category_title' );
     $content = do_shortcode( '[product_categories parent=634 hide_empty=1 number=0]');
     echo $content;
+    remove_filter('subcategory_archive_thumbnail_size', 'vgc_subcategory_archive_thumbnail_size' );
+}
+
+/**
+ * Filters archive thumbnail to full size.
+ * @param $thumbnail
+ *
+ * @return string
+ */
+function vgc_subcategory_archive_thumbnail_size( $thumbnail ) {
+    return 'full';
 }
 
 /**
@@ -406,7 +421,7 @@ function vgc_woocommerce_after_main_content() {
  */
 function vgc_get_popular_categories() {
 	$productCats = get_terms([ 'taxonomy' => 'product_cat',
-		'hide_empty' => true,
+		'hide_empty' => false,
 		'meta_query' => array(
 		    array(
 			    'key'       => 'popular_category',
@@ -414,9 +429,9 @@ function vgc_get_popular_categories() {
 			    'compare'   => '='
 			     )
 		)]);
-    //bw_trace2( $productCats, "product cats" );
+    //bw_trace2( count( $productCats) , "count product cats" );
     $popular_cats = [];
-	foreach($productCats as $term) {
+	foreach( $productCats as $term ) {
         // Discard any Brand categories
         if ( $term->parent !== 634) {
 	        $popular_cats[]=$term->term_id;
@@ -425,8 +440,19 @@ function vgc_get_popular_categories() {
     return $popular_cats;
 }
 
+/**
+ * Displays the popular product categories, if there are any.
+ *
+ * Note: If the `ids` attribute is null then the shortcode returns all product categories.
+ * We don't want this to happen.
+ *
+ * @param $categories
+ * @return void
+ */
 function vgc_display_popular_categories( $categories ) {
-    $category_ids = implode( ',', $categories );
-    $content = do_shortcode( "[product_categories ids=$category_ids]");
-    echo $content;
+    if ( count( $categories )) {
+	    $category_ids=implode( ',', $categories );
+	    $content = do_shortcode( "[product_categories ids=$category_ids hide_empty=0]" );
+	    echo $content;
+    }
 }
