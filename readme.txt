@@ -3,7 +3,7 @@ Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
 Tested up to: 6.2-RC2
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -26,6 +26,9 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 1.5.1 =
+* Changed: Enable two options for add to cart - deposit or full payment #29
+
 = 1.5.0 = 
 * Added: Add popular categories below banner on store page #51 
 * Added: Add brand categories below products #52 
@@ -37,7 +40,6 @@ VGC is the theme for gardenvista.co.uk.
 * Tested: With WordPress 6.2-RC2
 * Tested: With PHP 8.0
 * Tested: With WooCommerce 7.4.1
-
 
 = 1.4.0 =
 * Changed: Support new ranges for global base options #49
