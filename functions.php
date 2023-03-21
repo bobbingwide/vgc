@@ -270,7 +270,8 @@ function vgc_scripts()
 		wp_enqueue_script('addon-scripts', get_template_directory_uri() . '/inc/js/addon-scripts.js', array(), $ver, true);
     }
 
-
+	/** We don't want the Deposits for WooCommerce frontend stylesheet  */
+	wp_dequeue_style( 'awcdp-frontend');
 
 }
 add_action( 'wp_enqueue_scripts', 'vgc_scripts' );

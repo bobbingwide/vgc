@@ -257,11 +257,13 @@ else {
 									<div class="items">
 									</div>
 									<strong class="pt-3 d-block">Cart Total:</strong>
-									<div class="d-flex">
+									<div class="d-flex mb-2">
 										<div>£</div>
 										<div class="baseprice"><?php echo $product->get_price(); ?></div>
 									</div>
-								</div>
+
+                                <?php do_action( 'woocommerce_before_add_to_cart_button'); ?>
+                                </div>
 								<button 
 									id="btn-add-to-cart"
 									type="submit" 
