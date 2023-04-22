@@ -1087,6 +1087,22 @@ a.btn {
   white-space: normal;
   word-break: break-all;
 }
+
+a.btn-sml {
+  padding: 10px 20px;
+  text-transform: none;
+  border: 2px solid #2f87a0;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #2f87a0;
+  border-color: #2f87a0;
+}
+
+
 input.btn-secondary {
   background: #fff !important;
   color: #2f87a0 !important;
@@ -1096,6 +1112,10 @@ input.btn-secondary {
 a.btn.btn_primary, a.btn.btn-primary {
   background: #3e606f;
   color: #fff;
+}
+
+a.btn-sml:hover {
+  background-color: #2f87a0;
 }
 
 .two_buttons a.btn {

@@ -150,8 +150,12 @@ else {
                     }
                     ?>
                 </h1>
+
 			</div>
 		</div>
+        <?php
+		do_action( 'display_gvg_product_range', $product );
+		?>
 		<div class="row pb-5" id="product-<?php the_ID(); ?>" <?php wc_product_class(); ?>>
 			<div class="col-lg-5" style="overflow: hidden">
 				<?php get_template_part('/template-parts/shop/flexslider', 'carousel') ?>
@@ -178,6 +182,7 @@ else {
                      } else {
                          vgc_single_product_description( $product );
                      }
+
                      ?>
 				</div>
 			</div>
@@ -186,12 +191,14 @@ else {
 
 
     <?php
+
      if ( $sale_price )  {    ?>
      <div style='background: #c31313;margin-bottom: -40px;padding: 10px;'> 
      <p style="color:#ffffff;font-size: 25px;margin-top: 0px;text-align:center;">ON SALE FROM: £<?php echo $sale_price; echo vgc_report_options_discount( $product ); ?></p>
      </div>
      <?php
-     } 
+     }
+
      ?>	
 	<a name="options_area" id="options_area"></a>
 
