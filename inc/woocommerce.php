@@ -118,6 +118,19 @@ function vgc_woocommerce_related_products_args( $args ) {
 }
 add_filter( 'woocommerce_output_related_products_args', 'vgc_woocommerce_related_products_args' );
 
+/**
+ * Displays up-sells in 3-columns.
+ *
+ * @param $columns
+ * @return int
+ */
+function vgc_woocommerce_upsells_columns( $columns ) {
+    $columns = 3;
+    return $columns;
+}
+add_filter( 'woocommerce_upsells_columns','vgc_woocommerce_upsells_columns');
+
+
 if ( ! function_exists( 'vgc_woocommerce_product_columns_wrapper' ) ) {
 	/**
 	 * Product columns wrapper.
