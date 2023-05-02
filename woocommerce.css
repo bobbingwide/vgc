@@ -81,12 +81,16 @@ table.shop_table_responsive tr td.download-actions .button {
 /**
  * Products
  */
-ul.products {
+.archive ul.products {
 	content: "";
 	display: table;
 	table-layout: fixed;
 	margin: 0;
 	padding: 0;
+}
+
+ul.products {
+	margin: 0px;
 }
 
 ul.products li.product {
@@ -126,7 +130,7 @@ ul.products li.product .button {
 	.columns-2 ul.products li.product {
 		width: 48.1%;
 	}
-	.columns-3 ul.products li.product {
+	.columns-3 li.product {
 		width: 30.7966666667%;
 	}
 	.columns-4 ul.products li.product {

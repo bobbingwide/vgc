@@ -3306,7 +3306,8 @@ sidebar.shop-filter form input[type="submit"]:hover {
 
 /******* PRODUCT CATS STYLES ************************************************/
 
-section.product-category .row .col-lg-10 .products .product-thumbnail-wrap {
+section.product-category .row .col-lg-10 .products .product-thumbnail-wrap,
+section.product-single .products .product-thumbnail-wrap {
 	/*
 	height:480px;
 	height:280px;
@@ -3318,7 +3319,8 @@ section.product-category .row .col-lg-10 .products .product-thumbnail-wrap {
 section.product-category .row .col-lg-10 .products {
 	min-width:100%;
 }
-section.product-category .row .col-lg-10 .products .product-thumbnail-wrap img {
+section.product-category .row .col-lg-10 .products .product-thumbnail-wrap img,
+section.product-single .products .product-thumbnail-wrap img {
 	position: absolute;
 	top:0px;
 	left:0px;
@@ -3460,6 +3462,12 @@ section.product-category .row .col-lg-10 .page-numbers li span.current {
     height: 40px;
     background-size: contain;
 }
+
+.product-single .container-fluid .row .col-lg-6:nth-of-type(2) section ul li:before {
+  content: "";
+  background: none;
+}
+
 .product-single .container-fluid .row .col-lg-6:nth-of-type(2) p {
   font-weight:600;
 }
