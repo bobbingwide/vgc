@@ -43,9 +43,10 @@ if (empty($product) || ! $product->is_visible() ) {
     ?>
     <p class="mb-1 font-colour-primary fw-medium" style="font-size: .9rem"><span style='background:#c31313;color:#fff;padding: 3px; display:inline-block;'>SALE</span> from: £<?php echo number_format(  $product->get_sale_price(), 2, '.', '' ); ?></p>
     <?php
-    } else {                        
+    } else {
+        $price = number_format( $product->get_price(), 2 );
     ?>
-    <p class="mb-1 font-colour-primary fw-medium" style="font-size: .9rem">Price from: £<?php echo get_post_meta(get_the_ID(), '_regular_price', true); ?></p>
+    <p class="mb-1 font-colour-primary fw-medium" style="font-size: .9rem">Price from: £<?php echo $price; ?></p>
     <?php
     }
     ?>    
