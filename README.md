@@ -3,8 +3,8 @@
 * Contributors: automattic, Hotbox Studios, bobbingwide
 * Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 * Requires at least: 4.5
-* Tested up to: 6.2-RC2
-* Stable tag: 1.5.1
+* Tested up to: 6.2.2
+* Stable tag: 1.6.0
 * License: GNU General Public License v2 or later
 * License URI: LICENSE
 
@@ -27,6 +27,17 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 ## Changelog 
+# 1.6.0 
+* Changed: Style up-sells and related products on the single product page #54
+* Changed: Display up-sells and related products #54
+* Changed: Display up-sells in 3 columns #54
+* Fixed: Don't display cross sells on the shopping cart #38
+* Added: Display product range buttons on the single product page #56
+* Fixed: Format regular price to 2 decimal places #57
+* Tested: With WordPress 6.2.2
+* Tested: With PHP 8.0
+* Tested: With WooCommerce 7.8.0
+
 # 1.5.1 
 * Changed: Enable two options for add to cart - deposit or full payment #29
 
