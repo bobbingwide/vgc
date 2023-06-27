@@ -951,11 +951,11 @@ function vgc_offer_base_options( $product ) {
  * Original code used fewer keys: under_16, 17_47, 48_71, 72_120, over_121
  * These are still being used for base removal.
  *
- * @param integer $baseSqFeet area of base
+ * @param float $baseSqFeet area of base
  * @return string key to access for rate
  */
 function vgc_get_base_area_key_new( $baseSqFeet ) {
-
+    $baseSqFeet = round( $baseSqFeet );
     if ($baseSqFeet < 17) {
         $key = "under_16";
     }
