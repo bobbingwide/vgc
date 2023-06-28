@@ -85,18 +85,20 @@ if(isset($_POST['postcode'])) {
 	$display = "display:none;";
 	$postcode = filter_var($_POST['postcode'], FILTER_SANITIZE_STRING);
 	$postcode = trim( $postcode );
-	// Return the addon fields to display based on the provided data and the postcode
-	$ppq = new define_addons_by_postcode($postcode, $options_allowed);
-	// Now we know if delivery is allowed
-	$canOrder = $ppq->getCanOrder();
-	$deliveryStatus = $ppq->getDeliveryStatus();
-	$installationStatus = $ppq->getInstallationStatus();
-	$removalStatus = $ppq->getRemovalStatus();	
 }
 else {
 	// Show the placeholder section
 	$display = "display:block;";
+    $postcode = null;
 }
+// Return the addon fields to display based on the provided data and the postcode
+$ppq = new define_addons_by_postcode($postcode, $options_allowed);
+
+// Now we know if delivery is allowed
+$canOrder = true;// $ppq->getCanOrder();
+//$deliveryStatus = $ppq->getDeliveryStatus();
+$installationStatus = $ppq->getInstallationStatus();
+$removalStatus = $ppq->getRemovalStatus();
 ?>
 
 <!-- Get USP Icon Strip -->
@@ -211,6 +213,63 @@ else {
      ?>	
 	<a name="options_area" id="options_area"></a>
 
+<!-- INCLUDE THE ADDON OPTIONS SELECTOR WHEN THE POSTCODE INPUT FIELD IS POSTED -->
+
+    <form action="" method="post" id="select-addons">
+        <section class="options">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <?php
+
+
+
+                        if($canOrder) {
+                            set_query_var('product', $product);
+                            set_query_var('addons', $addons);
+                            set_query_var('ppq', $ppq);
+                            set_query_var('installCost', $installCost);
+                            set_query_var('installationStatus', $installationStatus);
+                            //set_query_var('deliveryStatus', $deliveryStatus);
+                            get_template_part('/template-parts/shop/addons', 'main');
+                        } else {
+                            ?>
+                            <h2 style="padding: 40px;text-align: center;font-weight: bold;">Sorry we cannot supply this to your location, please call us to discuss your options
+                            </h2>
+                        <?php }?>
+                    </div>
+                    <div class="col-lg-2 bg-brand-third text-center sidebar-checkout">
+                        <div class="sticky-cart">
+                            <div class="current-cart-session text-white text-start">
+
+
+                                <div class="text-start w-100 clearfix"><div class="d-flex minilist"><div class="minilist__name">
+                                            Starting at                     </div><div class="price minilist__price"> £<?php echo number_format( $product->get_price(), 2, '.', ''); ?></div></div></div>
+
+                                <h3 class="pb-2" style="margin-top: 20px">Current Cart</h3>
+                                <div class="items">
+                                </div>
+                                <strong class="pt-3 d-block">Cart Total:</strong>
+                                <div class="d-flex mb-2">
+                                    <div>£</div>
+                                    <div class="baseprice"><?php echo number_format( $product->get_price(), 2, '.', ''); ?></div>
+                                </div>
+
+                                <?php do_action( 'woocommerce_before_add_to_cart_button'); ?>
+                            </div>
+                            <button
+                                    id="btn-add-to-cart"
+                                    type="submit"
+                                    name="add-to-cart"
+                                    value="<?php echo $product->get_ID(); ?>"
+                                    class="btn btn-secondary font-colour-primary">Add to cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+
 	<!-- Start the postcode search input field section if addons have been added -->
 	<?php //if($addons) { ?>
 		<?php get_template_part('/template-parts/shop/postcode', 'search'); ?>
@@ -236,63 +295,7 @@ else {
 	
  
 
-	<!-- INCLUDE THE ADDON OPTIONS SELECTOR WHEN THE POSTCODE INPUT FIELD IS POSTED -->
-	<?php if(isset($_POST['postcode'])) : ?>
-		<form action="" method="post" id="select-addons">
-			<section class="options">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-lg-10">
-							<?php 
-    							
-    							
-    							
-    							if($canOrder) {
-								set_query_var('product', $product);
-								set_query_var('addons', $addons);
-								set_query_var('ppq', $ppq);
-								set_query_var('installCost', $installCost);
-								set_query_var('installationStatus', $installationStatus);
-								set_query_var('deliveryStatus', $deliveryStatus);
-								get_template_part('/template-parts/shop/addons', 'main');
-							} else {
-								?>
-								<h2 style="padding: 40px;text-align: center;font-weight: bold;">Sorry we cannot supply this to your location, please call us to discuss your options
-								</h2>
-							<?php }?>
-						</div>
-						<div class="col-lg-2 bg-brand-third text-center sidebar-checkout">
-							<div class="sticky-cart">
-								<div class="current-cart-session text-white text-start">
 
-
-                                        <div class="text-start w-100 clearfix"><div class="d-flex minilist"><div class="minilist__name">
-                      Starting at                     </div><div class="price minilist__price"> £<?php echo number_format( $product->get_price(), 2, '.', ''); ?></div></div></div>
-
-									<h3 class="pb-2" style="margin-top: 20px">Current Cart</h3>
-									<div class="items">
-									</div>
-									<strong class="pt-3 d-block">Cart Total:</strong>
-									<div class="d-flex mb-2">
-										<div>£</div>
-										<div class="baseprice"><?php echo $product->get_price(); ?></div>
-									</div>
-
-                                <?php do_action( 'woocommerce_before_add_to_cart_button'); ?>
-                                </div>
-								<button 
-									id="btn-add-to-cart"
-									type="submit" 
-									name="add-to-cart" 
-									value="<?php echo $product->get_ID(); ?>" 
-									class="btn btn-secondary font-colour-primary">Add to cart</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		 </form>
-	<?php endif; ?>
 
 <?php get_template_part('/template-parts/shop/product-single', 'end'); ?>
 
