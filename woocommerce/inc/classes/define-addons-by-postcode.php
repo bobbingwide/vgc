@@ -18,9 +18,26 @@ class define_addons_by_postcode
 
   function __construct($postcode, $options_allowed) {
     // The inputted postcode to determine the returned options
+      bw_trace2();
     if(!empty($postcode)) : $this->postcode = $postcode; endif;
     if(!empty($options_allowed)) : $this->options = $options_allowed; endif;         
     $this->runCheck();
+    $this->enqueue_script();
+  }
+
+  function enqueue_script() {
+      wp_enqueue_script('vgccodes', get_template_directory_uri() . '/inc/js/vgccodes.js', array(), null , true);
+      $data = 'const vgccodes = ';
+      $data .= json_encode( [ "postcodes" => $this->acceptedPostcodes,
+        "excluded" => $this->options[ 'postcode_excluded'] ] );
+      /*
+          const vgccodes = {
+          "postcodes": [['GU1'], ['GU2'], ['PO9'], ['PO30']],
+    "excluded": ['AB10'],
+    "delivery_band_costs": [0, 0, 0, 0, 0]
+};
+      */
+      wp_add_inline_script( 'vgccodes', $data, 'before');
   }
 
   /*
@@ -32,9 +49,9 @@ class define_addons_by_postcode
     // Define the excluded postcodes
     $this->setExcludedPostcodes();
     //so can we orrde this?
-    $this->canOrder();
+    //$this->canOrder();
   	//no point moving forward if cant order at this point.......
-  	if($this->canOrder == true) {
+  	//if($this->canOrder == true) {
   	   // Check if the postcode in question is in ONE of the accepted postcodes array
   		$this->checkPostcode();
   		// so what is the delivery cost?
@@ -43,7 +60,7 @@ class define_addons_by_postcode
   		$this->calculateInstallationAddon();			
   		// so what is removal cost
   		$this->calculateRemovalAddon();
-      }
+      //}
   }
   
   /*
@@ -57,7 +74,10 @@ class define_addons_by_postcode
   }
   
   /*
-  * Set accepted postcodes
+  * Set accepted postcodes.
+   *
+   * Any postcode that's not in bands 1 to 4 will be treated as band 0,
+   * as long as it's not in the excluded postcodes array.
   */
   private function setAcceptedPostcodes() : void {
   	$postcodes_1 = array();
@@ -135,13 +155,10 @@ class define_addons_by_postcode
     }
     
     //also we need to check if the posstcode IS IN a band... as may not be able to order
+
     
-    
-    
-    
-    
-    
-  }  
+  }
+
   
   /*
   * Handle delivery costs
@@ -247,5 +264,25 @@ class define_addons_by_postcode
   }
   public function getRemovalCost() : array {
     return $this->removalCosts;
-  }        
+  }
+
+  /**
+   * Returns the delivery band price.
+   *
+   * Should cater for delivery band 0 which doesn't allow
+   * delivery when the price isn't set.
+   *
+   * @param integer $band 0 to 4
+   * @return integer/blank Delivery band price
+   */
+  public function deliveryBandPrice( $band ) {
+      if($this->options["delivery_cost"][$band]) {
+          $delivery_band_price = $this->options["delivery_cost"][$band];
+      } else {
+          $delivery_band_price = null;
+      }
+      bw_trace2( $delivery_band_price, "delivery_brand_price");
+      return $delivery_band_price;
+
+  }
 }
