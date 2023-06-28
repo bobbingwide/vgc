@@ -5806,6 +5806,25 @@ div.woocommerce.columns-4 {
   margin-top: 1rem;
 }
 
+/**
+ * Styling for delivery band choices
+ */
+#delivery_wrapper div.delivery,
+#removal_wrapper div.delivery{ display:none;}
+#delivery_wrapper.delivery_band_not_set .delivery_band_not_set { display: block; }
+#removal_wrapper.delivery_band_not_set .delivery_band_not_set { display: block; }
+
+#delivery_wrapper.delivery_band_0 .delivery_band_0 { display: block; }
+#delivery_wrapper.delivery_band_1 .delivery_band_1 { display: block; }
+#delivery_wrapper.delivery_band_2 .delivery_band_2 { display: block; }
+#delivery_wrapper.delivery_band_3 .delivery_band_3 { display: block; }
+#delivery_wrapper.delivery_band_4 .delivery_band_4 { display: block; }
+#delivery_wrapper.delivery_excluded .delivery_excluded { display: block; }
+#removal_wrapper.delivery_band_1 .delivery_band_1 { display: block; }
+#removal_wrapper.delivery_band_2 .delivery_band_2 { display: block; }
+#removal_wrapper.delivery_band_3 .delivery_band_3 { display: block; }
+
+
 
 
 
