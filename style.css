@@ -1094,6 +1094,7 @@ a.btn-sml {
   border: 2px solid #2f87a0;
   margin-right: 5px;
   margin-bottom: 5px;
+
 }
 
 .btn-outline-primary:hover {
@@ -1109,12 +1110,12 @@ input.btn-secondary {
   text-decoration: none;
   border:0px;
 }
-a.btn.btn_primary, a.btn.btn-primary {
+a.btn.btn_primary, a.btn.btn-primary, a.btn-primary {
   background: #3e606f;
   color: #fff;
 }
 
-a.btn-sml:hover {
+a.btn-sml:hover, a.btn-sm:hover {
   background-color: #2f87a0;
 }
 
@@ -5515,7 +5516,8 @@ section.product-category .row .col-lg-10 .page-numbers li span {
     transition: all .2s ease-out
 }
 .search_results .product:hover {
-    transform: translate(0px, -9px);
+    /* transform: translate(0px, -9px); */
+  border: 1px solid grey;
 }
 .search_results .product:hover a {
     text-decoration: underline
@@ -5806,8 +5808,20 @@ div.woocommerce.columns-4 {
   margin-top: 1rem;
 }
 
+li.dropdown-item {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 0px !important
+}
 
+li.dropdown-item p {
+  display: inline;
+}
 
+.dropdown-menu {
+  min-width: 20rem;
+}
 
-
-
+.product-thumbnail-wrap:focus-within {
+  border: 1px solid grey;
+}

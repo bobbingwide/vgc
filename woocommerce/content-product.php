@@ -15,6 +15,7 @@
  * @version 3.6.0
  */
 
+
 defined( 'ABSPATH' ) || exit;
 global $product;
 
@@ -22,6 +23,11 @@ global $product;
 if (empty($product) || ! $product->is_visible() ) {
 	return;
 }
+/**
+ * Enable replacement of product title by product range.
+ * When invoked, gvg_product_range hooks into `the_title` filter to implement the replacement.
+ */
+do_action( 'set_product_range_title' );
 ?>
 <li <?php wc_product_class(); ?>>
    <div class="product-thumbnail-wrap">
@@ -29,29 +35,13 @@ if (empty($product) || ! $product->is_visible() ) {
   </div>
   <div class="product-attributes">
     <h3 class="pt-3 pb-0 mb-0 h5"><a href="<?php the_permalink(); ?>" class="fw-bold font-colour-primary text-decoration-none" title="View product: <?php the_title() ?>"><?php the_title(); ?></a></h3>
-    <?php
-    // If custom fields plugin is active
-    if(function_exists('the_field')) {
-      $type = get_field('building_type');
-      if(!empty($type)) { ?>
-        <p class="mb-1 font-colour-primary fw-medium">Building Type: <?php echo $type; ?></p>
-      <?php }
-    } ?>
-    
-    <?php
-    if ( $product->is_on_sale() )  {
-    ?>
-    <p class="mb-1 font-colour-primary fw-medium" style="font-size: .9rem"><span style='background:#c31313;color:#fff;padding: 3px; display:inline-block;'>SALE</span> from: £<?php echo number_format(  $product->get_sale_price(), 2, '.', '' ); ?></p>
-    <?php
-    } else {
-        $price = number_format( $product->get_price(), 2 );
-    ?>
-    <p class="mb-1 font-colour-primary fw-medium" style="font-size: .9rem">Price from: £<?php echo $price; ?></p>
-    <?php
-    }
-    ?>    
-    
-    
 
+    <?php
+    /**
+     * Display the product range dropdown. Implemented by gvg_product_range.
+     * Note: this includes displaying of the price / SALE price
+     */
+    do_action( 'display_gvg_product_range_dropdown', $product );
+    ?>
   </div>
 </li>
