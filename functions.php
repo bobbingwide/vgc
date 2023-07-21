@@ -259,7 +259,12 @@ function vgc_scripts()
 		wp_enqueue_style('flex-css', get_template_directory_uri(). '/inc/css/flexslider.css', array(), $ver, 'all' );
 		wp_enqueue_script('scripts', get_template_directory_uri() . '/inc/js/scripts.js', array(), $ver, true);
 		//wp_enqueue_script('wc-atc', get_template_directory_uri() . '/inc/js/wc-ajax-add-to-cart.js', array(), $ver, true);
-        //wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/bootstrap.js', [], '5.1.3', 'all');
+        // We need bootstrap.bundle.js for Popper which supports dropdown buttons.
+        if ( defined( 'SCRIPT_DEBUG') && SCRIPT_DEBUG )  {
+            wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/bootstrap.bundle.js', [], '5.3.0', 'all');
+        } else {
+            wp_enqueue_script('bootstrap', get_template_directory_uri() . '/bootstrap.bundle.min.js', [], '5.3.0', 'all');
+        }
     }
 
     if (is_woocommerce() || is_page(2278)) {
