@@ -16,6 +16,9 @@ $globalOptionsTable = get_field('buildings', 'options');
         </h3>
 
         <div class="section-addon-wrap__inner">
+            <div class="delivery delivery_band_0 delivery_band_4 delivery_excluded">
+                <p class="text-center">Removal not available.</p>
+            </div>
             <div class="delivery delivery_band_1 delivery_band_2 delivery_band_3">
             
             <div style="padding: 2rem 2rem 0 2rem">
