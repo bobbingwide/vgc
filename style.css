@@ -3515,7 +3515,7 @@ section.product-category .row .col-lg-10 .page-numbers li span.current {
     padding-left:0px;
   }
 }
-.postcode-search .container-fluid .row .col-lg-10 input[type="text"] {
+.postcode-search .row  input[type="text"] {
   height:50px;
   width:450px;
   padding-left:20px;
@@ -3523,16 +3523,16 @@ section.product-category .row .col-lg-10 .page-numbers li span.current {
   box-shadow:0 0 6px #3e606f;
 }
 @media(max-width:500px) {
-  .postcode-search .container-fluid .row .col-lg-10 input[type="text"] {
+  .postcode-search .row  input[type="text"] {
     width:90%;
     max-width:90%;
   }
 }
-.postcode-search .container-fluid .row .col-lg-10, .postcode-search .container-fluid .row .col-lg-2 {
+.postcode-search .row .col , .postcode-search .container-fluid .row .col-lg-2 {
   padding-top:43px;
   padding-bottom:30px;
 }
-.postcode-search .container-fluid .row .col-lg-10 p {
+.postcode-search .row .col p {
   font-weight:600;
 }
 .postcode-search .container-fluid .row .col-lg-2 {
@@ -5823,10 +5823,12 @@ div.woocommerce.columns-4 {
 #delivery_wrapper.delivery_band_3 .delivery_band_3 { display: block; }
 #delivery_wrapper.delivery_band_4 .delivery_band_4 { display: block; }
 #delivery_wrapper.delivery_excluded .delivery_excluded { display: block; }
+#removal_wrapper.delivery_band_0 .delivery_band_0 { display: block; }
 #removal_wrapper.delivery_band_1 .delivery_band_1 { display: block; }
 #removal_wrapper.delivery_band_2 .delivery_band_2 { display: block; }
 #removal_wrapper.delivery_band_3 .delivery_band_3 { display: block; }
-
+#removal_wrapper.delivery_band_4 .delivery_band_4 { display: block; }
+#removal_wrapper.delivery_excluded .delivery_excluded { display: block; }
 
 
 li.dropdown-item {
