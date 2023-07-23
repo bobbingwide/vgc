@@ -6,8 +6,6 @@ $ppq = get_query_var('ppq');
 
 // Get the data from the global options table
 $globalOptionsTable = get_field('buildings', 'options');
-
-
 ?>
 
 <div class="section-addon-wrap delivery delivery_band_not_set" id="removal_wrapper">
@@ -37,7 +35,7 @@ $globalOptionsTable = get_field('buildings', 'options');
                     ?>
                     <div class="p-5 block text-center">
                     <div class="thumbnail">
-                          <img style='width:100%; height: auto;padding: 2rem 10px' src="<?php echo $row["image"]["url"]; ?>" alt="<?php echo $base["title"]; ?>" />
+                          <img style='width:100%; height: auto;padding: 2rem 10px' src="<?php echo $row["image"]["url"]; ?>" alt="<?php echo $row["title"]; ?>" />
                     </div>
                     <div class="addon-details ">
                     <p class="fw-bold mb-0 addon-name"><?php echo $row["title"]; ?></p>                    
