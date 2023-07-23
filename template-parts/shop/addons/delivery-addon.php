@@ -26,8 +26,10 @@ $ppq = get_query_var('ppq');
     // Don't support delivery to band 0 when the price is not set.
     // But we will deliver to all other bands as if the price were 0.
     $delivery = $ppq->deliveryBandPrice( 0 );
+    $start_band = 0;
     if ( null === $delivery ) {
         $start_band = 1;
+
         ?>
         <div class="section-options pb-4 pt-4 delivery delivery_band_0">
             <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
@@ -37,6 +39,7 @@ $ppq = get_query_var('ppq');
         </div>
     <?php
     }
+
     $bandcodes = 'delivery';
     for ( $band = $start_band; $band<= 4; $band++ ) {
         //$delivery = $ppq->deliveryBandPrice( $band);
@@ -66,7 +69,7 @@ $ppq = get_query_var('ppq');
                         echo '<div class="addon-details' . $bandcode . '">';
               ?>
                 <p class="fw-bold mb-0 addon-name"><?php the_field('add_delivery','options');?></p>
-                <div class="addon-price not-d-flex pb-4">
+                <div class="addon-price d-flex pb-4">
                  <?php
                     // If delivery is free, or null
                     if ($delivery == 0 ) {
