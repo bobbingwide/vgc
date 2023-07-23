@@ -103,11 +103,7 @@ endif;
 
 <input type="hidden" name="base_extra" id="base_extra" value="0" />
 
-<!-- Get the section for removal addons -->
-<?php 
-set_query_var('ppq', $ppq);
-get_template_part('/template-parts/shop/addons/removal', 'addon');
-?>
+
 
 <!-- Get the section for installation addons -->
 <?php 
@@ -128,6 +124,7 @@ if ( vgc_offer_base_options( $product )  ) {
     get_template_part('/template-parts/shop/addons/base', 'addon');
 }
 ?>
+<?php get_template_part('/template-parts/shop/postcode', 'search'); ?>
   
 <!-- Get the section for delivery addons -->
 <?php
@@ -135,4 +132,9 @@ set_query_var('ppq', $ppq);
 set_query_var('deliveryStatus', $deliveryStatus);
 get_template_part('/template-parts/shop/addons/delivery', 'addon');
 
+?>
+<!-- Get the section for removal addons -->
+<?php
+set_query_var('ppq', $ppq);
+get_template_part('/template-parts/shop/addons/removal', 'addon');
 
