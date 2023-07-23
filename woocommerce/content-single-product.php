@@ -271,28 +271,11 @@ $removalStatus = $ppq->getRemovalStatus();
     </form>
 
 	<!-- Start the postcode search input field section if addons have been added -->
-	<?php //if($addons) { ?>
-		<?php get_template_part('/template-parts/shop/postcode', 'search'); ?>
-		<!-- No search default area - waiting for postcode search -->
-		<section class="no-search-default options" style="<?php echo $display; ?>">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-10 text-center">
-						<img src="/wp-content/themes/vgc/images/icons/shed_500x500.png" alt="House icon">
-						<h2 class="w-100 clearfix fw-bold mb-4 font-colour-primary text-center">Enter your postcode above to see the options available for this product</h2>
-					</div>
-					<div class="col-lg-2 bg-brand-third text-center sidebar-checkout">
-						<div class="sticky-cart">
-							<div class="hov w-100">
-								<a href="/checkout" class="btn-primary btn bg-brand-secondary fw-bold" style="margin-bottom:100px;">Checkout</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-	<?php //} ?>
-	
+
+	<?php // get_template_part('/template-parts/shop/postcode', 'search'); ?>
+	<!-- No search default area - waiting for postcode search -->
+
+
  
 
 
