@@ -14,11 +14,32 @@ $productWidths = get_query_var('productWidth');
 $postcodeBand = $ppq->getPostcodeBand();
 //if($baseOptions['show']) {
 
-//this returns an array of bases allowed baswed on lenght, width, options and postcodeband....
+//this returns an array of bases allowed based on length, width, options
 $baseSizes = getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $postcodeBand, $terms);
+$bandcodes = 'delivery';
+$start_band = 0;
+for ( $band = $start_band; $band<= 4; $band++ ) {
+    //$delivery = $ppq->deliveryBandPrice( $band);
+    $bandcodes .= ' delivery_band_' . $band;
+}
 ?>
-<div class="section-addon-wrap">
-  <div class="section-options pb-4 pt-4 addon-select-required addon-select-radio">
+<div class="section-addon-wrap delivery delivery_band_not_set" id="base_wrapper">
+    <div class="section-options pb-4 pt-4 delivery delivery_band_not_set">
+        <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
+            <?php the_field('base_title','options'); ?>
+        </h3>
+        <p class="text-center">Please enter the first part of your postcode (e.g. GU33) to check base options.</p>
+
+    </div>
+    <div class="section-options pb-4 pt-4 delivery delivery_excluded">
+        <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
+            <?php the_field('base_title','options'); ?>
+        </h3>
+        <p class="text-center">Base options not available.</p>
+
+    </div>
+
+  <div class="section-options pb-4 pt-4 addon-select-required addon-select-radio <?php echo $bandcodes;?> ">
     <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
           <?php the_field('base_title','options'); ?>
           <img src="<?php echo get_template_directory_uri(); ?>/images/down-arrow-blue.png" alt="icon" class="ml-4">
@@ -41,11 +62,21 @@ $baseSizes = getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $p
                      <?php echo $base["title"]; ?>
                     </p>
                     <div class="addon-price d-flex pb-4">
-                      <div>+ £</div>
-                      <div class="price">
-                        <?php echo strtolower($base["cost"]); ?>
-                      </div>
-                    </div>
+                        <div>+ £</div>
+                        <?php
+                        $start_band = 0;
+                        for ( $band = $start_band ; $band<= 4; $band++ ) {
+                            //bw_trace2( $base, "base", false );
+                            $baseBandPrice = $base['costs'][$band];
+                            $bandcode = ' delivery delivery_band_' . $band;
+                            echo '<div class="price' . $bandcode . '">';
+                            echo $baseBandPrice;
+                            echo '</div>';
+                        }
+                        ?>
+                  </div>
+
+
                     <label for="base-type" class="checkbox-container">
                       <input 
                         type="checkbox" 
