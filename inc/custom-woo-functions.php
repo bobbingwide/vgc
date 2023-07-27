@@ -663,20 +663,28 @@ function getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $postc
             if($inc == true) {
                 
                 $cost = 0;
-                
-                //work out cost in sq ft.
-                $cost = $row[$key] * $baseSqFeet;
-                
-                if($postcodeBand == 2)
-                {
-                    //add the band_2_surcharg
-                	$cost = $cost + $row['band_2_surcharge'];
+                $costs = [];
+                for ( $postcodeBand = 0; $postcodeBand<=4; $postcodeBand++ ) {
+                    //work out cost in sq ft.
+                    $cost = $row[$key] * $baseSqFeet;
+                    /**
+                     * Note: There are no surcharges for the following post code bands:
+                     *  1 - it's the most local post code
+                     *  4 - Not a global option
+                     *  0 - Not a global option
+                     *
+                     * @TODO If this changes then vgccodes.js will need updating. See removeRemovalBasedOnBand()
+                     */
+                    if ($postcodeBand == 2) {
+                        // add the band_2_surcharge
+                        $cost = $cost + $row['band_2_surcharge'];
+                    }
+                    if ($postcodeBand == 3) {
+                        // add the band_3_surcharge
+                        $cost = $cost + $row['band_3_surcharge'];
+                    }
+                    $costs[] = number_format((float)$cost, 2, '.', '');
                 }
-                if($postcodeBand == 3)
-                {
-                    //add the band_3_surcharg
-                    $cost = $cost + $row['band_3_surcharge'];
-                }     
                 
                 //var_dump($row);
                 //die();      
@@ -685,7 +693,7 @@ function getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $postc
                     'title' => $row['title'],
                     'image' => $row['image']['url'],                
                     'description' => $row['description'],
-                    'cost' => number_format((float)$cost, 2, '.', '')                
+                    'costs' => $costs
                 );
             }
         }        
