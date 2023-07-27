@@ -19,7 +19,7 @@
       if(checkbox) {
         if(b == 0) {
           checkbox.checked = true;
-          var addonPrice = parseFloat(blocks[b].querySelector('.addon-price .price').textContent).toFixed(2);
+          var addonPrice = getVisibleAddonPrice(blocks[b]); //.querySelector('.addon-price .price').textContent).toFixed(2);
           var addonName = blocks[b].querySelector('.addon-name').textContent;      
           var addonID = blocks[b].querySelector('.checkbox-container input[type="checkbox"]').name;
           addAddonItemToCartSession(currentCartSessionContainer, addonID, addonPrice, addonName);
@@ -104,27 +104,22 @@ function addAddonToCart(event, type) {
     array.push(list[i]);
   }
   // Check if the class name exists in the array // If true -> this is a required section
-  // required OR select one only (lik radio)
+  // required OR select one only (like radio)
   if (array.indexOf('addon-select-required') > -1 && (array.indexOf('addon-select-radio') > -1)) {
     dealWithRequiredAddons(currentSection, event);
   }
   // Get the addon price
   if(type == "checkbox") {
-    var addonPrice = parseFloat(event.target.parentNode.parentNode.querySelector('.addon-price .price').innerText.replace(',','')).toFixed(2);
-    
-    
-    
-    
-    
-    
+    var addonPrice = getVisibleAddonPrice( event.target.parentNode.parentNode );
     // Get the addon ID
     var addonID = event.target.name;
     // If we are checking the checkbox add it to the current cart session list
     if(event.target.checked == true) {
       var item = currentCartSessionContainer.querySelector('#'+stripRandChar(addonID));
-      if(!item) {
-        addAddonItemToCartSession(currentCartSessionContainer, addonID, addonPrice, addonName);
+      if ( item ) {
+        removeAddonItemFromCartSession(addonID, addonPrice);
       }
+      addAddonItemToCartSession(currentCartSessionContainer, addonID, addonPrice, addonName);
     }
     // Else we are removing it from the cart session list
     else {
@@ -169,8 +164,8 @@ function dealWithMultiSelectBoxAddons(event, currentCartSessionContainer) {
 }
 
 
-/*
-  * Make sure the required addon sections have atleast 1 addon selected
+/**
+  * Make sure the required addon sections have at least 1 addon selected
   */
   function runRequiredAddonValidation() {
     var sectionRequired = document.querySelectorAll('.section-addon-wrap .addon-select-required');
@@ -213,7 +208,7 @@ function dealWithMultiSelectBoxAddons(event, currentCartSessionContainer) {
             if(addAddonToCartBtn) {
               addAddonToCartBtn.setAttribute('disabled', true);
               addAddonToCartBtn.style = "cursor: not-allowed";
-              addAddonToCartBtn.title = "You must choose addons for the required fields marked with a *"
+              addAddonToCartBtn.title = "You must choose addons for the required fields marked with a *";
             }
           }
           i++;
@@ -252,7 +247,7 @@ function dealWithRequiredAddons(currentSection, event) {
       // Find out which checkbox WAS checked
       if(checkboxes[i].checked == true && checkboxes[i] !== event.target) {
         // We now know which checkbox WAS checked
-        var addonPrice = parseFloat(checkboxes[i].parentNode.parentNode.querySelector('.addon-price .price').innerText).toFixed(2);
+        var addonPrice = getVisibleAddonPrice( checkboxes[i].parentNode.parentNode );
         var addonID = checkboxes[i].name;
         removeAddonItemFromCartSession(addonID, addonPrice);
       }
@@ -274,7 +269,6 @@ function dealWithRequiredAddons(currentSection, event) {
       }
   }
 }
-
 
 /*
 * Handle removing items from the cart
@@ -299,7 +293,6 @@ function removeAddonItemFromCartSession(addonID, addonPrice) {
   }
 }
 
-
 /*
 * Strip any random characters that are going to affect dom selection
 */
@@ -309,5 +302,32 @@ function stripRandChar(addonID) {
   return newID;
 }
 
+/**
+ * Gets the visible addon price
+ *
+ * @param startNode
+ * @return price - formatted with 2 decimal places
+ */
+function getVisibleAddonPrice( startNode ) {
+  var prices = startNode.querySelectorAll('.addon-price .price');
+  //  console.log( prices );
+  for (let i = 0; i < prices.length; i++) {
+    if ( !isHidden( prices[i] )) {
+      price = prices[i].innerText;
+      console.log( price);
+      price = parseFloat( price).toFixed( 2 );
+    }
+  }
+  return price;
+}
 
-
+/**
+ * Returns true if the element is hidden.
+ *
+ * @param el
+ * @returns {boolean}
+ */
+function isHidden(el) {
+  var style = window.getComputedStyle(el);
+  return ((style.display === 'none') || (style.visibility === 'hidden'));
+}
