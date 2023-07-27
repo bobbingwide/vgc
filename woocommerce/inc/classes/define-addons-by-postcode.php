@@ -11,7 +11,7 @@
  * Functions which used to check the postcode band need to be rewritten to provide the values for each postcode band.
  * The array of prices starts from 0, which is the postcode band for 'rest of the UK'.
  * Templates can extract the right value from these arrays.
- * 
+ *
  * @TODO Some of the methods in this class are now redundant and should be deleted.
  */
 
