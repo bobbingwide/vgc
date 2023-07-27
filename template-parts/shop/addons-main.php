@@ -115,6 +115,15 @@ set_query_var('installationStatus', $installationStatus);
 get_template_part('/template-parts/shop/addons/installation', 'addon');
 ?>
 
+<?php get_template_part('/template-parts/shop/postcode', 'search'); ?>
+<!-- Get the section for delivery addons -->
+<?php
+set_query_var('ppq', $ppq);
+set_query_var('deliveryStatus', $deliveryStatus);
+get_template_part('/template-parts/shop/addons/delivery', 'addon');
+
+?>
+
 <!-- Get the section for base addons -->
 <?php
 if ( vgc_offer_base_options( $product )  ) {
@@ -124,15 +133,8 @@ if ( vgc_offer_base_options( $product )  ) {
     get_template_part('/template-parts/shop/addons/base', 'addon');
 }
 ?>
-<?php get_template_part('/template-parts/shop/postcode', 'search'); ?>
-  
-<!-- Get the section for delivery addons -->
-<?php
-set_query_var('ppq', $ppq);
-set_query_var('deliveryStatus', $deliveryStatus);
-get_template_part('/template-parts/shop/addons/delivery', 'addon');
 
-?>
+
 <!-- Get the section for removal addons -->
 <?php
 set_query_var('ppq', $ppq);
