@@ -1,4 +1,19 @@
 <?php
+/**
+ * @copyright Bobbing Wide 2023
+ *
+ * Notes regarding to Post code related options for VGC 2.0.0
+ *
+ * This class used to contain methods that determined the availability / price of addons based on the postcode band.
+ * The logic to determine availability / price is now implemented in the browser.
+ * But there are still methods that are required for the server code to deliver the required information for the templates.
+ * These templates now produce HTML which is displyed or hidden based on the postcode band.
+ * Functions which used to check the postcode band need to be rewritten to provide the values for each postcode band.
+ * The array of prices starts from 0, which is the postcode band for 'rest of the UK'.
+ * Templates can extract the right value from these arrays.
+ * 
+ * @TODO Some of the methods in this class are now redundant and should be deleted.
+ */
 
 class define_addons_by_postcode
 {
@@ -48,19 +63,8 @@ class define_addons_by_postcode
     $this->setAcceptedPostcodes();
     // Define the excluded postcodes
     $this->setExcludedPostcodes();
-    //so can we orrde this?
-    //$this->canOrder();
-  	//no point moving forward if cant order at this point.......
-  	//if($this->canOrder == true) {
-  	   // Check if the postcode in question is in ONE of the accepted postcodes array
-  		$this->checkPostcode();
-  		// so what is the delivery cost?
-  		$this->calculateDeliveryAddon();
-  		// so what is instllation cost
-  		$this->calculateInstallationAddon();			
-  		// so what is removal cost
-  		$this->calculateRemovalAddon();
-      //}
+
+    $this->calculateInstallationAddon();
   }
   
   /*
@@ -285,4 +289,5 @@ class define_addons_by_postcode
       return $delivery_band_price;
 
   }
+
 }
