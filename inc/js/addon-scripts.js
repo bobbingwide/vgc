@@ -221,6 +221,9 @@ function dealWithMultiSelectBoxAddons(event, currentCartSessionContainer) {
 */
 function addAddonItemToCartSession(currentCartSessionContainer, addonID, addonPrice, addonName) {
   runRequiredAddonValidation();
+  if ( null === addonPrice) {
+    addonPrice = 0.00;
+  }
   // Create the list item for the current cart session
   var itemToAdd = "<div class='text-left w-100 clearfix'><div id="+stripRandChar(addonID)+" class='d-flex minilist'><div class='minilist__name'>"+addonName+"</div><div class='price minilist__price'>£"+parseFloat(addonPrice).toFixed(2)+"</div></div></div>";
   // Insert the list item
@@ -310,15 +313,35 @@ function stripRandChar(addonID) {
  */
 function getVisibleAddonPrice( startNode ) {
   var prices = startNode.querySelectorAll('.addon-price .price');
-  //  console.log( prices );
+  //console.log( prices );
+  var price = null;
   for (let i = 0; i < prices.length; i++) {
-    if ( !isHidden( prices[i] )) {
+    if ( isNotDeliveryPrice( prices[i] ) || !isHidden( prices[i] )) {
       price = prices[i].innerText;
-      console.log( price);
+      //console.log( price);
       price = parseFloat( price).toFixed( 2 );
     }
   }
+  if ( price === null ) {
+    //console.log( "No visible price!" );
+    //console.log( startNode );
+  }
   return price;
+}
+
+/**
+ * Returns true if this price is not a `delivery` price.
+ *
+ * Note: `delivery` is the class name used where the price varies by post code delivery band.
+ *
+ * @param el
+ * @returns {boolean}
+ */
+function isNotDeliveryPrice( el ) {
+  var classList = el.classList;
+  //console.log( classList );
+  var contains = classList.contains( 'delivery');
+  return !contains;
 }
 
 /**
@@ -329,5 +352,6 @@ function getVisibleAddonPrice( startNode ) {
  */
 function isHidden(el) {
   var style = window.getComputedStyle(el);
+  console.log( style );
   return ((style.display === 'none') || (style.visibility === 'hidden'));
 }
