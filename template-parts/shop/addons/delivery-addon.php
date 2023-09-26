@@ -46,7 +46,7 @@ $ppq = get_query_var('ppq');
         $bandcodes .= ' delivery_band_' . $band;
     }
     ?>
-	<div class="section-options pb-4 pt-4 baddon-select-required addon-select-radio <?php echo $bandcodes;?> ">
+	<div class="section-options pb-4 pt-4 addon-select-required addon-select-radio <?php echo $bandcodes;?> ">
 		<h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
          <?php the_field('delivery_title','options'); ?>
         </h3>
