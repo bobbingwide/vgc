@@ -3,9 +3,17 @@ document.querySelector('input.submit_pc').addEventListener('click', function () 
     band = setbands();
     event.preventDefault();
     adjustPricesofSelectedOptions( band );
-    reSetupDefaultAddons( band );
+    if ( band !== 'delivery_band_not_set') {
+        reSetupDefaultAddons(band);
+        //reSetupDefaultAddons = alreadyDone;
+
+    }
 
 });
+
+function alreadyDone() {
+
+}
 
 /**
  * Sets the delivery band code given the post code.
@@ -273,12 +281,18 @@ function reSetupDefaultAddons( band ) {
             if(checkbox) {
                 if(b == 0) {
                     checkbox.checked = true;
+                    checkbox.disabled = true;
                     var addonPrice = getVisibleAddonPrice(blocks[b] ); //.querySelector('.addon-price .price').textContent).toFixed(2);
                     var addonName = blocks[b].querySelector('.addon-name').textContent;
                     var addonID = blocks[b].querySelector('.checkbox-container input[type="checkbox"]').name;
+                    var item = currentCartSessionContainer.querySelector('#'+stripRandChar(addonID));
+                    if ( item ) {
+                        removeItemFromMinilist( item );
+                    }
                     addAddonItemToCartSession(currentCartSessionContainer, addonID, addonPrice, addonName);
                 } else {
                     checkbox.checked = false;
+                    checkbox.disabled = false;
                 }
             }
             /*
@@ -291,6 +305,10 @@ function reSetupDefaultAddons( band ) {
                     var addonID = select.name;
                     var addonPrice = parseFloat(select[1].attributes[1].nodeValue).toFixed(2);
                     var addonName = select[select.selectedIndex].value;
+                    var item = currentCartSessionContainer.querySelector('#'+stripRandChar(addonID));
+                    if ( item ) {
+                        removeAddonItemFromCartSession(addonID, addonPrice);
+                    }
                     addAddonItemToCartSession(currentCartSessionContainer, addonID, addonPrice, addonName);
                 } else {
                     select.selectedIndex = 0;
