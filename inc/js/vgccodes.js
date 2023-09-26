@@ -1,8 +1,10 @@
 document.querySelector('input.submit_pc').addEventListener('click', function () {
     var band = null;
     band = setbands();
-    adjustPricesofSelectedOptions( band );
     event.preventDefault();
+    adjustPricesofSelectedOptions( band );
+    reSetupDefaultAddons( band );
+
 });
 
 /**
@@ -251,4 +253,50 @@ function adjustCurrentPriceValue( adjustment ) {
     var newValue = currentPriceValue - adjustment;
     // Q. Does this need parseFloat? A. No: But it does need 2 decimal places.
     currentPriceField.innerText = newValue.toFixed(2);
+}
+
+function reSetupDefaultAddons( band ) {
+    var sectionRequired = document.querySelectorAll('.section-addon-wrap.delivery .addon-select-required' + '.' +band);
+    var blocks  = [];
+    // Get the cart session container to add items to
+    var currentCartSessionContainer = document.querySelector(".current-cart-session .items");
+    // Loop through each section
+    for(var i = 0; i < sectionRequired.length; i++) {
+        // For that section, get the blocks means each addon block
+        blocks = sectionRequired[i].querySelectorAll(".block" + ' .' +band);
+        // Loop through all the blocks // Addon options
+        for(var b = 0; b < blocks.length; b++) {
+            /*
+            * Handle what happens when the code finds a checkbox
+            */
+            var checkbox = blocks[b].querySelector('input[type="checkbox"]');
+            if(checkbox) {
+                if(b == 0) {
+                    checkbox.checked = true;
+                    var addonPrice = getVisibleAddonPrice(blocks[b] ); //.querySelector('.addon-price .price').textContent).toFixed(2);
+                    var addonName = blocks[b].querySelector('.addon-name').textContent;
+                    var addonID = blocks[b].querySelector('.checkbox-container input[type="checkbox"]').name;
+                    addAddonItemToCartSession(currentCartSessionContainer, addonID, addonPrice, addonName);
+                } else {
+                    checkbox.checked = false;
+                }
+            }
+            /*
+            * Handle what happens when the code finds a select box
+            */
+            var select = blocks[b].querySelector('select');
+            if(select) {
+                if(b == 0) {
+                    select.selectedIndex = 1;
+                    var addonID = select.name;
+                    var addonPrice = parseFloat(select[1].attributes[1].nodeValue).toFixed(2);
+                    var addonName = select[select.selectedIndex].value;
+                    addAddonItemToCartSession(currentCartSessionContainer, addonID, addonPrice, addonName);
+                } else {
+                    select.selectedIndex = 0;
+                }
+            }
+        }
+    }
+
 }
