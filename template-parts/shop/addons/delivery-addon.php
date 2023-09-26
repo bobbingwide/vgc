@@ -108,7 +108,7 @@ $ppq = get_query_var('ppq');
                     ?>
                 </div>
                 <label class="checkbox-container">
-                    <input type="checkbox" onclick="addAddonToCart(event, 'checkbox')" name="delivery" >
+                    <input type="checkbox" onclick="addAddonToCart(event, 'checkbox')" name="delivery" value="<?php echo $band ?>"/>
                   <span class="checkmark"></span>
                 </label>
 
