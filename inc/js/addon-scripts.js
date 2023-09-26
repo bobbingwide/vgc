@@ -2,7 +2,7 @@
   * Run this function on page load and add any required fields to the current cart session
 */
 (function setupDefaultAddons() {
-  var sectionRequired = document.querySelectorAll('.section-addon-wrap .addon-select-required');
+  var sectionRequired = document.querySelectorAll('.section-addon-wrap.main .addon-select-required');
   var blocks  = [];
   // Get the cart session container to add items to
   var currentCartSessionContainer = document.querySelector(".current-cart-session .items");
@@ -166,9 +166,10 @@ function dealWithMultiSelectBoxAddons(event, currentCartSessionContainer) {
 
 /**
   * Make sure the required addon sections have at least 1 addon selected
+ *  Only applies to the main sections
   */
   function runRequiredAddonValidation() {
-    var sectionRequired = document.querySelectorAll('.section-addon-wrap .addon-select-required');
+    var sectionRequired = document.querySelectorAll('.section-addon-wrap.main .addon-select-required');
     var blocks  = [];
     var addAddonToCartBtn = document.getElementById('btn-add-to-cart');
     addAddonToCartBtn.style = "cursor:pointer;";
