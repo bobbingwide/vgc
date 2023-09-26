@@ -20,7 +20,7 @@ if ( empty( $installCost )) {
 if ($installationStatus == true && isset($installCost)) : ?>
   <?php //$installCost = $ppq->getInstallationCost(); ?>
   <!-- Lets give them the option -->
-    <div class="section-addon-wrap">
+    <div class="section-addon-wrap main">
       <div class="section-options pb-4 pt-4 addon-select-required addon-select-radio">
         <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
         <?php the_field('installation_title','options'); ?>
