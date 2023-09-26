@@ -15,7 +15,7 @@ $options_discount = vgc_get_options_discount( $product );
 <?php if ( $addons && count( $addons ) ) :
     foreach ($addons as $addon) : ?>
 
-  <div class="section-addon-wrap">
+  <div class="section-addon-wrap main">
     <div class="section-options pb-4 pt-4 <?php echo $addon['required_addon'] == true ? "addon-select-required" : "addon-select addon-non-required"; ?>  <?php echo $addon['allow_only_one_choice_eg_if_choosing_a_colour'] == true ? "addon-select-radio" : "" ; ?>">
       <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
         <?php echo $addon['title_of_area']; ?>
