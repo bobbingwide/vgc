@@ -257,8 +257,11 @@ function dealWithRequiredAddons(currentSection, event) {
       }
       // Set all the checkboxes to false
       checkboxes[i].checked = false;
-      event.target.checked = true;
+      checkboxes[i].disabled = false;
+
     }
+    event.target.checked = true;
+    event.target.disabled = true;
     // Now deal with any select boxes in the required addons section
     // Lets get all select boxes
     var select = currentSection.querySelectorAll('.addon-details select');
