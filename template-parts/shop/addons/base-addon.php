@@ -57,7 +57,7 @@ for ( $band = $start_band; $band<= 4; $band++ ) {
                   <div class="thumbnail"> 
                     <img style='width:100%; height: auto;padding: 2rem 10px' src="<?php echo $base["image"]; ?>" alt="<?php echo $base["title"]; ?>" />
                   </div>
-                  <div class="addon-details">
+                  <div class="addon-details <?php echo $bandcodes;?> ">
                     <p class="fw-bold mb-0 addon-name">
                      <?php echo $base["title"]; ?>
                     </p>
