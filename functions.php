@@ -272,7 +272,7 @@ function vgc_scripts()
 		wp_enqueue_style( 'vgc-woocommerce-style', get_template_directory_uri() . '/woocommerce.css', array(), $ver, 'all'  );
     }
     if (is_product()) {
-		wp_enqueue_script('addon-scripts', get_template_directory_uri() . '/inc/js/addon-scripts.js', array(), $ver, true);
+		wp_enqueue_script('addon-scripts', get_template_directory_uri() . '/inc/js/addon-scripts.js', array(), null, true);
     }
 
 	/** We don't want the Deposits for WooCommerce frontend stylesheet  */
