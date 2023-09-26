@@ -19,12 +19,14 @@
       if(checkbox) {
         if(b == 0) {
           checkbox.checked = true;
+          checkbox.disabled = true;
           var addonPrice = getVisibleAddonPrice(blocks[b]); //.querySelector('.addon-price .price').textContent).toFixed(2);
           var addonName = blocks[b].querySelector('.addon-name').textContent;      
           var addonID = blocks[b].querySelector('.checkbox-container input[type="checkbox"]').name;
           addAddonItemToCartSession(currentCartSessionContainer, addonID, addonPrice, addonName);
         } else {
           checkbox.checked = false;
+          checkbox.disabled = false;
         }
       }
       /*
