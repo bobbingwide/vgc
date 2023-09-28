@@ -188,7 +188,7 @@ class calculate_price {
                 //die();                
                 
                 //posted value... TODO 
-                $postcodeBand = (int) filter_var($_POST['b'], FILTER_SANITIZE_NUMBER_INT);
+                $postcodeBand = (int) filter_var($_POST['delivery'], FILTER_SANITIZE_NUMBER_INT);
                 
                 
                 //loop it
