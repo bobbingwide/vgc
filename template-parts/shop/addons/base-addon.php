@@ -96,7 +96,7 @@ for ( $band = $start_band; $band<= 4; $band++ ) {
                 </div>
             <?php } ?>
           </div>
-          <input type="hidden" name="b" value="<?php echo $postcodeBand; ?>" />
+
         </div>
       </div>
     </div>
