@@ -8,12 +8,33 @@ document.querySelector('input.submit_pc').addEventListener('click', function () 
         //reSetupDefaultAddons = alreadyDone;
 
     }
+    enableOrDisableAddToCart( band );
+});
 
+/**
+ * Pre Add to cart submission.
+ *
+ * Enable all checkboxes that have been disabled before allowing the form to be submitted.
+ */
+document.querySelector( 'button#btn-add-to-cart').addEventListener( 'click', function( e) {
+   //alert( "button clicked");
+   var checkboxes = document.querySelectorAll('input[type="checkbox"]' );
+   //console.log( checkboxes );
+   for ( var i = 0; i < checkboxes.length; i++ ) {
+        var checkbox = checkboxes[i];
+        if ( checkbox.checked ) {
+            checkbox.disabled = false;
+        } else {
+            checkbox.disabled = true;
+        }
+   }
+   //e.preventDefault();
 });
 
 function alreadyDone() {
 
 }
+
 
 /**
  * Sets the delivery band code given the post code.
