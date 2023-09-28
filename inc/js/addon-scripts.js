@@ -45,6 +45,7 @@
         }
       }
     }
+    enableOrDisableAddToCart( 'delivery_band_not_set' );
   }
 
 
@@ -360,4 +361,19 @@ function isHidden(el) {
   var style = window.getComputedStyle(el);
   console.log( style );
   return ((style.display === 'none') || (style.visibility === 'hidden'));
+}
+
+function enableOrDisableAddToCart( band ) {
+  var addToCartBtn = document.getElementById('btn-add-to-cart');
+  if ( band == 'delivery_excluded' || band == 'delivery_band_not_set' ) {
+    addToCartBtn.disabled = true;
+  } else {
+    var delivery_wrapper = document.getElementById( 'delivery_wrapper');
+    var checkbox = delivery_wrapper.querySelector('.addon-details.' + band + ' ' + 'input[type="checkbox"]');
+    if ( checkbox ) {
+      addToCartBtn.disabled = false;
+    } else {
+      addToCartBtn.disabled = true;
+    }
+  }
 }
