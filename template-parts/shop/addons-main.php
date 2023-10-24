@@ -13,7 +13,8 @@ $options_discount = vgc_get_options_discount( $product );
 ?>
 
 <?php if ( $addons && count( $addons ) ) :
-    foreach ($addons as $addon) : ?>
+    foreach ($addons as $addon) :
+        ?>
 
   <div class="section-addon-wrap main">
     <div class="section-options pb-4 pt-4 <?php echo $addon['required_addon'] == true ? "addon-select-required" : "addon-select addon-non-required"; ?>  <?php echo $addon['allow_only_one_choice_eg_if_choosing_a_colour'] == true ? "addon-select-radio" : "" ; ?>">
@@ -32,9 +33,11 @@ $options_discount = vgc_get_options_discount( $product );
               </div>
             <?php } ?>
             <div class="d-flex flex-wrap">
-              <?php $options = $addon['available_options']; ?>
-              <?php $count = count($options); ?>
-              <?php for($i = 0; $i < $count; $i++) { ?>
+              <?php $options = $addon['available_options'];
+              //if ( $options == null ) print_r( $addon );
+              $count = $options ? count($options) : 0;
+
+              for($i = 0; $i < $count; $i++) { ?>
                 <div class="p-5 block text-center">
                   <div class="thumbnail">
     	            <?php
@@ -44,6 +47,7 @@ $options_discount = vgc_get_options_discount( $product );
     					     $cl = "cover";     
     			       }		       
     		        }
+
                 ?>  
                 <img class="<?php echo($cl);?>" src="<?php echo !empty($options[$i]['image']) ? $options[$i]['image'] : get_template_directory_uri() . "/images/placeholder-image.jpg"; ?>" />
                   </div>
