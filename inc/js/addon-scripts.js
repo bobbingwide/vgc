@@ -45,8 +45,8 @@
         }
       }
     }
-    enableOrDisableAddToCart( 'delivery_band_not_set' );
   }
+  enableOrDisableAddToCart( 'delivery_band_not_set' );
 
 
   /*
