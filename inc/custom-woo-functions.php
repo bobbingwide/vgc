@@ -51,14 +51,17 @@ function calculate_price_on_cart_addition($cart_item_data, $product_id) {
     // Format the optional addons acf field array to compare against the posted data
     $addonsFieldArray = formatAddonsArray($addonsFieldArray);
     // Get the postcode band
-    $postcodeBand = (int) filter_var($_POST['b'], FILTER_SANITIZE_NUMBER_INT);
-    // Get the base price from the global options table if a base has been choosen
-    $baseType['bases'] = array(
-        ucwords($_POST['base-type']),
-    );
+    $postcodeBand = (int) filter_var($_POST['delivery'], FILTER_SANITIZE_NUMBER_INT);
+    // Get the base price from the global options table if a base has been chosen
+    $baseType['bases'] = [ 0 => 'No'];
+    if ( isset( $_POST['base-type'])) {
+        $baseType['bases'] = array(
+            ucwords($_POST['base-type']),
+        );
+    }
     // Get the base material name
     $baseMaterial = strtolower($baseType['bases'][0]);
-    // If a base has been choosen get the price and add it to the addonsFieldArray to later calculate the price
+    // If a base has been chosen get the price and add it to the addonsFieldArray to later calculate the price
     if($baseType['bases'][0] !== "No") {
         $array = getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $baseType, $postcodeBand);
         $addonsFieldArray['single-price-base-type-'.$baseMaterial.''] = array_shift($array);
@@ -292,63 +295,65 @@ function display_addon_info_in_cart( $item_data, $cart_item ) {
 */
 function formatAddonsArray($addons) {
 	$array = [];
-	// Turn the array into a s tandard addon array
+	// Turn the array into a standard addon array
 	foreach($addons as $options) {
-		foreach($options['available_options'] as $choices) {
+        if ( isset( $options['avaliable_options'] ) && count( $options['available_options']) ) {
+            foreach ($options['available_options'] as $choices) {
 
-			/*
-			*	Deal with Single priced addons
-			*/
-			if(strtolower($choices['single_choice_or_multi_choice']) == "single") {
-				// Handle price based on single price
-				if(strtolower($choices['pricing_route']) == "single") {
-					$tag = "single-single";
-					$priceField = "single_price";
-				}
-				// Handle a price based on percentage
-				if(strtolower($choices['pricing_route']) == "percentage of stating price") {
-					$tag = "single-percent";
-					$priceField = "price_per_percentage";
-				}
-				// Handle a price based on length
-				if(strtolower($choices['pricing_route']) == "based on size length") {
-					$tag = "single-length";
-					$priceField = "price_per_length";
-				}
-				// Handle a price based on size squared
-				if(strtolower($choices['pricing_route']) == "based on size squared") {
-					$tag = "single-squared";
-					$priceField = "price_per_sq_m";
-				}
-				$title = vgc_sm_replace(strtolower(str_replace(' ', '-', $options["title_of_area"].':'.$choices['name'])));
-				$key = $tag."-addon-".$title;
-				$uniqueKey = checkForDuplicateKey($key, $array);
-				$array[$uniqueKey] = $choices[$priceField];
+                /*
+                *	Deal with Single priced addons
+                */
+                if (strtolower($choices['single_choice_or_multi_choice']) == "single") {
+                    // Handle price based on single price
+                    if (strtolower($choices['pricing_route']) == "single") {
+                        $tag = "single-single";
+                        $priceField = "single_price";
+                    }
+                    // Handle a price based on percentage
+                    if (strtolower($choices['pricing_route']) == "percentage of stating price") {
+                        $tag = "single-percent";
+                        $priceField = "price_per_percentage";
+                    }
+                    // Handle a price based on length
+                    if (strtolower($choices['pricing_route']) == "based on size length") {
+                        $tag = "single-length";
+                        $priceField = "price_per_length";
+                    }
+                    // Handle a price based on size squared
+                    if (strtolower($choices['pricing_route']) == "based on size squared") {
+                        $tag = "single-squared";
+                        $priceField = "price_per_sq_m";
+                    }
+                    $title = vgc_sm_replace(strtolower(str_replace(' ', '-', $options["title_of_area"] . ':' . $choices['name'])));
+                    $key = $tag . "-addon-" . $title;
+                    $uniqueKey = checkForDuplicateKey($key, $array);
+                    $array[$uniqueKey] = $choices[$priceField];
 
-			}
+                }
 
-			/*
-			*	Deal with Multi priced addons
-			*/
-			if($choices['single_choice_or_multi_choice'] == "multi") {
-				// Define the array price tag by the pricing route
-				if(strtolower($choices['pricing_route']) == "single") {
-					$tag = "single";
-				}
-				if(strtolower($choices['pricing_route']) == "percentage of stating price") {
-					$tag = "percent";
-				}
-				if(strtolower($choices['pricing_route']) == "based on size squared") {
-					$tag = "squared";
-				}
-				if(strtolower($choices['pricing_route']) == "based on size length") {
-					$tag = "length";
-				}
-				$key = "multi-".$tag."-addon-".strtolower(str_replace(' ', '-', $options["title_of_area"].':'.$choices['name']));
-				$uniqueKey = checkForDuplicateKey($key, $array);
-				$array[$uniqueKey] = $choices['options'];
-			}
-		}
+                /*
+                *	Deal with Multi priced addons
+                */
+                if ($choices['single_choice_or_multi_choice'] == "multi") {
+                    // Define the array price tag by the pricing route
+                    if (strtolower($choices['pricing_route']) == "single") {
+                        $tag = "single";
+                    }
+                    if (strtolower($choices['pricing_route']) == "percentage of stating price") {
+                        $tag = "percent";
+                    }
+                    if (strtolower($choices['pricing_route']) == "based on size squared") {
+                        $tag = "squared";
+                    }
+                    if (strtolower($choices['pricing_route']) == "based on size length") {
+                        $tag = "length";
+                    }
+                    $key = "multi-" . $tag . "-addon-" . strtolower(str_replace(' ', '-', $options["title_of_area"] . ':' . $choices['name']));
+                    $uniqueKey = checkForDuplicateKey($key, $array);
+                    $array[$uniqueKey] = $choices['options'];
+                }
+            }
+        }
 	}
 	return $array;
 }
