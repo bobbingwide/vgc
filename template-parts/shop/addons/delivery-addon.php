@@ -79,7 +79,7 @@ $ppq = get_query_var('ppq');
                         <?php 
                         $brand_name = get_field('brand');
                         
-                        if($brand_name[0]->post_title == "Eden Greenhouses")
+                        if( $brand_name && isset( $brand_name[0] ) && $brand_name[0]->post_title == "Eden Greenhouses")
                         {
                             echo("FREE delivery to mainland UK and Northern Ireland");                           
                         }
