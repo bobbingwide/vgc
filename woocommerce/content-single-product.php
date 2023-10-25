@@ -31,6 +31,7 @@ if(function_exists('get_field')) {
 	// Get the brand relation
 	$brandRelation = get_field('brand');
 
+    $installCost = null;
 	if(!empty($brandRelation)) {
 		
 		$delivery_cost 	  = get_field('delivery_cost', $brandRelation[0]->ID);
