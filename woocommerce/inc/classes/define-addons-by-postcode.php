@@ -72,7 +72,8 @@ class define_addons_by_postcode
   */
   private function setExcludedPostcodes() : void {
       $this->excludedPostcodes = [];
-      if ( ( isset( $this->options['postcode_excluded']) && count( $this->options['postcode_excluded'] ) )) {
+      //bw_trace2( $this->options['postcode_excluded'], "postcode_excluded" );
+      if ( ( isset( $this->options['postcode_excluded'])  )) {
           $this->excludedPostcodes = array_map('trim', explode("\n", $this->options["postcode_excluded"]));
       }
   }
