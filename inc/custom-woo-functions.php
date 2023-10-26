@@ -418,7 +418,7 @@ function addSquareMeterToProductPageAdmin() {
 /*
 * Deal with saving the product size custom field
 */
-add_action('woocommerce_process_product_meta', 'woocommerceProcessCustomFields');
+//add_action('woocommerce_process_product_meta', 'woocommerceProcessCustomFields');
 
 function woocommerceProcessCustomFields($post_id) {
 
