@@ -21,7 +21,7 @@ global $product;
 
 $options_allowed = array();
 $options_allowed['delivery_cost'] = [ 0,0,0,0,0];
-$options_allowed['postcode_excluded'] = [];
+$options_allowed['postcode_excluded'] = '';
 $options_allowed['installation_cost'] = 0;
 
 
