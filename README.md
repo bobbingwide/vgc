@@ -3,8 +3,8 @@
 * Contributors: automattic, Hotbox Studios, bobbingwide
 * Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 * Requires at least: 4.5
-* Tested up to: 6.2.2
-* Stable tag: 1.6.0
+* Tested up to: 6.4-RC2
+* Stable tag: 1.7.0
 * License: GNU General Public License v2 or later
 * License URI: LICENSE
 
@@ -27,6 +27,20 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 ## Changelog 
+# 1.7.0 
+* Fixed: Avoid Warning undefined array key _square_meter from in redundant code #65
+* Fixed: Avoid messages when product is not connected to a brand #64
+* Fixed: Support PHP 8.1 and PHP 8.2 #62
+* Changed: Update version to keep WooCommerce 8.2.1 happy #44
+* Changed: Post code related options for delivery, installation, removal and base #59
+* Fixed: Warning Undefined variable $base. Replace by $row #61
+* Changed: Enable gvg_product_range's duplicate filter and dropdown logic #60
+* Changed: Round baseSqFeet before checking key #49
+* Changed: Don't exclude WooCommerce hidden products from the AIOSEO Sitemap #58
+* Tested: With WordPress 6.4-RC2
+* Tested: With PHP 8.0, PHP 8.2 and PHP 8.2
+* Tested: With WooCommerce 8.2.1
+
 # 1.6.0 
 * Changed: Style up-sells and related products on the single product page #54
 * Changed: Display up-sells and related products #54
