@@ -27,6 +27,12 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 ## Changelog 
+# 1.7.2 
+* Fixed: Cater for null values for Brands fields #59
+* Fixed: Support PHP 8.1 #62
+* Changed: Improve screenshot
+* Tested: With WordPress 6.4-RC3
+
 # 1.7.1 
 * Fixed: Correctly support delivery cost of 0. #59
 
