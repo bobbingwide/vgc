@@ -84,7 +84,7 @@ if(function_exists('get_field')) {
 if(isset($_POST['postcode'])) {
 	// Hide the section no-search-default
 	$display = "display:none;";
-	$postcode = filter_var($_POST['postcode'], FILTER_SANITIZE_STRING);
+	$postcode = htmlspecialchars( $_POST['postcode'] );
 	$postcode = trim( $postcode );
 }
 else {

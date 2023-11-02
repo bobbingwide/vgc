@@ -33,7 +33,7 @@ class define_addons_by_postcode
 
   function __construct($postcode, $options_allowed) {
     // The inputted postcode to determine the returned options
-      bw_trace2();
+    //  bw_trace2();
     if(!empty($postcode)) : $this->postcode = $postcode; endif;
     if(!empty($options_allowed)) : $this->options = $options_allowed; endif;         
     $this->runCheck();
@@ -44,7 +44,7 @@ class define_addons_by_postcode
       wp_enqueue_script('vgccodes', get_template_directory_uri() . '/inc/js/vgccodes.js', array(), null , true);
       $data = 'const vgccodes = ';
       $data .= json_encode( [ "postcodes" => $this->acceptedPostcodes,
-        "excluded" => $this->options[ 'postcode_excluded'] ] );
+        "excluded" => $this->excludedPostcodes] );
       /*
           const vgccodes = {
           "postcodes": [['GU1'], ['GU2'], ['PO9'], ['PO30']],
@@ -284,7 +284,11 @@ class define_addons_by_postcode
 	  //bw_trace2( $this->options["delivery_cost"], "delivery_cost" );
       if (isset( $this->options["delivery_cost"][$band] )) {
           $delivery_band_price = $this->options["delivery_cost"][$band];
-      } else {
+		  $delivery_band_price = trim( $delivery_band_price );
+		  if ( '' === $delivery_band_price ) {
+			  $delivery_band_price = null;
+		  }
+       } else {
           $delivery_band_price = null;
       }
       //bw_trace2( $delivery_band_price, "delivery_brand_price");
