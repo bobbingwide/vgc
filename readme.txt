@@ -2,8 +2,8 @@
 Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
-Tested up to: 6.4-RC2
-Stable tag: 1.7.0
+Tested up to: 6.4-RC3
+Stable tag: 1.7.1
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -26,6 +26,9 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 1.7.1 = 
+* Fixed: Correctly support delivery cost of 0. #59
+
 = 1.7.0 =
 * Fixed: Avoid Warning undefined array key _square_meter from in redundant code #65
 * Fixed: Avoid messages when product is not connected to a brand #64
