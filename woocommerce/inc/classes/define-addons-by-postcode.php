@@ -278,17 +278,17 @@ class define_addons_by_postcode
    * delivery when the price isn't set.
    *
    * @param integer $band 0 to 4
-   * @return integer/blank Delivery band price
+   * @return integer|null Delivery band price
    */
   public function deliveryBandPrice( $band ) {
-      if($this->options["delivery_cost"][$band]) {
+	  //bw_trace2( $this->options["delivery_cost"], "delivery_cost" );
+      if (isset( $this->options["delivery_cost"][$band] )) {
           $delivery_band_price = $this->options["delivery_cost"][$band];
       } else {
           $delivery_band_price = null;
       }
-      bw_trace2( $delivery_band_price, "delivery_brand_price");
+      //bw_trace2( $delivery_band_price, "delivery_brand_price");
       return $delivery_band_price;
-
   }
 
 }
