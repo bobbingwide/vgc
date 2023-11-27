@@ -294,12 +294,15 @@ function display_addon_info_in_cart( $item_data, $cart_item ) {
 * Format the addons array so it can be used throughout the addons application
 */
 function formatAddonsArray($addons) {
+    //bw_trace2();
 	$array = [];
 	// Turn the array into a standard addon array
 	foreach($addons as $options) {
-        if ( isset( $options['avaliable_options'] ) && count( $options['available_options']) ) {
+        //bw_trace2( $options, 'options', false );
+        if ( isset( $options['available_options'] ) && count( $options['available_options']) ) {
             foreach ($options['available_options'] as $choices) {
 
+                //bw_trace2( $choices, 'choices', false );
                 /*
                 *	Deal with Single priced addons
                 */
@@ -355,6 +358,7 @@ function formatAddonsArray($addons) {
             }
         }
 	}
+    //bw_trace2( $array, 'array', false);
 	return $array;
 }
 
