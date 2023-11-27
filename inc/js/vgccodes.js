@@ -36,41 +36,21 @@ function alreadyDone() {
 }
 
 
+
+
 /**
  * Sets the delivery band code given the post code.
  *
  */
 function setbands() {
-    var postcode = document.getElementById('postcode').value;
-    postcode = postcode.toUpperCase();
-    postcode = postcode.trim();
-    var band = 'delivery_band_not_set';
-    if ( postcode) {
-        band = get_delivery_band_code(postcode);
-    }
-    console.log( band);
+    var band = getband();
     setClasses( band, 'delivery_wrapper' );
     setClasses( band, 'removal_wrapper' );
     setClasses( band, 'base_wrapper');
     return band;
 }
 
-function get_delivery_band_code( postcode ) {
-    var bandcode = 'delivery_excluded';
-    if (vgccodes.excluded.includes(postcode))
-        return bandcode;
-    //let index = 0;
-    bandcode = 'delivery_band_0';
-    for ( let index = 0; index < vgccodes.postcodes.length; index++) {
-        let bandcodes = vgccodes.postcodes[ index];
-        console.log( bandcodes);
-        if (bandcodes.includes(postcode)) {
-            bandcode = 'delivery_band_' + (index + 1);
-        }
-    }
 
-    return bandcode;
-}
 
 function setClasses( band, $wrapper_id ) {
     var delivery_wrapper = document.getElementById( $wrapper_id);

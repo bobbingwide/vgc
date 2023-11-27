@@ -177,7 +177,9 @@ function dealWithMultiSelectBoxAddons(event, currentCartSessionContainer) {
     var addAddonToCartBtn = document.getElementById('btn-add-to-cart');
     addAddonToCartBtn.style = "cursor:pointer;";
     // Enable the add to cart button until the validation fails
+
     addAddonToCartBtn.removeAttribute('disabled');
+    maybeEnableOrDisableAddToCart();
     var validation = true;
     var i = 0;
     while(validation == true && i < sectionRequired.length) {
@@ -376,4 +378,40 @@ function enableOrDisableAddToCart( band ) {
       addToCartBtn.disabled = true;
     }
   }
+}
+
+function maybeEnableOrDisableAddToCart() {
+  var band = null;
+  band = getband();
+  enableOrDisableAddToCart( band );
+
+}
+
+function getband() {
+  var postcode = document.getElementById('postcode').value;
+  postcode = postcode.toUpperCase();
+  postcode = postcode.trim();
+  var band = 'delivery_band_not_set';
+  if (postcode) {
+    band = get_delivery_band_code(postcode);
+  }
+  console.log(band);
+  return band;
+}
+
+function get_delivery_band_code( postcode ) {
+  var bandcode = 'delivery_excluded';
+  if (vgccodes.excluded.includes(postcode))
+    return bandcode;
+  //let index = 0;
+  bandcode = 'delivery_band_0';
+  for ( let index = 0; index < vgccodes.postcodes.length; index++) {
+    let bandcodes = vgccodes.postcodes[ index];
+    console.log( bandcodes);
+    if (bandcodes.includes(postcode)) {
+      bandcode = 'delivery_band_' + (index + 1);
+    }
+  }
+
+  return bandcode;
 }
