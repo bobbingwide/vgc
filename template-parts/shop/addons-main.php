@@ -116,10 +116,14 @@ set_query_var('installCost', $installCost);
 set_query_var('productLength', $length);
 set_query_var('productWidth', $width);
 set_query_var('installationStatus', $installationStatus);
-get_template_part('/template-parts/shop/addons/installation', 'addon');
+if ( $ppq->displayInstallationBeforePostcode() ) {
+    get_template_part('/template-parts/shop/addons/installation', 'addon');
+    get_template_part('/template-parts/shop/postcode', 'search');
+} else {
+    get_template_part('/template-parts/shop/postcode', 'search');
+    get_template_part('/template-parts/shop/addons/installation', 'addon');
+}
 ?>
-
-<?php get_template_part('/template-parts/shop/postcode', 'search'); ?>
 <!-- Get the section for delivery addons -->
 <?php
 set_query_var('ppq', $ppq);

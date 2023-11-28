@@ -295,4 +295,23 @@ class define_addons_by_postcode
       return $delivery_band_price;
   }
 
+  /**
+   * Returns true when Installation should be before Post code section
+   *
+   * If any delivery price is set for bands 1 to 4 then the Installation section
+   * goes after the post code section.
+   *
+   * @return bool true for installation before, false otherwise
+   */
+  public function displayInstallationBeforePostcode() :bool {
+      $installationBefore = true;
+      for ( $band = 1; $band <= 4; $band++ ) {
+          $price = $this->deliveryBandPrice( $band );
+          if ( $price !== null ) {
+              $installationBefore = false;
+          }
+      }
+      return $installationBefore;
+  }
+
 }
