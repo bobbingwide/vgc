@@ -21,6 +21,7 @@ class calculate_price {
   	private $apply_discount; // False when options discount is not to be applied.
   	// Savings applied to addons only.
   	private $savings;
+    private $customBasket = [];
   
   function __construct(
   	$choosen, 

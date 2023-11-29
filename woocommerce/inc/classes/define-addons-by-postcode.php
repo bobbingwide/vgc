@@ -30,6 +30,9 @@ class define_addons_by_postcode
   private $baseWoodCosts = 0;
   private $baseConcreteCosts = 0;
   private $deliveryCost = 0;
+  private $options = [];
+  private $excludedPostcodes = [];
+  private $installCosts = 0;
 
   function __construct($postcode, $options_allowed) {
     // The inputted postcode to determine the returned options
