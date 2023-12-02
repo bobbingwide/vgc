@@ -326,14 +326,17 @@ function getVisibleAddonPrice( startNode ) {
   var price = null;
   for (let i = 0; i < prices.length; i++) {
     if ( isNotDeliveryPrice( prices[i] ) || !isHidden( prices[i] )) {
-      price = prices[i].innerText;
+      price = prices[i].textContent;
       //console.log( price);
+      price = price.trim();
       price = parseFloat( price).toFixed( 2 );
+      //console.log( price);
     }
   }
   if ( price === null ) {
     //console.log( "No visible price!" );
     //console.log( startNode );
+    price = 0.00;
   }
   return price;
 }
