@@ -4,7 +4,7 @@
 * Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 * Requires at least: 4.5
 * Tested up to: 6.4.1
-* Stable tag: 1.8.0
+* Stable tag: 1.8.1
 * License: GNU General Public License v2 or later
 * License URI: LICENSE
 
@@ -27,6 +27,9 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 ## Changelog 
+# 1.8.1 
+* Fixed: Use textContent rather than innerText to cater for iOS devices #72
+
 # 1.8.0 
 * Changed: Display Installation after post code entry for brands which vary delivery charges by brand #70
 * Changed: Ensure add to cart disabled before post code band has been determined. #69
