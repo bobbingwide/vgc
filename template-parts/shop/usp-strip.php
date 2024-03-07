@@ -6,7 +6,7 @@
         <ul class="slides">
         <li class="col-lg-2 col-md-4 col-sm-4 text-center p-3">
             <img src="/wp-content/themes/vgc/images/icons/lorry_500x500.png" alt="Free Delivery Icon"><br>
-            <strong class="w-100 clearfix">Free Delivery</strong>To Most Of The UK
+            <strong class="w-100 clearfix">Free Delivery</strong>On Most Products
         </li>
         <li class="col-lg-2 col-md-4 col-sm-4 text-center p-3">
             <img src="/wp-content/themes/vgc/images/icons/phone_500x500.png" alt="Call Centre Icon"><br>
