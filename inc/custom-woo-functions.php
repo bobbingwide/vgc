@@ -128,10 +128,84 @@ add_action( 'woocommerce_add_to_cart', 'vgc_add_to_cart', 10, 2 );
 
 function vgc_add_to_cart( $cart_item_key ) {
 	$cart_item=WC()->cart->get_cart_item( $cart_item_key );
+    //bw_trace2( $cart_item, "cart_item");
 	if ( isset( $cart_item['awcdp_deposit'], $cart_item['awcdp_deposit']['enable'] ) && $cart_item['awcdp_deposit']['enable'] == 1 ) {
 		//  bw_trace2( $cart_item, 'cart_item', false );
 		WC()->cart->cart_contents[ $cart_item_key ]['awcdp_deposit']['original_price']= $cart_item['custom_price'];
 	}
+}
+
+/**
+ * Implementing this filter hook when prices include tax
+ * means we don't need the premium version of the deposits-partial-payments-for-woocommerce plugin
+ */
+if ( wc_prices_include_tax() ){
+    add_filter('awcdp_deposits_cart_item_deposit_data', 'vgc_deposits_cart_item_deposit_data', 10, 2);
+}
+/**
+ * Correct the deposit when tax enabled and included in original price
+ *
+ * $awcdp_deposit could contain:
+ *
+ * [enable] => (boolean) 1
+ * [original_price] => (double) 7799
+ * [tax_total] => (double) 1299.83
+ * [tax] => (integer) 0
+ * [deposit] => (double) 1299.833333334
+ * [remaining] => (double) 5199.333333336
+ * [total] => (double) 6499.16666667
+ */
+function vgc_deposits_cart_item_deposit_data( $awcdp_deposit, $cart_item_data )
+{
+    //bw_trace2();
+    if (wc_prices_include_tax() && isset($cart_item_data['awcdp_deposit']['original_price']) ) {
+        if (  isset($cart_item_data['awcdp_deposit'], $cart_item_data['awcdp_deposit']['enable'] ) && $cart_item_data['awcdp_deposit']['enable'] == 1 ) {
+            $amount = $cart_item_data['awcdp_deposit']['original_price'];
+            $deposit = vgc_get_deposit($amount, $cart_item_data);
+            $remaining = $amount - $deposit;
+            $total = $deposit + $remaining;
+            $awcdp_deposit['deposit'] = $deposit;
+            $awcdp_deposit['remaining'] = $remaining;
+            $awcdp_deposit['total'] = $total;
+            //bw_trace2($awcdp_deposit, 'awcdp_deposit', false);
+        }
+    }
+    return $awcdp_deposit;
+}
+
+/**
+ * Returns the deposit amount.
+ *
+ * Notes:
+ * - The free version of deposits-partial-payments-for-woocommerce plugin incorrectly calculates the percentage when prices include tax.
+ * - We need to correct the figures to take into account the tax.
+ * - We know that deposits are enabled.
+ * - We need to find out if this is default processing or a product specific override.
+ *
+ * @param $amount
+ * @param $cart_item_data
+ * @return mixed
+*/
+function vgc_get_deposit( $amount, $cart_item_data) {
+    $product_id = $cart_item_data['product_id'];
+    $product = wc_get_product( $cart_item_data['product_id'] );
+    $awcdp_gs = get_option('awcdp_general_settings');
+    //bw_trace2( $awcdp_gs, 'awcdp_gs', false );
+    //$enabled = get_post_meta( $product_id, ,
+    $deposit_type = get_post_meta( $product_id, AWCDP_DEPOSITS_TYPE, true );
+    $deposit_type = $deposit_type ? $deposit_type : $awcdp_gs['deposit_type'];
+    $deposit_amount = get_post_meta( $product_id, AWCDP_DEPOSITS_AMOUNT, true );
+    $deposit_amount = $deposit_amount ? $deposit_amount : $awcdp_gs['deposit_amount'];
+
+    switch ( $deposit_type ) {
+        case 'fixed':
+            $deposit = $deposit_amount;
+            break;
+        case 'percent':
+            $deposit = $amount * (floatval($deposit_amount) / 100.0);
+            break;
+    }
+    return $deposit;
 }
 
 /**
