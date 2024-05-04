@@ -2,8 +2,8 @@
 Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
-Tested up to: 6.4.3
-Stable tag: 1.8.2
+Tested up to: 6.5.2
+Stable tag: 1.8.3
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -26,6 +26,10 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 1.8.3 =
+* Changed: Update support for the deposits-partial-payments-for-woocommerce plugin #74
+* Tested: With WordPress 6.5.2
+
 = 1.8.2 =
 * Changed: Change 'To Most Of The UK' to 'On Most Products' #73
 
