@@ -2,8 +2,8 @@
 Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
-Tested up to: 6.5.2
-Stable tag: 1.8.3
+Tested up to: 6.5.3
+Stable tag: 1.8.4
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -26,6 +26,10 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 1.8.4 =
+* Changed: Reduce primary menu item width from 10% to 9% to allow for Finance Options #75
+* Tested: With WordPress 6.5.3
+
 = 1.8.3 =
 * Changed: Update support for the deposits-partial-payments-for-woocommerce plugin #74
 * Tested: With WordPress 6.5.2
