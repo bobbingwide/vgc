@@ -429,3 +429,8 @@ add_action( 'init', 'smartwp_disable_new_user_notifications' );
  * Don't exclude WooCommerce hidden products from the AIOSEO Sitemap
  */
 add_filter( 'aioseo_sitemap_woocommerce_exclude_hidden_products', '__return_false');
+
+/**
+ * Tell ACF that we're happy to include HTML in fields.
+ */
+add_filter( 'acf/the_field/allow_unsafe_html', '__return_true' );

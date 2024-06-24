@@ -371,67 +371,70 @@ function formatAddonsArray($addons) {
     //bw_trace2();
 	$array = [];
 	// Turn the array into a standard addon array
-	foreach($addons as $options) {
-        //bw_trace2( $options, 'options', false );
-        if ( isset( $options['available_options'] ) && count( $options['available_options']) ) {
-            foreach ($options['available_options'] as $choices) {
+    if ( $addons && count( $addons)) {
 
-                //bw_trace2( $choices, 'choices', false );
-                /*
-                *	Deal with Single priced addons
-                */
-                if (strtolower($choices['single_choice_or_multi_choice']) == "single") {
-                    // Handle price based on single price
-                    if (strtolower($choices['pricing_route']) == "single") {
-                        $tag = "single-single";
-                        $priceField = "single_price";
-                    }
-                    // Handle a price based on percentage
-                    if (strtolower($choices['pricing_route']) == "percentage of stating price") {
-                        $tag = "single-percent";
-                        $priceField = "price_per_percentage";
-                    }
-                    // Handle a price based on length
-                    if (strtolower($choices['pricing_route']) == "based on size length") {
-                        $tag = "single-length";
-                        $priceField = "price_per_length";
-                    }
-                    // Handle a price based on size squared
-                    if (strtolower($choices['pricing_route']) == "based on size squared") {
-                        $tag = "single-squared";
-                        $priceField = "price_per_sq_m";
-                    }
-                    $title = vgc_sm_replace(strtolower(str_replace(' ', '-', $options["title_of_area"] . ':' . $choices['name'])));
-                    $key = $tag . "-addon-" . $title;
-                    $uniqueKey = checkForDuplicateKey($key, $array);
-                    $array[$uniqueKey] = $choices[$priceField];
+        foreach ($addons as $options) {
+            //bw_trace2( $options, 'options', false );
+            if (isset($options['available_options']) && count($options['available_options'])) {
+                foreach ($options['available_options'] as $choices) {
 
-                }
+                    //bw_trace2( $choices, 'choices', false );
+                    /*
+                    *	Deal with Single priced addons
+                    */
+                    if (strtolower($choices['single_choice_or_multi_choice']) == "single") {
+                        // Handle price based on single price
+                        if (strtolower($choices['pricing_route']) == "single") {
+                            $tag = "single-single";
+                            $priceField = "single_price";
+                        }
+                        // Handle a price based on percentage
+                        if (strtolower($choices['pricing_route']) == "percentage of stating price") {
+                            $tag = "single-percent";
+                            $priceField = "price_per_percentage";
+                        }
+                        // Handle a price based on length
+                        if (strtolower($choices['pricing_route']) == "based on size length") {
+                            $tag = "single-length";
+                            $priceField = "price_per_length";
+                        }
+                        // Handle a price based on size squared
+                        if (strtolower($choices['pricing_route']) == "based on size squared") {
+                            $tag = "single-squared";
+                            $priceField = "price_per_sq_m";
+                        }
+                        $title = vgc_sm_replace(strtolower(str_replace(' ', '-', $options["title_of_area"] . ':' . $choices['name'])));
+                        $key = $tag . "-addon-" . $title;
+                        $uniqueKey = checkForDuplicateKey($key, $array);
+                        $array[$uniqueKey] = $choices[$priceField];
 
-                /*
-                *	Deal with Multi priced addons
-                */
-                if ($choices['single_choice_or_multi_choice'] == "multi") {
-                    // Define the array price tag by the pricing route
-                    if (strtolower($choices['pricing_route']) == "single") {
-                        $tag = "single";
                     }
-                    if (strtolower($choices['pricing_route']) == "percentage of stating price") {
-                        $tag = "percent";
+
+                    /*
+                    *	Deal with Multi priced addons
+                    */
+                    if ($choices['single_choice_or_multi_choice'] == "multi") {
+                        // Define the array price tag by the pricing route
+                        if (strtolower($choices['pricing_route']) == "single") {
+                            $tag = "single";
+                        }
+                        if (strtolower($choices['pricing_route']) == "percentage of stating price") {
+                            $tag = "percent";
+                        }
+                        if (strtolower($choices['pricing_route']) == "based on size squared") {
+                            $tag = "squared";
+                        }
+                        if (strtolower($choices['pricing_route']) == "based on size length") {
+                            $tag = "length";
+                        }
+                        $key = "multi-" . $tag . "-addon-" . strtolower(str_replace(' ', '-', $options["title_of_area"] . ':' . $choices['name']));
+                        $uniqueKey = checkForDuplicateKey($key, $array);
+                        $array[$uniqueKey] = $choices['options'];
                     }
-                    if (strtolower($choices['pricing_route']) == "based on size squared") {
-                        $tag = "squared";
-                    }
-                    if (strtolower($choices['pricing_route']) == "based on size length") {
-                        $tag = "length";
-                    }
-                    $key = "multi-" . $tag . "-addon-" . strtolower(str_replace(' ', '-', $options["title_of_area"] . ':' . $choices['name']));
-                    $uniqueKey = checkForDuplicateKey($key, $array);
-                    $array[$uniqueKey] = $choices['options'];
                 }
             }
         }
-	}
+    }
     //bw_trace2( $array, 'array', false);
 	return $array;
 }
