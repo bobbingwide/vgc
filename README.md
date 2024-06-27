@@ -28,10 +28,11 @@ VGC is the theme for gardenvista.co.uk.
 
 ## Changelog 
 # 1.8.5 
+* Fixed: Avoid Warning when select option has no options #79
 * Changed: Update to cater for security improvements in ACF / ACF Pro #78
 * Changed: Update archive-product template version to 8.6.0 for WooCommerce 9.0.1 #77
 * Fixed: Avoid warning when the addons array is empty #76
-* Tested: With WordPress 6.5.4
+* Tested: With WordPress 6.5.5
 * Tested: With PHP 8.3
 * Tested: With WooCommerce 9.0.1
 
