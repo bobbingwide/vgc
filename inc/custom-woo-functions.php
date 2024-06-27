@@ -896,27 +896,30 @@ function vgc_option_select( $inputValue, $product, $option, $options_discount ) 
     $html .= $inputValue;
     $html .= '" onchange="addAddonToCart(event, \'select\')">';
     $html .= '<option value="" data-price="0" selected>Please select an option</option>';
-    foreach ($option['options'] as $opt ) {
-       $extra = "";
-       $original = calc_vgc_price($option, $length, $width, $base_price, $opt['price']);
+    if ( $option['options'] && count( $option['options'])) {
+	    bw_trace2( $option, 'Option', true );
+	    foreach ( $option['options'] as $opt ) {
+		    $extra   ="";
+		    $original=calc_vgc_price( $option, $length, $width, $base_price, $opt['price'] );
 
-       if ( is_numeric( $original ) ) {
-           $price = vgc_adjust_price($original, $options_discount, $option);
-           if (isset($opt["increase_base_size_by"])) {
-               $extra = 'data-addsize="' . $opt["increase_base_size_by"] . '"';
-           }
-           $html .= '<option value="';
-           $html .= vgc_prime_name($opt['name']);
-           $html .= '" data-price="';
-           $html .= $price;
-           $html .= '" ';
-           $html .= $extra;
-           $html .= '>';
-           //$html .= $opt['name'] . ' + £' . $price;
-           $html .= vgc_option_text($opt['name'], $original, $price);
-           $html .= '</option>';
-       }
+		    if ( is_numeric( $original ) ) {
+			    $price=vgc_adjust_price( $original, $options_discount, $option );
+			    if ( isset( $opt["increase_base_size_by"] ) ) {
+				    $extra='data-addsize="' . $opt["increase_base_size_by"] . '"';
+			    }
+			    $html.='<option value="';
+			    $html.=vgc_prime_name( $opt['name'] );
+			    $html.='" data-price="';
+			    $html.=$price;
+			    $html.='" ';
+			    $html.=$extra;
+			    $html.='>';
+			    //$html .= $opt['name'] . ' + £' . $price;
+			    $html.=vgc_option_text( $opt['name'], $original, $price );
+			    $html.='</option>';
+		    }
 
+	    }
     }
     $html .= '</select>';
     return $html;
