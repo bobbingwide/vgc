@@ -54,11 +54,13 @@
       "fontFamilies": [
         {
           "fontFamily": "trebuchet ms,Arial,Helvetica,Sans-Serif",
-          "slug": "trebuchet"
+          "slug": "trebuchet",
+          "name": "Trebuchet"
         },
         {
           "fontFamily": "Lato,sans-serif",
-          "slug": "lato"
+          "slug": "lato",
+          "name": "Lato"
         }
 
       ]
