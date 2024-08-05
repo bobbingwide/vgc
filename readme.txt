@@ -2,8 +2,8 @@
 Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
-Tested up to: 6.5.4
-Stable tag: 1.8.5
+Tested up to: 6.6.1
+Stable tag: 1.8.6
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -26,6 +26,13 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 1.8.6 = 
+* Changed: Add name attribute to fontFamilies to avoid warning from WooCommerce #81
+* Changed: Add Finance Options to mobile menus #80
+* Tested: With WordPress 6.6.1
+* Tested: With PHP 8.3
+* Tested: With WooCommerce 9.1.4
+
 = 1.8.5 = 
 * Fixed: Avoid Warning when select option has no options #79
 * Changed: Update to cater for security improvements in ACF / ACF Pro #78
