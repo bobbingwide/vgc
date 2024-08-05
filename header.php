@@ -62,6 +62,11 @@
                     <br>Menu</a>
             </li>
             <li class="col">
+                <a href="/finance-options/">
+                    <div style="font-size: 26px; font-weight:bold; line-height: 0.7; margin-bottom: 2px">£</div>
+                    Finance Options</a>
+            </li>
+            <li class="col">
                     <a href="/contact/">
                     <img src="/wp-content/uploads/2018/08/loc.svg" width="20" height="20" style="position: relative;top: -2px;">
                     <br>Visit Us</a>
