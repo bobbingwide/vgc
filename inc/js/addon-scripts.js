@@ -368,17 +368,32 @@ function isHidden(el) {
   return ((style.display === 'none') || (style.visibility === 'hidden'));
 }
 
+/**
+ * Enables or disables the Add to Cart button.
+ *
+ * If nationwide delivery is supported then the button is enabled regardless of the band.
+ * @param band
+ */
+
 function enableOrDisableAddToCart( band ) {
   var addToCartBtn = document.getElementById('btn-add-to-cart');
-  if ( band == 'delivery_excluded' || band == 'delivery_band_not_set' ) {
-    addToCartBtn.disabled = true;
+  if ( nationwideDelivery ) {
+    addToCartBtn.enabled = true;
   } else {
-    var delivery_wrapper = document.getElementById( 'delivery_wrapper');
-    var checkbox = delivery_wrapper.querySelector('.addon-details.' + band + ' ' + 'input[type="checkbox"]');
-    if ( checkbox ) {
-      addToCartBtn.disabled = false;
-    } else {
+    if (band == 'delivery_excluded' || band == 'delivery_band_not_set') {
       addToCartBtn.disabled = true;
+    } else {
+      var delivery_wrapper = document.getElementById('delivery_wrapper');
+      if (null !== delivery_wrapper) {
+        var checkbox = delivery_wrapper.querySelector('.addon-details.' + band + ' ' + 'input[type="checkbox"]');
+        if (checkbox) {
+          addToCartBtn.disabled = false;
+        } else {
+          addToCartBtn.disabled = true;
+        }
+      } else {
+        addToCartBtn.disabled = false;
+      }
     }
   }
 }
@@ -397,6 +412,7 @@ function getband() {
   var band = 'delivery_band_not_set';
   if (postcode) {
     band = get_delivery_band_code(postcode);
+    set_delivery_band_input( band );
   }
   console.log(band);
   return band;
@@ -417,4 +433,11 @@ function get_delivery_band_code( postcode ) {
   }
 
   return bandcode;
+}
+
+function set_delivery_band_input( band ) {
+  var deliveryband = document.getElementById("delivery_band");
+  if ( null !== deliveryband) {
+    deliveryband.value = band;
+  }
 }
