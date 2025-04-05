@@ -4,6 +4,7 @@ $ppq = get_query_var('ppq');
 
 //if ($deliveryStatus) :
 //	$delivery = $ppq->getDeliveryCost();
+$ppq->defineNationwideDeliveryConst();
 ?>
 <div class="section-addon-wrap delivery delivery_band_not_set" id="delivery_wrapper">
     <div class="section-options pb-4 pt-4 delivery delivery_band_not_set">
