@@ -197,10 +197,10 @@
         speed: 500,
         fade: true,
         cssEase: 'linear',
-    	autoplay:true,
+    	autoplay: true,
     	animateOut: 'fadeOut',
-    	pauseOnFocus: false,
-    	pauseOnHover: false        
+    	pauseOnFocus: true,
+    	pauseOnHover: true
     }); 
     
     jQuery('.houses').slick({
