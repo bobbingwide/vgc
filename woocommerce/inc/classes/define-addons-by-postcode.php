@@ -1,8 +1,8 @@
 <?php
 /**
- * @copyright Bobbing Wide 2023
+ * @copyright Bobbing Wide 2023, 2025
  *
- * Notes regarding to Post code related options for VGC 2.0.0
+ * Notes regarding Post code related options for VGC 2.0.0
  *
  * This class used to contain methods that determined the availability / price of addons based on the postcode band.
  * The logic to determine availability / price is now implemented in the browser.
@@ -36,24 +36,33 @@ class define_addons_by_postcode
 
   function __construct($postcode, $options_allowed) {
     // The inputted postcode to determine the returned options
-    //  bw_trace2();
+    //bw_trace2();
     if(!empty($postcode)) : $this->postcode = $postcode; endif;
     if(!empty($options_allowed)) : $this->options = $options_allowed; endif;         
     $this->runCheck();
     $this->enqueue_script();
   }
 
+    /**
+     * Enqueues the vgccodes script and inline data for postcodes by band and excluded postcodes.
+     *
+     * @return void
+     */
   function enqueue_script() {
-      wp_enqueue_script('vgccodes', get_template_directory_uri() . '/inc/js/vgccodes.js', array(), null , true);
+      if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+        $ver = time();
+      } else {
+          $ver = null;
+      }
+      wp_enqueue_script('vgccodes', get_template_directory_uri() . '/inc/js/vgccodes.js', array(), $ver , true);
       $data = 'const vgccodes = ';
       $data .= json_encode( [ "postcodes" => $this->acceptedPostcodes,
-        "excluded" => $this->excludedPostcodes] );
+        "excluded" => $this->excludedPostcodes ] );
       /*
-          const vgccodes = {
-          "postcodes": [['GU1'], ['GU2'], ['PO9'], ['PO30']],
-    "excluded": ['AB10'],
-    "delivery_band_costs": [0, 0, 0, 0, 0]
-};
+        const vgccodes = {
+        "postcodes": [['GU1'], ['GU2'], ['PO9'], ['PO30']],
+        "excluded": ['AB10'],
+        };
       */
       wp_add_inline_script( 'vgccodes', $data, 'before');
   }
@@ -70,13 +79,13 @@ class define_addons_by_postcode
     $this->calculateInstallationAddon();
   }
   
-  /*
+  /**
   * Set excluded postcodes
   */
   private function setExcludedPostcodes() : void {
       $this->excludedPostcodes = [];
       //bw_trace2( $this->options['postcode_excluded'], "postcode_excluded" );
-      if ( ( isset( $this->options['postcode_excluded'])  )) {
+      if ( ( isset( $this->options['postcode_excluded']) && !empty($this->options['postcode_excluded'] ) )) {
           $this->excludedPostcodes = array_map('trim', explode("\n", $this->options["postcode_excluded"]));
       }
   }
@@ -315,6 +324,68 @@ class define_addons_by_postcode
           }
       }
       return $installationBefore;
+  }
+
+  /**
+   * Returns the delivery cost when it's the same regardless of the post code band.
+   *
+   * If deliveryCost is not false (0 or a valid number) that means Nationwide delivery.
+   * Nationwide delivery is not supported if there are any excluded postcodes.
+   *
+   * @return false|numeric - false when the delivery cost is not the same regardless. 0 for FREE, otherwise numeric
+   */
+  public function getDeliveryCostRegardless() {
+      if ( count( $this->excludedPostcodes )) {
+          // bw_trace2( $this->excludedPostcodes, 'excluded postcodes', false);
+        return false;
+      }
+      $deliveryCost = $this->deliveryBandPrice( 0 );
+
+      if ( $this->displayInstallationBeforePostcode() ) {
+          // Delivery bands 1 to 4 are all null
+          if ( null === $deliveryCost) {
+              // But delivery to band 0 is not supported.
+              // bw_trace2( $deliveryCost, 'DC null', false);
+              return false;
+          } else {
+              // Delivery cost is the same regardless!
+              // bw_trace2( $deliveryCost, 'DC set', false);
+              return $deliveryCost;
+          }
+      }
+      //bw_trace2( 'installation after' );
+      // At least one is set - we assume they're different
+      return false;
+  }
+
+  /**
+   * Returns true if Nationwide Delivery is supported.
+   *
+   * @return bool true when Nationwide Delivery is supported.
+   */
+  function getNationwideDelivery() {
+    $deliveryCost = $this->getDeliveryCostRegardless();
+    if ( false === $deliveryCost ) {
+        $nationwideDelivery = false;
+    } else {
+        $nationwideDelivery = true;
+    }
+    return $nationwideDelivery;
+  }
+
+    /**
+     * Defines the nationwideDelivery constant.
+     *
+     * This constant is needed by addon-scripts to determine whether to enable the Add to Cart button.
+     * @return void
+     */
+  function defineNationwideDeliveryConst() {
+      if ( $this->getNationwideDelivery()) {
+          echo '<script type="text/javascript" >const nationwideDelivery = true; </script>', PHP_EOL;
+      } else {
+          echo '<script type="text/javascript" >const nationwideDelivery = false; </script>', PHP_EOL;
+
+      }
   }
 
 }
