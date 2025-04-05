@@ -360,7 +360,7 @@ add_filter( 'woocommerce_subcategory_count_html', '__return_null');
 /**
  * Displays a banner image and popular categories on the shop page.
  *
- * The banner image is the full sized featured image attached to the page that's identified as the sohop page.
+ * The banner image is the full sized featured image attached to the page that's identified as the shop page.
  * It should be the same shape as the banner image used for categories,
  * which is defined in the `content_above_category_title` field.
  *
@@ -412,7 +412,7 @@ function vgc_shop_page_content( $id ) {
 function vgc_woocommerce_after_main_content() {
 	add_filter( 'subcategory_archive_thumbnail_size', 'vgc_subcategory_archive_thumbnail_size' );
     remove_action( 'woocommerce_shop_loop_subcategory_title', 'woocommerce_template_loop_category_title' );
-    $content = do_shortcode( '[product_categories parent=634 hide_empty=1 number=0]');
+    $content = do_shortcode( '[product_categories parent=634 hide_empty=1 number=0 columns=6]');
     echo $content;
     remove_filter('subcategory_archive_thumbnail_size', 'vgc_subcategory_archive_thumbnail_size' );
 }
