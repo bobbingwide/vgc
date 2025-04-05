@@ -51,7 +51,7 @@ function calculate_price_on_cart_addition($cart_item_data, $product_id) {
     // Format the optional addons acf field array to compare against the posted data
     $addonsFieldArray = formatAddonsArray($addonsFieldArray);
     // Get the postcode band
-    $postcodeBand = (int) filter_var($_POST['delivery'], FILTER_SANITIZE_NUMBER_INT);
+    $postcodeBand = vgc_get_postcode_band();
     // Get the base price from the global options table if a base has been chosen
     $baseType['bases'] = [ 0 => 'No'];
     if ( isset( $_POST['base-type'])) {
@@ -1135,4 +1135,16 @@ function vgc_maybe_use_new_key( $new_key=true ) {
         $new_key = isset($globalOptionsTable[0]['17_32']);
     }
     return $new_key;
+}
+
+function vgc_get_postcode_band() {
+    $postcodeBand = null;
+    if (isset( $_POST['delivery'])) {
+        $postcodeBand = (int)filter_var($_POST['delivery'], FILTER_SANITIZE_NUMBER_INT);
+    } elseif ( isset( $_POST['delivery_band'])) {
+        $postcodeBand = $_POST['delivery_band'];
+        $postcodeBand = (int) substr( $postcodeBand, -1 );
+        //bw_trace2( $postcodeBand, "PCB", false );
+    }
+    return $postcodeBand;
 }
