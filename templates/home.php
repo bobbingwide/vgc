@@ -27,7 +27,7 @@ get_header(); ?>
 			<div class="owl-carousel owl-theme intro">
 			<?php
                 $count = 0;
-                $limit = 7; // Max is currently 7
+                $limit = 8; // Max is currently 7
 				if( have_rows('slides')):
 				while ( have_rows('slides') ) : the_row();
 
@@ -56,6 +56,9 @@ get_header(); ?>
 			</div>
 		</div>	
         </div>
+        <?php
+        do_action( 'vgc_sales_banner' );
+        ?>
 
         <?php if ( true ): ?>
         <div class="row align-items-center ctas">
