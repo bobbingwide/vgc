@@ -189,7 +189,7 @@ class calculate_price {
                 //die();                
                 
                 //posted value... TODO 
-                $postcodeBand = (int) filter_var($_POST['delivery'], FILTER_SANITIZE_NUMBER_INT);
+                $postcodeBand = vgc_get_postcode_band();
                 
                 
                 //loop it
@@ -367,6 +367,18 @@ class calculate_price {
 	            	$this->customBasket[] = "<div><strong>Delivery:</strong> <span class='addon__cost'>£".to_decimal($delivery_cost).'</span></div>';
 	    		}        
 	      	}
+            /**
+             * Cater for when the delivery cost is the same regardless of postcode band.
+             * The key is 'regardless', the value is the delivery cost.
+             * Should we be checking this against the actual database value?
+             */
+            if ( $key === 'regardless')  {
+                $delivery_cost = (float)( $value*1 );
+                $this->customPrice += $delivery_cost;
+                $this->customBasket[] = "<div><strong>Delivery:</strong> <span class='addon__cost'>£".to_decimal($delivery_cost).'</span></div>';
+
+            }
+
   		}
   	}
 
