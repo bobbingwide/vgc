@@ -272,7 +272,7 @@ function vgc_scripts()
 		wp_enqueue_style( 'vgc-woocommerce-style', get_template_directory_uri() . '/woocommerce.css', array(), $ver, 'all'  );
     }
     if (is_product()) {
-		wp_enqueue_script('addon-scripts', get_template_directory_uri() . '/inc/js/addon-scripts.js', array(), null, true);
+		wp_enqueue_script('addon-scripts', get_template_directory_uri() . '/inc/js/addon-scripts.js', array(), $ver, true);
     }
 
 	/** We don't want the Deposits for WooCommerce frontend stylesheet  */
@@ -434,3 +434,27 @@ add_filter( 'aioseo_sitemap_woocommerce_exclude_hidden_products', '__return_fals
  * Tell ACF that we're happy to include HTML in fields.
  */
 add_filter( 'acf/the_field/allow_unsafe_html', '__return_true' );
+
+/**
+ * Prepare to display a sales banner on the home page
+ */
+add_action( 'vgc_sales_banner', 'vgc_sales_banner');
+
+/**
+ * Displays a banner image on the home page.
+ *
+ * The banner image is the full sized featured image attached to the page that's identified as the shop page.
+ * It should be the same shape as the banner image used for categories,
+ * which is defined in the `content_above_category_title` field.
+ *
+ * @return void
+ */
+function vgc_sales_banner() {
+    $id = wc_get_page_id( 'shop');
+    $thumbnail = get_the_post_thumbnail( $id, 'full' );
+    $link = get_permalink( $id );
+    echo '<div class="row align-items-center ctas parent">';
+    echo '<a href="' . $link . '"><div class="child">' . $thumbnail . '</div></a>';
+    echo '</div>';
+
+}
