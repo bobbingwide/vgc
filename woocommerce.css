@@ -142,6 +142,12 @@ ul.products li.product .button {
 	.columns-6 ul.products li.product {
 		width: 13.4933333333%;
 	}
+	.columns-7 ul.products li.product {
+		width: 12%;
+	}
+	.columns-8 ul.products li.product {
+		width: 11%;
+	}
 }
 
 /**
