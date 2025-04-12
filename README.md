@@ -3,8 +3,8 @@
 * Contributors: automattic, Hotbox Studios, bobbingwide
 * Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 * Requires at least: 4.5
-* Tested up to: 6.7.RC3
-* Stable tag: 1.8.6
+* Tested up to: 6.8.RC3
+* Stable tag: 1.9.0
 * License: GNU General Public License v2 or later
 * License URI: LICENSE
 
@@ -27,6 +27,20 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 ## Changelog 
+# 1.9.0 
+* Changed: Improve support for Brands which offer nationwide delivery #88
+* Changed: Add action to display the store sales banner on the home page #85
+* Added: Add template part for Nationwide delivery, where the delivery price is the same for each post code band #88
+* Changed: Cater for potential to display up to 8 brands in a row #86
+* Changed: Reduce size of brand links - allow 6 per row #86
+* Changed: Add logic to display the sales banner image on the home page #85
+* Changed: Change slider values for pauseOnFocus and pausOnHover to true #85
+* Changed: Shop page: display 2 columns on narrow mobile devices #84
+* Changed: Remove the negative bottom settings for .slick-dots #85
+* Tested: With WordPress 6.8-RC3
+* Tested: With PHP 8.3
+* Tested: With WooCommerce 9.7.0
+
 # 1.8.7 
 * Changed: Update version on woocommerce/myaccount/form-login.php #82
 * Tested: With WordPress 6.7-RC3
