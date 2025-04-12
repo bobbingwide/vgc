@@ -359,12 +359,18 @@ function alter_product_archive_query($query) {
 }
 add_action('pre_get_posts', 'alter_product_archive_query');
 
-
-/*********** Add options page ----------------*/
-
-if( function_exists('acf_add_options_page') ) {
-    acf_add_options_page();
+/**
+ * Adds ACF options page.
+ *
+ * This is deferred until 'init' to allow for translation files to be loaded.
+ */
+function vgc_acf_add_options_page() {
+    if (function_exists('acf_add_options_page')) {
+        acf_add_options_page();
+    }
 }
+add_action( 'init', 'vgc_acf_add_options_page');
+
 
 add_filter( 'woocommerce_billing_fields', 'woo_filter_state_billing', 10, 1 );
 add_filter( 'woocommerce_shipping_fields', 'woo_filter_state_shipping', 10, 1 );
