@@ -3,7 +3,7 @@ Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
 Tested up to: 6.8.RC3
-Stable tag: 1.9.0
+Stable tag: 1.9.1
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -26,6 +26,13 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 1.9.1= 
+* Changed: Treat Glass rooms, Verandas & Gazebos the same as Log Cabins.  gardenvista issue 37
+* Fixed: Remove ineffectively commented out code that's bee replaced by the searchandfilter shortcode #36
+* Fixed: Defer adding of ACF options page to `init` #89
+* Changed: Update versions for WooCommerce 9.8.1 #83
+* Tested: With WooCommerce 9.8.1
+
 = 1.9.0 = 
 * Changed: Improve support for Brands which offer nationwide delivery #88
 * Changed: Add action to display the store sales banner on the home page #85
