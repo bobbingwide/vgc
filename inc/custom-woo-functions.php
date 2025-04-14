@@ -717,6 +717,10 @@ function getBaseTypePriceFromGlobalOptions($productLength, $productWidth, $postc
             if (strtolower($term->slug) == "log-cabin") {
                 $isLogCabin = true;
             }
+            // Treat Glass rooms, Verandas & Gazebos the same as Log Cabins
+            if (strtolower($term->slug) == "glass-rooms-verandas-gazebos") {
+                $isLogCabin = true;
+            }
             if (strtolower($term->slug) == "greenhouses") {
                 $isGreenHouse = true;
             }
