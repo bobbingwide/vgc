@@ -11,15 +11,11 @@ $productWidths = get_query_var('productWidth');
 // set manually
 $installCost = get_field('installation_cost', $product->get_id());
 //bw_trace2( $installCost, "installCost");
-if ( $installCost < 0 ) {
-    return;
-}
 if ( empty( $installCost )) {
     $installCost = 0;
+} elseif ( $installCost < 0 ) {
+    return;
 }
-
-
-
 
 if ($installationStatus == true && isset($installCost)) : ?>
   <?php //$installCost = $ppq->getInstallationCost(); ?>
