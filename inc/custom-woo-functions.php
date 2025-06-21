@@ -513,7 +513,7 @@ function woocommerceProcessCustomFields($post_id) {
 /*
 * Enqueue admin scripts
 */
-add_action('admin_enqueue_scripts', 'my_enqueue');
+//add_action('admin_enqueue_scripts', 'my_enqueue');
 
 function my_enqueue($hook) {
     wp_enqueue_script('my_custom_script', get_template_directory_uri() . '/vgc_copy.js');
