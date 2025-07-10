@@ -66,7 +66,9 @@ get_header( 'shop' );
         {
             // It's not obvious why we need this paragraph
             // <p>&nbsp;</p>
-            vgc_maybe_display_shop_banner();
+            if ( !isset( $_REQUEST['sf_paged'])) {
+                vgc_maybe_display_shop_banner();
+            }
             ?>
 
             <?php
@@ -95,6 +97,7 @@ get_header( 'shop' );
           <?php
           do_action( 'woocommerce_before_shop_loop');
           if(woocommerce_product_loop()) {
+            echo '<div class="vgc_products">';
           	woocommerce_product_loop_start();
           	if(wc_get_loop_prop( 'total' )) : while (have_posts()) : the_post();
           	/**
@@ -106,11 +109,17 @@ get_header( 'shop' );
           	endwhile; endif;
           	woocommerce_product_loop_end();
 
+
           	/**
           	 * Hook: woocommerce_after_shop_loop.
           	 * @hooked woocommerce_pagination - 10
           	 */
-          	do_action( 'woocommerce_after_shop_loop' );
+          	if ( defined( 'SEARCH_FILTER_PRO_VERSION') ) {
+                echo do_shortcode('[searchandfilter field="Load more"]');
+            } else {
+                do_action( 'woocommerce_after_shop_loop' );
+            }
+            echo '</div>';
           } else {
           	/**
           	 * Hook: woocommerce_no_products_found.
