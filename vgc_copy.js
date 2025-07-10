@@ -27,7 +27,7 @@
                     
                     var jqxhr = jQuery.ajax({
                       type: "POST",
-                      url: "/copy-fh79y739yq3.php",
+                      url: "/wp-admin/admin.php?page=gvg_bulk_update&tab=copy_optional_upgrades", //"/copy-fh79y739yq3.php",
                       data: {
                           fromId: fromId,
                           idVals: idVals,
