@@ -247,7 +247,7 @@ function vgc_scripts()
 
 	wp_enqueue_style( 'vgc-animate', get_template_directory_uri(). '/animate.css', array(), $ver, 'all' );
 	wp_enqueue_style( 'vgc-style', get_stylesheet_uri(), array(), $ver, 'all' );
-	wp_enqueue_script( 'vgc-navigation', get_template_directory_uri() . '/inc/js/navigation.js', array(), $ver, true );
+	wp_enqueue_script( 'vgc-navigation', get_template_directory_uri() . '/inc/js/navigation.js', array(), '1.0.0', true );
     wp_enqueue_script('vgc-pushy', 'https://cdnjs.cloudflare.com/ajax/libs/pushy/1.1.2/js/pushy.js', array(), $ver, true);
     wp_enqueue_script('slick-carousel', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array(), $ver, true);
     wp_enqueue_script('vgc-skip-link-focus-fix', get_template_directory_uri() . '/inc/js/skip-link-focus-fix.js', array(), $ver, true);
@@ -274,6 +274,13 @@ function vgc_scripts()
     if (is_product()) {
 		wp_enqueue_script('addon-scripts', get_template_directory_uri() . '/inc/js/addon-scripts.js', array(), $ver, true);
     }
+
+    if( is_shop() ) {
+        wp_enqueue_script( 'vgc-remove-duplicate-products', get_template_directory_uri() . '/inc/js/remove-duplicate-products.js', array(), '0.0.9', true);
+        wp_enqueue_script( 'vgc-mobile-filter-handler', get_template_directory_uri() . '/inc/js/mobile-filter-handler.js', array(), '0.0.6', true );
+        wp_enqueue_script( 'vgc-get-results-handler', get_template_directory_uri() . '/inc/js/get-results-handler.js', array(), '0.0.6', true );
+    }
+
 
 	/** We don't want the Deposits for WooCommerce frontend stylesheet  */
 	wp_dequeue_style( 'awcdp-frontend');
@@ -463,4 +470,24 @@ function vgc_sales_banner() {
     echo '<a href="' . $link . '"><div class="child">' . $thumbnail . '</div></a>';
     echo '</div>';
 
+}
+
+add_filter( 'search-filter/fields/field/get_attributes', 'vgc_search_filter_fields_field_get_attributes', 10, 2 );
+/**
+ * Changes the default custom value for the Size field.
+ *
+ * Filter function for Search & Filter Pro to allow all values for the Size field to be displayed in a drop down select list.
+ * The default maximum is 50, which is nowhere near enough.
+ */
+function vgc_search_filter_fields_field_get_attributes( $attributes, $field ) {
+
+    // Conditionally apply the attribute change based on the Field ID.
+    // Note: In the development environment the ID for the Size field is 5.
+    if ( $field->get_id() === 5 ) {
+        // For now, this can only be a string.
+        $attributes[ 'defaultValueCustom' ] = '250';
+        bw_trace2( $attributes, "attributes", false, BW_TRACE_VERBOSE );
+    }
+    // Always return at the end of a filter.
+    return $attributes;
 }
