@@ -3253,8 +3253,8 @@ section.section-brands .container-fluid .row .brand-logo {
 /******* SHOP SIDEBAR STYLES ************************************************/
 
 sidebar.shop-filter {
-	color:#FFF;
-	background-color:#3e606f;
+	/* color:#FFF; */
+	background-color:#efefef;
 	height: 100%
 }
 sidebar.shop-filter form ul {
@@ -5733,8 +5733,7 @@ position: absolute;
 .search-filter-reset:hover {
     color: #2f87a0;
     background: #d6d6d6;
-    text-decoration: none
-   
+    text-decoration: none;
 }
 
 /*
