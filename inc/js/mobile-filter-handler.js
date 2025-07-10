@@ -27,8 +27,9 @@ function mobileFilterAttachClickHandler(button) {
         button.addEventListener('click', () => {
             console.log('Button clicked:', button.textContent);
             document.querySelector('sidebar.shop-filter')?.classList.remove('fullscreen');
-            duplicateProductsObserver.disconnect();
-            duplicateProductsObserver.observe( duplicateProductsTargetNode, duplicateProductsConfig );
+            //duplicateProductsObserver.disconnect();
+            //duplicateProductsObserver.observe( duplicateProductsTargetNode, duplicateProductsConfig );
+            vgcGetResultsHandler();
 
         });
         button.dataset.customHandlerAttached = 'true';
@@ -39,3 +40,6 @@ function mobileFilterAttachClickHandler(button) {
 const mobileFilterTargetNode = document.querySelector( 'div.searchandfilter');
 
 mobileFilterObserver.observe(mobileFilterTargetNode, { childList: true, subtree: true });
+
+//const mobileFilterTargetNodeLoadMore = document.querySelector( 'div.vgc_products');
+//mobileFilterObserver.observe(mobileFilterTargetNodeLoadMore, { childList: true, subtree: true });

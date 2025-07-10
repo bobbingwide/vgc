@@ -14,7 +14,8 @@
 const duplicateProductsTargetNode = document.querySelector( 'div.vgc_products ul.products');
 
 // Set up the observer configuration
-const duplicateProductsConfig = { childList: true, subtree: true, attributes: true };
+// Don't monitor attributes since we change these during processing.
+const duplicateProductsConfig = { childList: true, subtree: true, attributes: false };
 
 /**
  * Caters for added mutations.
@@ -26,6 +27,7 @@ const duplicateProductsConfig = { childList: true, subtree: true, attributes: tr
  */
 const duplicateProductsCallback = function(mutationsList) {
     //console.log( mutationsList );
+    let removed = false;
     for (let mutation of mutationsList) {
         //console.log( mutation );
         if (mutation.type === 'childList') {
@@ -33,7 +35,7 @@ const duplicateProductsCallback = function(mutationsList) {
                 console.log( node);
                 if (node.tagName === 'LI') {
                     console.log('A LI product was added!', node);
-                    checkDuplicateNode( node );
+                    removed = checkDuplicateNode( node ) || removed;
 
                 }
             });
@@ -41,7 +43,9 @@ const duplicateProductsCallback = function(mutationsList) {
             console.log( 'attribute change');
         }
     }
-    //reClassifyProducts();
+    if ( removed ) {
+        reClassifyProducts();
+    }
 
 };
 
@@ -51,13 +55,16 @@ const duplicateProductsCallback = function(mutationsList) {
  * @param node
  */
 function checkDuplicateNode( node ) {
+    var removed = false;
     console.log( 'Checking for duplicate node');
     const href = findCurrentNodesHref( node );
     const matches = countMatchingNodes( href );
     if ( matches > 1 ) {
         console.log( "This is a duplicate");
         deleteNode( node );
+        removed = true;
     }
+    return removed;
 }
 
 function findCurrentNodesHref( node ) {
@@ -90,8 +97,9 @@ function deleteNode( node ) {
  *
  */
 function reClassifyProducts() {
-    console.log( 'Reclassifying products');
+
     const listItems = document.querySelectorAll('div.vgc_products li.product' );
+    console.log( 'Reclassifying products:' + listItems.length);
     listItems.forEach((li, index) => {
         // Clear existing classes
         li.classList.remove('first', 'last');
