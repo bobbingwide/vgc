@@ -67,7 +67,7 @@ get_header( 'shop' );
             // It's not obvious why we need this paragraph
             // <p>&nbsp;</p>
             if ( !isset( $_REQUEST['sf_paged'])) {
-                vgc_maybe_display_shop_banner();
+                //vgc_maybe_display_shop_banner();
             }
             ?>
 
@@ -95,6 +95,10 @@ get_header( 'shop' );
           
           ?>
           <?php
+          if ( defined( 'SEARCH_FILTER_PRO_VERSION') ) {
+              // Don't use woocommmerce_catalog_ordering
+              remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+          }
           do_action( 'woocommerce_before_shop_loop');
           if(woocommerce_product_loop()) {
             echo '<div class="vgc_products">';
@@ -108,17 +112,17 @@ get_header( 'shop' );
             <?php wc_get_template_part('content', 'product');
           	endwhile; endif;
           	woocommerce_product_loop_end();
-
-
-          	/**
-          	 * Hook: woocommerce_after_shop_loop.
-          	 * @hooked woocommerce_pagination - 10
-          	 */
-          	if ( defined( 'SEARCH_FILTER_PRO_VERSION') ) {
+            /**
+             * Hook: woocommerce_after_shop_loop.
+             * @hooked woocommerce_pagination - 10
+             */
+            if ( defined( 'SEARCH_FILTER_PRO_VERSION') ) {
                 echo do_shortcode('[searchandfilter field="Load more"]');
-            } else {
-                do_action( 'woocommerce_after_shop_loop' );
+                // don't use woocommerce pagination
+                remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination' );
             }
+            do_action( 'woocommerce_after_shop_loop' );
+
             echo '</div>';
           } else {
           	/**
