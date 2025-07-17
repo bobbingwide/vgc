@@ -2,8 +2,8 @@
 Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
-Tested up to: 6.8.1
-Stable tag: 1.9.3
+Tested up to: 6.8.2
+Stable tag: 2.0.0-beta1
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -15,6 +15,9 @@ VGC is the theme for gardenvista.co.uk.
 
 - It uses/supports Elementor with Elementor-Pro for some of the main pages
 - and WooCommerce for the online shop.
+- Aadvanced Custom Fields Pro for custom fields (incl. repeater fields) and a global options page 
+- Search and Filter Pro v2.5 for WooCommerce filters
+- or Search and Filter Pro v3.1 for WooCommerce filters and Load more pagination
 - Some of the templates include hardcoded logic which refer to background images.
 - The stylesheet also refers to hardcoded background images
 - Some of these images are now delivered as part of the theme; instead of being located in wp-content/uploads
@@ -26,6 +29,25 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 2.0.0-beta1 =
+* Changed: Update version for WooCommerce 9.9.0 #83
+* Changed: Support S&F Pro v3.1 on product-category display #95
+* Changed: Support S&F Pro v3.1 #71
+* Changed: Move sales banner and popular categories below products list #93
+* Changed: Add Sort Order drop down #94
+* Changed: Add support for 3 part sales banner #87
+* Changed: Set sidebar background colour to light grey, was dark bluey green #71
+* Changed: Support Search & Filter Pro v3 using Load more rather than pagination #71
+* Fixed: Don't invoke the old copy optional upgrades logic #24
+* Changed: Add support for Search & Filter Pro v3 while still supporting v2 #71
+* Changed: Add support for Search & Filter Pro v3 #71
+* Changed: Add new Javascript for Search & Filter Pro v3.1.7
+* Changed: First attempt to use MutationObserver to reduce duplicate products with S&F Pro v3 #71
+* Fixed: No longer enqueue vgc_copy.js #24
+* Tested: With WordPress 6.8.2
+* Tested: With WooCommerce 10.0.2
+* Tested: With PHP 8.3
+
 = 1.9.3 = 
 * Fixed: Test for empty before testing for negative #92
 
