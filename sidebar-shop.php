@@ -7,6 +7,7 @@
         echo do_shortcode('[searchandfilter id="6288"]');
     } else {
         echo '<div class="searchandfilter">';
+        echo do_shortcode('[searchandfilter field="Sort Order"]');
         echo do_shortcode('[searchandfilter field="Submit Button"]');
         echo do_shortcode('[searchandfilter field="Brand"]');
         echo do_shortcode('[searchandfilter field="Product Building Type"]');
