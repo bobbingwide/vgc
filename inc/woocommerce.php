@@ -369,9 +369,11 @@ add_filter( 'woocommerce_subcategory_count_html', '__return_null');
 function vgc_maybe_display_shop_banner() {
     $is_shop = is_shop();
     if ( $is_shop ) {
-        $id = wc_get_page_id( 'shop');
-        echo get_the_post_thumbnail( $id, 'full' );
-
+        $banner_done = vgc_maybe_display_banner_page();
+        if ( !$banner_done ) {
+            $id = wc_get_page_id('shop');
+            echo get_the_post_thumbnail($id, 'full');
+        }
         // Manual solution to display the popular categories replaced by automatic solution
         // that uses the ACF popular_category field.
         //vgc_shop_page_content( $id );
@@ -382,6 +384,15 @@ function vgc_maybe_display_shop_banner() {
     } else {
         //echo "no shop banner";
     }
+}
+
+function vgc_maybe_display_banner_page() {
+    $banner_page = get_field( 'banner_page', 'options' );
+    bw_trace2( $banner_page, "banner_page", false);
+    if ( $banner_page ) {
+        vgc_shop_page_content( $banner_page );
+    }
+    return $banner_page;
 }
 
 /**
@@ -396,7 +407,9 @@ function vgc_maybe_display_shop_banner() {
  */
 function vgc_shop_page_content( $id ) {
     $content = get_the_content( null, false, $id );
-    $content = apply_filters( 'the_content', $content);
+    bw_trace2( $content, 'content');
+    $content = do_blocks( $content ); // apply_filters( 'the_content', $content);
+    bw_trace2( $content, 'filtered content', false );
     echo $content;
 }
 
@@ -410,6 +423,7 @@ function vgc_shop_page_content( $id ) {
  * @return void
  */
 function vgc_woocommerce_after_main_content() {
+    vgc_maybe_display_shop_banner();
 	add_filter( 'subcategory_archive_thumbnail_size', 'vgc_subcategory_archive_thumbnail_size' );
     remove_action( 'woocommerce_shop_loop_subcategory_title', 'woocommerce_template_loop_category_title' );
     $content = do_shortcode( '[product_categories parent=634 hide_empty=1 number=0 columns=6]');
@@ -468,4 +482,19 @@ function vgc_display_popular_categories( $categories ) {
 	    $content = do_shortcode( "[product_categories ids=$category_ids hide_empty=0]" );
 	    echo $content;
     }
+}
+
+/**
+ * Support S&F Pro's Load more on product-category archives.
+ *
+ * @return void
+ */
+function vgc_open_classic_shop_results_container( ) {
+    bw_trace2();
+// use Search_Filter\Integrations\Woocommerce as WooCommerce_Integration;
+    echo '<div class="search-filter-query search-filter-query--id-' . absint( Search_Filter\Integrations\Woocommerce::get_active_query_id() ) . '">';
+}
+
+function vgc_close_classic_shop_results_container() {
+    echo '</div>';
 }

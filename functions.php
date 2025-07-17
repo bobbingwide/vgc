@@ -275,12 +275,14 @@ function vgc_scripts()
 		wp_enqueue_script('addon-scripts', get_template_directory_uri() . '/inc/js/addon-scripts.js', array(), $ver, true);
     }
 
-    if( is_shop() ) {
+    /**
+     * Enqueue scripts to work with Search and Filter Pro version 3
+     */
+    if( /* is_shop() && */ defined( 'SEARCH_FILTER_PRO_VERSION') ) {
         wp_enqueue_script( 'vgc-remove-duplicate-products', get_template_directory_uri() . '/inc/js/remove-duplicate-products.js', array(), '0.0.9', true);
         wp_enqueue_script( 'vgc-mobile-filter-handler', get_template_directory_uri() . '/inc/js/mobile-filter-handler.js', array(), '0.0.6', true );
         wp_enqueue_script( 'vgc-get-results-handler', get_template_directory_uri() . '/inc/js/get-results-handler.js', array(), '0.0.6', true );
     }
-
 
 	/** We don't want the Deposits for WooCommerce frontend stylesheet  */
 	wp_dequeue_style( 'awcdp-frontend');
@@ -463,12 +465,15 @@ add_action( 'vgc_sales_banner', 'vgc_sales_banner');
  * @return void
  */
 function vgc_sales_banner() {
-    $id = wc_get_page_id( 'shop');
-    $thumbnail = get_the_post_thumbnail( $id, 'full' );
-    $link = get_permalink( $id );
-    echo '<div class="row align-items-center ctas parent">';
-    echo '<a href="' . $link . '"><div class="child">' . $thumbnail . '</div></a>';
-    echo '</div>';
+    $banner_done = vgc_maybe_display_banner_page();
+    if ( !$banner_done ) {
+        $id = wc_get_page_id('shop');
+        $thumbnail = get_the_post_thumbnail($id, 'full');
+        $link = get_permalink($id);
+        echo '<div class="row align-items-center ctas parent">';
+        echo '<a href="' . $link . '"><div class="child">' . $thumbnail . '</div></a>';
+        echo '</div>';
+    }
 
 }
 
