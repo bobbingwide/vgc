@@ -1,6 +1,9 @@
 /**
  * Mobile filter handler for Search & Filter Pro v3.1
  *
+ * Resets the fullscreen class when either the Reset or Show products button is clicked
+ * and enables the logic to remove duplicates when the page is loaded.
+ *
  */
 const mobileFilterObserver = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
@@ -27,8 +30,6 @@ function mobileFilterAttachClickHandler(button) {
         button.addEventListener('click', () => {
             console.log('Button clicked:', button.textContent);
             document.querySelector('sidebar.shop-filter')?.classList.remove('fullscreen');
-            //duplicateProductsObserver.disconnect();
-            //duplicateProductsObserver.observe( duplicateProductsTargetNode, duplicateProductsConfig );
             vgcGetResultsHandler();
 
         });
@@ -38,8 +39,4 @@ function mobileFilterAttachClickHandler(button) {
 
 // Look for buttons being added to the search and filter area.
 const mobileFilterTargetNode = document.querySelector( 'div.searchandfilter');
-
 mobileFilterObserver.observe(mobileFilterTargetNode, { childList: true, subtree: true });
-
-//const mobileFilterTargetNodeLoadMore = document.querySelector( 'div.vgc_products');
-//mobileFilterObserver.observe(mobileFilterTargetNodeLoadMore, { childList: true, subtree: true });

@@ -32,9 +32,9 @@ const duplicateProductsCallback = function(mutationsList) {
         //console.log( mutation );
         if (mutation.type === 'childList') {
             mutation.addedNodes.forEach(node => {
-                console.log( node);
+                //console.log( node);
                 if (node.tagName === 'LI') {
-                    console.log('A LI product was added!', node);
+                    //console.log('A LI product was added!', node);
                     removed = checkDuplicateNode( node ) || removed;
 
                 }
@@ -56,11 +56,11 @@ const duplicateProductsCallback = function(mutationsList) {
  */
 function checkDuplicateNode( node ) {
     var removed = false;
-    console.log( 'Checking for duplicate node');
+    //console.log( 'Checking for duplicate node');
     const href = findCurrentNodesHref( node );
     const matches = countMatchingNodes( href );
     if ( matches > 1 ) {
-        console.log( "This is a duplicate");
+        //console.log( "This is a duplicate");
         deleteNode( node );
         removed = true;
     }

@@ -25,10 +25,10 @@ function vgcAttachResultsHandler() {
         const query = queries[i];
 
         // Get the query ID.
-        console.log(query.getId());
+        //console.log(query.getId());
         // Get query attributes using getAttribute
-        console.log(query.getAttribute('postTypes'));
-        console.log(query.getAttribute('resultsDynamicUpdate'));
+        //console.log(query.getAttribute('postTypes'));
+        //console.log(query.getAttribute('resultsDynamicUpdate'));
         if (query.getAttribute('resultsDynamicUpdate') === 'yes') {
             // Listen for the update to the results.
             query.on('get-results/start', function (queryObject) {
@@ -51,7 +51,7 @@ function vgcCheckDuplicateProducts() {
     console.log( 'Checking duplicate products');
     const listItems = document.querySelectorAll('div.vgc_products li.product' );
     listItems.forEach((li, index) => {
-        console.log(li);
+        //console.log(li);
         if (!li.classList.contains('processed')) {
             // Your processing logic here
             console.log('Processing:', li.textContent);
