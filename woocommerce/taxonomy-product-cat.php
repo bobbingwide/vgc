@@ -102,10 +102,17 @@ get_header( 'shop' );
           
           ?>
           <?php
+          if ( defined( 'SEARCH_FILTER_PRO_VERSION') ) {
+              // Don't use woocommmerce_catalog_ordering
+              remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+              add_action( 'woocommerce_before_shop_loop','vgc_open_classic_shop_results_container');
+          }
           do_action( 'woocommerce_before_shop_loop');
           if(woocommerce_product_loop()) {
+            echo '<div class="vgc_products">';
           	woocommerce_product_loop_start();
           	if(wc_get_loop_prop( 'total' )) : while (have_posts()) : the_post();
+
           	/**
           	* Hook: woocommerce_shop_loop.
           	* @hooked WC_Structured_Data::generate_product_data() - 10
@@ -118,7 +125,15 @@ get_header( 'shop' );
           	 * Hook: woocommerce_after_shop_loop.
           	 * @hooked woocommerce_pagination - 10
           	 */
+          	if ( defined( 'SEARCH_FILTER_PRO_VERSION') ) {
+                echo do_shortcode('[searchandfilter field="Load more"]');
+                // don't use woocommerce pagination
+                remove_action( 'woocommerce_after_shop_loop', 'woocommerce_pagination' );
+                add_action( 'woocommerce_after_shop_loop','vgc_close_classic_shop_results_container');
+            }
           	do_action( 'woocommerce_after_shop_loop' );
+
+            echo '</div>';
           } else {
           	/**
           	 * Hook: woocommerce_no_products_found.
