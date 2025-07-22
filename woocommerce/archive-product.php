@@ -67,7 +67,7 @@ get_header( 'shop' );
             // It's not obvious why we need this paragraph
             // <p>&nbsp;</p>
             if ( !isset( $_REQUEST['sf_paged'])) {
-                //vgc_maybe_display_shop_banner();
+                vgc_maybe_display_shop_banner();
             }
             ?>
 

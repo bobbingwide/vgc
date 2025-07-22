@@ -423,7 +423,7 @@ function vgc_shop_page_content( $id ) {
  * @return void
  */
 function vgc_woocommerce_after_main_content() {
-    vgc_maybe_display_shop_banner();
+    //vgc_maybe_display_shop_banner();
 	add_filter( 'subcategory_archive_thumbnail_size', 'vgc_subcategory_archive_thumbnail_size' );
     remove_action( 'woocommerce_shop_loop_subcategory_title', 'woocommerce_template_loop_category_title' );
     $content = do_shortcode( '[product_categories parent=634 hide_empty=1 number=0 columns=6]');
