@@ -1,5 +1,5 @@
 <sidebar class="shop-filter p-4 d-block mb-5">
-  <h2 class="fw-bold h5">Filter Search</h2>
+  <h2 class="fw-bold h5 mt-3">Filter Search</h2>
 
 
     <?php
