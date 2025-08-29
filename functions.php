@@ -279,7 +279,7 @@ function vgc_scripts()
      * Enqueue scripts to work with Search and Filter Pro version 3
      */
     if( /* is_shop() && */ defined( 'SEARCH_FILTER_PRO_VERSION') ) {
-        wp_enqueue_script( 'vgc-remove-duplicate-products', get_template_directory_uri() . '/inc/js/remove-duplicate-products.js', array(), '0.0.9', true);
+        wp_enqueue_script( 'vgc-remove-duplicate-products', get_template_directory_uri() . '/inc/js/remove-duplicate-products.js', array(), '0.0.10', true);
         wp_enqueue_script( 'vgc-mobile-filter-handler', get_template_directory_uri() . '/inc/js/mobile-filter-handler.js', array(), '0.0.6', true );
         wp_enqueue_script( 'vgc-get-results-handler', get_template_directory_uri() . '/inc/js/get-results-handler.js', array(), '0.0.6', true );
     }

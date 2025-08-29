@@ -43,9 +43,10 @@ const duplicateProductsCallback = function(mutationsList) {
             console.log( 'attribute change');
         }
     }
-    if ( removed ) {
+    // We have to do this regardless of whether any products were removed.
+    //if ( removed ) {
         reClassifyProducts();
-    }
+    //}
 
 };
 
