@@ -77,7 +77,7 @@ if( have_rows('content') ):
         // FULL WIDTH IMAGE
         if( get_row_layout() == 'full_width_image' ):
         
-            $image = get_sub_field('image');
+            $image = get_sub_field('full_width_image');
             $alt = $image["alt"];
             
             ?>
