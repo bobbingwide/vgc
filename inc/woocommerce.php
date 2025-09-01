@@ -487,11 +487,13 @@ function vgc_display_popular_categories( $categories ) {
 /**
  * Support S&F Pro's Load more on product-category archives.
  *
+ * This code was needed for v3 up to Search and Filter Pro v3.2.0-beta-6
+ *
  * @return void
  */
 function vgc_open_classic_shop_results_container( ) {
-    bw_trace2();
-// use Search_Filter\Integrations\Woocommerce as WooCommerce_Integration;
+    // bw_trace2();
+    // use Search_Filter\Integrations\Woocommerce as WooCommerce_Integration;
     echo '<div class="search-filter-query search-filter-query--id-' . absint( Search_Filter\Integrations\Woocommerce::get_active_query_id() ) . '">';
 }
 
