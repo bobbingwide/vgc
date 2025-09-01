@@ -54,7 +54,7 @@ function vgcCheckDuplicateProducts() {
         //console.log(li);
         if (!li.classList.contains('processed')) {
             // Your processing logic here
-            console.log('Processing:', li.textContent);
+            console.log('Processing:', li.innerText);
             checkDuplicateNode( li );
 
             // Mark as processed
