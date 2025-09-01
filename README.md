@@ -4,7 +4,7 @@
 * Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 * Requires at least: 4.5
 * Tested up to: 6.8.2
-* Stable tag: 2.0.0-beta2
+* Stable tag: 2.0.0-beta3
 * License: GNU General Public License v2 or later
 * License URI: LICENSE
 
@@ -30,6 +30,11 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 ## Changelog 
+# 2.0.0-beta3 
+* Fixed: Correct full_width-image subfield name #96
+* Changed: Enable Filter Search heading and default sorting to be seen on mobile #94
+* Changed: Ensure the first and last classes in the product list are adjusted #95
+
 # 2.0.0-beta2 
 * Changed: Revert Sales banner and Popular Categories move #93
 
