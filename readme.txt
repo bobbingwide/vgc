@@ -29,6 +29,9 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 2.0.0-beta4 = 
+* Changed: With S&F Pro v3.2.0-beta-6 we no longer need to force the search-filter-query--id-1 div #95
+
 = 2.0.0-beta3 =
 * Fixed: Correct full_width-image subfield name #96
 * Changed: Enable Filter Search heading and default sorting to be seen on mobile #94
