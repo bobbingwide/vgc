@@ -31,7 +31,7 @@ do_action( 'set_product_range_title' );
 ?>
 <li <?php wc_product_class(); ?>>
    <div class="product-thumbnail-wrap">
-	    <a href="<?php the_permalink(); ?>" title="View product: <?php the_title() ?>"><?php the_post_thumbnail('large'); ?></a>
+	    <a href="<?php the_permalink(); ?>" title="View product: <?php the_title() ?>"><?php the_post_thumbnail(); ?></a>
   </div>
   <div class="product-attributes">
     <h3 class="pt-3 pb-0 mb-0 h5"><a href="<?php the_permalink(); ?>" class="fw-bold font-colour-primary text-decoration-none" title="View product: <?php the_title() ?>"><?php the_title(); ?></a></h3>
