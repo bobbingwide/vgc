@@ -54,7 +54,7 @@
         <ul class="mob-only mob-nav row">
             <li class="col align-self-center pl-1 pr-1">
             <a class="menu" href="/">
-                <img class="mob-logo" src="/wp-content/themes/vgc/images/webp/vgc_logo_2019-25_white-300x169.webp" height="44" /></a>
+                <img class="mob-logo" src="/wp-content/themes/vgc/images/webp/vgc_logo_2019-25_white-78x44.webp" height="44" /></a>
             </li>
             <li class="col">
                     <a href="#" class="menu-btn" tabindex="0">
