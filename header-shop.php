@@ -40,7 +40,7 @@
     <div class="row align-items-center">
       <div class="col-lg-2 mw">
         <?php $themeLogo = get_header_image(); ?>
-        <a href="/store" title="Garden Vista Group | Go to the Homepage"><img src="/wp-content/uploads/2019/10/vgc_logo_2019-25.png" alt="Logo" style="max-width: 140px"></a>
+        <a href="/store/" title="Garden Vista Group | Go to the Homepage"><img src="/wp-content/themes/vgc/images/webp/vgc_logo_2019-25-140x79.webp" alt="Logo" style="max-width: 140px"></a>
       </div>
       <div class="col-lg-6 mobeshop">
         <?php echo do_shortcode('[wcas-search-form]'); ?>
