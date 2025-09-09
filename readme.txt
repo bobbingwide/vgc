@@ -3,7 +3,7 @@ Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
 Tested up to: 6.8.2
-Stable tag: 2.0.0-beta3
+Stable tag: 2.0.0-beta5
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -29,6 +29,15 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 2.0.0-beta5 =
+* Changed: Use default sized product thumbnail rather than large #97
+* Changed: Deliver vgc_logo from the theme #97
+* Changed: Use correctly sized logo on mobile #97
+* Changed: Support more WooCommerce taxonomies #71
+* Changed: Only enqueue additional scripts for S&F Pro v3.2 when needed. #71
+* Changed: Used correctly sized vgc logo on the store page #97
+* Changed: Reduce information logged to the console #71
+
 = 2.0.0-beta4 = 
 * Changed: With S&F Pro v3.2.0-beta-6 we no longer need to force the search-filter-query--id-1 div #95
 
