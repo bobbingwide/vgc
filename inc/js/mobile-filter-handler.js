@@ -1,5 +1,5 @@
 /**
- * Mobile filter handler for Search & Filter Pro v3.1
+ * Mobile filter handler for Search & Filter Pro v3.2
  *
  * Resets the fullscreen class when either the Reset or Show products button is clicked
  * and enables the logic to remove duplicates when the page is loaded.
@@ -39,4 +39,6 @@ function mobileFilterAttachClickHandler(button) {
 
 // Look for buttons being added to the search and filter area.
 const mobileFilterTargetNode = document.querySelector( 'div.searchandfilter');
-mobileFilterObserver.observe(mobileFilterTargetNode, { childList: true, subtree: true });
+if ( mobileFilterTargetNode ) {
+    mobileFilterObserver.observe(mobileFilterTargetNode, {childList: true, subtree: true});
+}

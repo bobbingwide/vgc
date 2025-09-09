@@ -116,7 +116,8 @@ function reClassifyProducts() {
 }
 
 // Create an observer instance
-const duplicateProductsObserver = new MutationObserver( duplicateProductsCallback );
-
-// Start observing
-duplicateProductsObserver.observe( duplicateProductsTargetNode, duplicateProductsConfig );
+if ( duplicateProductsTargetNode ) {
+    const duplicateProductsObserver = new MutationObserver(duplicateProductsCallback);
+    // Start observing
+    duplicateProductsObserver.observe(duplicateProductsTargetNode, duplicateProductsConfig);
+}
