@@ -39,8 +39,8 @@
   <div class="container-fluid">
     <div class="row align-items-center">
       <div class="col-lg-2 mw">
-        <?php $themeLogo = get_header_image(); ?>
-        <a href="/store/" title="Garden Vista Group | Go to the Homepage"><img src="/wp-content/themes/vgc/images/webp/vgc_logo_2019-25-140x79.webp" alt="Logo" style="max-width: 140px"></a>
+        <?php //  $themeLogo = get_header_image(); ?>
+        <a href="/store/" title="Garden Vista Group | Go to the Homepage"><img src="/wp-content/themes/vgc/images/webp/vgc_logo_2019-25-140x79.webp" width="140" height="179" alt="Logo" style="max-width: 140px"></a>
       </div>
       <div class="col-lg-6 mobeshop">
         <?php echo do_shortcode('[wcas-search-form]'); ?>
