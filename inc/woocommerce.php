@@ -367,6 +367,9 @@ add_filter( 'woocommerce_subcategory_count_html', '__return_null');
  * @return void
  */
 function vgc_maybe_display_shop_banner() {
+    if ( is_search() ) {
+        return;
+    }
     $is_shop = is_shop();
     if ( $is_shop ) {
         $banner_done = vgc_maybe_display_banner_page();
@@ -377,22 +380,67 @@ function vgc_maybe_display_shop_banner() {
         // Manual solution to display the popular categories replaced by automatic solution
         // that uses the ACF popular_category field.
         //vgc_shop_page_content( $id );
-
-        $categories = vgc_get_popular_categories();
-        vgc_display_popular_categories( $categories );
+        if ( vgc_show_popular_categories() ) {
+            $categories = vgc_get_popular_categories();
+            vgc_display_popular_categories($categories);
+        }
 
     } else {
         //echo "no shop banner";
     }
 }
 
-function vgc_maybe_display_banner_page() {
-    $banner_page = get_field( 'banner_page', 'options' );
-    bw_trace2( $banner_page, "banner_page", false);
+function vgc_maybe_display_banner_page( $banner_field='banner_page') {
+    $banner_page = get_field( $banner_field, 'options' );
+    bw_trace2( $banner_page, "$banner_field", false);
     if ( $banner_page ) {
         vgc_shop_page_content( $banner_page );
     }
     return $banner_page;
+}
+
+function vgc_show_popular_categories() {
+    $show_popular_categories = get_field( 'show_popular_categories', 'options' );
+    //bw_trace2( $show_popular_categories, 'show_popular_categories', false);
+    return $show_popular_categories;
+}
+
+function vgc_show_brands() {
+    $show_brands = get_field( 'show_brands', 'options' );
+    //bw_trace2( $show_brands, 'show_brands', false);
+    return $show_brands;
+}
+
+/**
+ * Show USP Banner on the store page?
+ */
+function vgc_show_usp_banner() {
+    $show_usp_banner = get_field( 'show_usp_banner', 'options' );
+    return $show_usp_banner;
+}
+
+/**
+ * Show slides on the home page?
+ */
+function vgc_show_slides() {
+    $show_slides = get_field( 'show_slides', 'options' );
+    return $show_slides;
+}
+
+/**
+ * Show CTA links on the home page?
+ */
+function vgc_show_cta_links() {
+    $show = get_field( 'show_cta_links', 'options' );
+    return $show;
+}
+
+/**
+ * Show houses slider on the home page?
+ */
+function vgc_show_houses() {
+    $show = get_field( 'show_houses', 'options' );
+    return $show;
 }
 
 /**
@@ -426,8 +474,10 @@ function vgc_woocommerce_after_main_content() {
     //vgc_maybe_display_shop_banner();
 	add_filter( 'subcategory_archive_thumbnail_size', 'vgc_subcategory_archive_thumbnail_size' );
     remove_action( 'woocommerce_shop_loop_subcategory_title', 'woocommerce_template_loop_category_title' );
-    $content = do_shortcode( '[product_categories parent=634 hide_empty=1 number=0 columns=6]');
-    echo $content;
+    if ( vgc_show_brands() ) {
+        $content = do_shortcode('[product_categories parent=634 hide_empty=1 number=0 columns=6]');
+        echo $content;
+    }
     remove_filter('subcategory_archive_thumbnail_size', 'vgc_subcategory_archive_thumbnail_size' );
 }
 
