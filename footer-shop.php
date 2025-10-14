@@ -26,7 +26,7 @@ if($page_id !=5769)
   <div class="site-info row">
     <div class="col">
         <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar("Footer 1 Shop") ) : ?><?php endif;?>
-        <script src="https://assurance.sysnetgs.com/assurancecard/be8e7fbc4499573fe4e52dc3153f648e515ed06aced4418e06d383d6dcb998e1/cardJs" type="text/javascript"></script>        
+        <!-- removed assurance.sysnetgs.com/assurancecard/be8e7fbc4499573fe4e52dc3153f648e515ed06aced4418e06d383d6dcb998e1/cardJs -->
 		</div>
 		<div class="col">
         <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar("Footer 2 Shop") ) : ?><?php endif;?>
