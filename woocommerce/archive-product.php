@@ -26,7 +26,10 @@ get_header( 'shop' );
 ?>
 
 <!-- Start Icon Strip -->
-<?php get_template_part('/template-parts/shop/usp', 'strip'); ?>
+<?php if ( vgc_show_usp_banner() ) {
+    get_template_part('/template-parts/shop/usp', 'strip');
+}
+?>
 
 <div class="mob__filter" style="display: none">Filter <img src="/wp-content/themes/vgc/images/filter.svg" alt="filter"></div>
 
