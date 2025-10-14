@@ -85,7 +85,14 @@ if ( ! function_exists( 'vgc_setup' ) ) :
 			'flex-height' => true,
 		) );
 		add_image_size( 'houses', 400, 480, true );
-		add_image_size( 'woocommerce_thumbnail', 300, 300, true );
+		//add_image_size( 'woocommerce_thumbnail', 360, 0, false );
+        /*
+         * wp_get_registered_image_subsizes()
+         * returns an array as follows
+         *
+
+         */
+        //remove_image_size('dgwt-wcas-product-suggestion' );
 
     register_sidebar(array(
       'name' => 'Footer 1',
@@ -242,7 +249,7 @@ function vgc_scripts()
 	} else {
 		$ver = '2131231235';
 	}
-    wp_enqueue_style('use-typekit-net-vyh3vpj', get_template_directory_uri() . '/use-typekit-net-vyh3vpj.css', [], null, 'all');
+    //wp_enqueue_style('use-typekit-net-vyh3vpj', get_template_directory_uri() . '/use-typekit-net-vyh3vpj.css', [], null, 'all');
     wp_enqueue_style('bootstrap', get_template_directory_uri() . '/bootstrap.min.css', [], '5.1.3', 'all');
 
 	wp_enqueue_style( 'vgc-animate', get_template_directory_uri(). '/animate.css', array(), $ver, 'all' );
@@ -458,23 +465,29 @@ add_filter( 'acf/the_field/allow_unsafe_html', '__return_true' );
 add_action( 'vgc_sales_banner', 'vgc_sales_banner');
 
 /**
- * Displays a banner image on the home page.
+ * Displays a banner on the home page.
  *
- * The banner image is the full sized featured image attached to the page that's identified as the shop page.
+ * Displays the banner page if specified in the options as `banner_home_page`.
+ * If this isn't selected it falls back to a single banner image,
+ * which is the full size featured image attached to the page that's identified as the shop page.
  * It should be the same shape as the banner image used for categories,
  * which is defined in the `content_above_category_title` field.
  *
  * @return void
  */
 function vgc_sales_banner() {
-    $banner_done = vgc_maybe_display_banner_page();
+    $banner_done = vgc_maybe_display_banner_page('banner_page_home');
     if ( !$banner_done ) {
         $id = wc_get_page_id('shop');
-        $thumbnail = get_the_post_thumbnail($id, 'full');
-        $link = get_permalink($id);
-        echo '<div class="row align-items-center ctas parent">';
-        echo '<a href="' . $link . '"><div class="child">' . $thumbnail . '</div></a>';
-        echo '</div>';
+        if ( $id ) {
+            $thumbnail = get_the_post_thumbnail($id, 'full');
+            if ( $thumbnail !== "") {
+                $link = get_permalink($id);
+                echo '<div class="row align-items-center ctas parent">';
+                echo '<a href="' . $link . '"><div class="child">' . $thumbnail . '</div></a>';
+                echo '</div>';
+            }
+        }
     }
 
 }
@@ -498,3 +511,43 @@ function vgc_search_filter_fields_field_get_attributes( $attributes, $field ) {
     // Always return at the end of a filter.
     return $attributes;
 }
+
+/**
+ * Makes Woo sizes follow WordPress Media settings.
+ *
+ * woocommerce_thumbnail like thumbnail
+ * woocommerce_single like large, but height 0
+ * woocommerce_gallery_thumbnail like thumbnail
+ * @return void
+ */
+function vgc_woocommerce_image_sizes_like_vgcs() {
+
+
+    add_filter('woocommerce_get_image_size_thumbnail', function ($size) {
+        return [
+            'width' => (int)get_option('thumbnail_size_w'), // WP "Thumbnail" width
+            'height' => (int)get_option('thumbnail_size_h'), // WP "Thumbnail" height
+            'crop' => (bool)get_option('thumbnail_crop'),
+        ];
+    });
+
+    add_filter('woocommerce_get_image_size_single', function ($size) {
+        // Use WP "Large" width for product single; height is ignored when crop=false.
+        return [
+            'width' => (int)get_option('large_size_w'),
+            'height' => 0,
+            'crop' => false,
+        ];
+    });
+
+    add_filter('woocommerce_get_image_size_gallery_thumbnail', function ($size) {
+        // Small gallery thumbs – map to WP "Thumbnail".
+        return [
+            'width' => (int)get_option('thumbnail_size_w'),
+            'height' => (int)get_option('thumbnail_size_h'),
+            'crop' => (bool)get_option('thumbnail_crop'),
+        ];
+    });
+}
+
+add_action( 'after_setup_theme', 'vgc_woocommerce_image_sizes_like_vgcs');
