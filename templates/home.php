@@ -21,7 +21,9 @@ get_header(); ?>
 		
 		<?php
 		while ( have_posts() ) : the_post();
+        if ( vgc_show_slides() ):
 		?>
+
         <div class="row">		
 		<div class="col-12 pl-0 pr-0">
 			<div class="owl-carousel owl-theme intro">
@@ -57,10 +59,11 @@ get_header(); ?>
 		</div>	
         </div>
         <?php
-        do_action( 'vgc_sales_banner' );
+            endif;
+            do_action( 'vgc_sales_banner' );
         ?>
 
-        <?php if ( true ): ?>
+        <?php if ( vgc_show_cta_links() ): ?>
         <div class="row align-items-center ctas">
             
             <div class="col-md-4 col-6">
@@ -150,7 +153,7 @@ get_header(); ?>
     		</div>    		
         </div>
         
-        
+        <?php if ( vgc_show_houses()) : ?>
         <section class="house">
         <div class="houses owl-theme owl-carousel">
             
@@ -197,6 +200,7 @@ get_header(); ?>
         </div>
           <p class="text-center"><a class="btn btn_secondary" href="/garden-buildings/">View all Buildings</a></p> 
         </section>
+        <?php endif; ?>
         
 
 	
