@@ -161,9 +161,28 @@ $removalStatus = $ppq->getRemovalStatus();
 		?>
 		<div class="row pb-5" id="product-<?php the_ID(); ?>" <?php wc_product_class(); ?>>
 			<div class="col-lg-5" style="overflow: hidden">
-				<?php get_template_part('/template-parts/shop/flexslider', 'carousel') ?>
-			</div>
+				<?php get_template_part('/template-parts/shop/flexslider', 'carousel') ; ?>
+            </div>
 			<div class="col-lg-6 offset-lg-1">
+                <div class="summary entry-summary">
+                    <?php
+                    /**
+                     * Hook: woocommerce_single_product_summary.
+                     *
+                     * @hooked woocommerce_template_single_title - 5
+                     * @hooked woocommerce_template_single_rating - 10
+                     * @hooked woocommerce_template_single_price - 10
+                     * @hooked woocommerce_template_single_excerpt - 20
+                     * @hooked woocommerce_template_single_add_to_cart - 30
+                     * @hooked woocommerce_template_single_meta - 40
+                     * @hooked woocommerce_template_single_sharing - 50
+                     * @hooked WC_Structured_Data::generate_product_data() - 60
+                     */
+                    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+                    do_action( 'woocommerce_single_product_summary' );
+                    ?>
+                </div>
+
 				<h3 class="w-100 clearfix fw-bold mb-2 font-colour-primary">Standard Features</h3>
 				<?php
 					if(function_exists('get_field')) { ?>

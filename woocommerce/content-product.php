@@ -30,18 +30,51 @@ if (empty($product) || ! $product->is_visible() ) {
 do_action( 'set_product_range_title' );
 ?>
 <li <?php wc_product_class(); ?>>
+    <?php
+    /**
+    * Hook: woocommerce_before_shop_loop_item.
+    *
+    * @hooked woocommerce_template_loop_product_link_open - 10
+    */
+    do_action( 'woocommerce_before_shop_loop_item' );
+    /**
+     * Hook: woocommerce_before_shop_loop_item_title.
+     *
+     * @hooked woocommerce_show_product_loop_sale_flash - 10
+     * @hooked woocommerce_template_loop_product_thumbnail - 10
+     */
+    remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
+    do_action( 'woocommerce_before_shop_loop_item_title' );
+    ?>
    <div class="product-thumbnail-wrap">
-	    <a href="<?php the_permalink(); ?>" title="View product: <?php the_title() ?>"><?php the_post_thumbnail(); ?></a>
+	    <a href="<?php the_permalink(); ?>" title="View product: <?php the_title() ?>">
+            <?php the_post_thumbnail('post-thumbnail', [ 'sizes' => '(max-width: 996px) 50vw, (max-width: 1920px) 25vw, 375px' ]); ?></a>
   </div>
   <div class="product-attributes">
     <h3 class="pt-3 pb-0 mb-0 h5"><a href="<?php the_permalink(); ?>" class="fw-bold font-colour-primary text-decoration-none" title="View product: <?php the_title() ?>"><?php the_title(); ?></a></h3>
 
     <?php
     /**
+     * Hook: woocommerce_after_shop_loop_item_title.
+     *
+     * @hooked woocommerce_template_loop_rating - 5
+     * @hooked woocommerce_template_loop_price - 10
+     */
+    remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+    do_action( 'woocommerce_after_shop_loop_item_title' );
+    /**
      * Display the product range dropdown. Implemented by gvg_product_range.
      * Note: this includes displaying of the price / SALE price
      */
     do_action( 'display_gvg_product_range_dropdown', $product );
+    /**
+     * Hook: woocommerce_after_shop_loop_item.
+     *
+     * @hooked woocommerce_template_loop_product_link_close - 5
+     * @hooked woocommerce_template_loop_add_to_cart - 10
+     */
+    remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart',10);
+    do_action( 'woocommerce_after_shop_loop_item' );
     ?>
   </div>
 </li>
