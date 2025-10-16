@@ -2,8 +2,8 @@
 Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
-Tested up to: 6.8.2
-Stable tag: 2.0.0-beta5
+Tested up to: 6.8.3
+Stable tag: 2.0.0-beta8
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -17,7 +17,7 @@ VGC is the theme for gardenvista.co.uk.
 - and WooCommerce for the online shop.
 - Aadvanced Custom Fields Pro for custom fields (incl. repeater fields) and a global options page 
 - Search and Filter Pro v2.5 for WooCommerce filters
-- or Search and Filter Pro v3.1 for WooCommerce filters and Load more pagination
+- or Search and Filter Pro v3.2.0-beta-6 for WooCommerce filters and Load more pagination
 - Some of the templates include hardcoded logic which refer to background images.
 - The stylesheet also refers to hardcoded background images
 - Some of these images are now delivered as part of the theme; instead of being located in wp-content/uploads
@@ -29,6 +29,19 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 2.0.0-beta8 =
+* Changed: Enable WPC Badge Management for WooCommerce #100
+* Changed: Don't enqueue assurance.sysnetgs.com's assurance card JS #97
+* Changed: Performance: Display store USP banner if required #97
+* Changed: Performance: Display home page sections based on ACF home page option fields #97
+* Changed: Performance: Use smaller icons in the USP slider #97
+* Changed: Add ACF options to choose what to display on the home and store pages #97
+* Changed: Performance: Make WooCommerce image sizes follow WordPress Media settings #97 
+* Changed: Performance: Don't enqueue FF Enzo web fonts #97 ( gardenvista #43 ) 
+* Changed: Performance: Use banner_home_page option to display sales banners on the home page #97
+* Changed: Performance: Don't get header image. Set logo dimensions #97
+* Changed: Performance: Reduce USP banner image size #97
+
 = 2.0.0-beta5 =
 * Changed: Use default sized product thumbnail rather than large #97
 * Changed: Deliver vgc_logo from the theme #97

@@ -4,7 +4,7 @@ Theme URI: https://github.com/bobbingwide/vgc
 Author: Hotbox Studios & Herb Miller of Bobbing Wide
 Author URI: https://www.hotboxstudios.co.uk/
 Description: Custom theme for Garden Vista Group. Integrated with WooCommerce
-Version: 2.0.0-beta5
+Version: 2.0.0-beta8
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: vgc
@@ -386,7 +386,7 @@ select,
 optgroup,
 textarea {
   color: #404040;
-  font-family: sans-serif;
+  font-family: "ff-enzo-web", sans-serif;
   font-size: 16px;
   font-size: 1rem;
   line-height: 1.5;
@@ -972,7 +972,7 @@ figure.gallery-item {
 }
 
 body {
-  font-family: "ff-enzo-web";
+  font-family: "ff-enzo-web", sans-serif;
   font-size: 18px;
   color: #3e606f;
 }
@@ -2539,7 +2539,7 @@ input.qty {
   background: #fff !important;
   color: #3e606f;
   font-size: 16px;
-  font-family: "ff-enzo-web";
+  font-family: "ff-enzo-web", "sans-serif";
   font-weight: bold;
   margin-top: 5px;
 }
