@@ -3,7 +3,7 @@ Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
 Tested up to: 6.8.3
-Stable tag: 2.0.0-beta9
+Stable tag: 2.0.0-RC1
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -29,6 +29,9 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 2.0.0-RC1 = 
+* Changed: Update @version from 7.0.1 to 10.2.0 #83
+
 = 2.0.0-beta9 =
 * Changed: Disable WooCommerce Sale flash #100
 * Changed: Re-enable FF Enzo web font #97 ( gardenvista #43 )
