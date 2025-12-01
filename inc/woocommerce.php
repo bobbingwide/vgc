@@ -367,9 +367,7 @@ add_filter( 'woocommerce_subcategory_count_html', '__return_null');
  * @return void
  */
 function vgc_maybe_display_shop_banner() {
-    if ( is_search() ) {
-        return;
-    }
+
     $is_shop = is_shop();
     if ( $is_shop ) {
         $banner_done = vgc_maybe_display_banner_page();
@@ -380,6 +378,9 @@ function vgc_maybe_display_shop_banner() {
         // Manual solution to display the popular categories replaced by automatic solution
         // that uses the ACF popular_category field.
         //vgc_shop_page_content( $id );
+        if ( is_search() ) {
+            return;
+        }
         if ( vgc_show_popular_categories() ) {
             $categories = vgc_get_popular_categories();
             vgc_display_popular_categories($categories);

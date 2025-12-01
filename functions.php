@@ -247,7 +247,7 @@ function vgc_scripts()
 	if ( defined( 'SCRIPT_DEBUG') && SCRIPT_DEBUG ) {
 		$ver = time();
 	} else {
-		$ver = '2131231235';
+		$ver = '2131231237';
 	}
     wp_enqueue_style('use-typekit-net-vyh3vpj', get_template_directory_uri() . '/use-typekit-net-vyh3vpj.css', [], null, 'all');
     wp_enqueue_style('bootstrap', get_template_directory_uri() . '/bootstrap.min.css', [], '5.1.3', 'all');
