@@ -2,8 +2,8 @@
 Contributors: automattic, Hotbox Studios, bobbingwide
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 Requires at least: 4.5
-Tested up to: 6.8.3
-Stable tag: 2.0.0-RC2
+Tested up to: 6.9
+Stable tag: 2.0.0-RC3
 License: GNU General Public License v2 or later
 License URI: LICENSE
 
@@ -29,6 +29,9 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+= 2.0.0-RC3 =
+* Changed: Reduce USP slider max-width to 40px #97
+
 = 2.0.0-RC2 = 
 * Changed: On shop's search results display sales banners but not popular categories #93 gardenvista#45
 
