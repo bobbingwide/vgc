@@ -5,7 +5,9 @@ $addons = get_query_var('addons');
 $ppq = get_query_var('ppq');
 $installCost = get_query_var('installCost');
 $installationStatus = get_query_var('installationStatus');
-$deliveryStatus = get_query_var('deliveryStatus');
+//$deliveryStatus = get_query_var('deliveryStatus');
+$deliveryStatus = true;
+//bw_trace2( $deliveryStatus, 'deliveryStatus', false );
 $length = $product->get_length();
 $width = $product->get_width();
 $record = [];
@@ -21,6 +23,7 @@ $options_discount = vgc_get_options_discount( $product );
       <h3 class="w-100 clearfix fw-bold mb-0 h5 font-colour-primary text-center toggle-next">
         <?php echo $addon['title_of_area']; ?>
         <?php if ( 'Installation' === $addon['title_of_area']) { $installationStatus = false; } ?>
+        <?php if ( 'Delivery' === $addon['title_of_area']) { $deliveryStatus = false; } ?>
         <?php echo $addon['required_addon'] == true ? "*" : ""; ?>
           <img src="<?php echo get_template_directory_uri(); ?>/images/down-arrow-blue.png" alt="icon" class="ml-4">
           </h3>
@@ -109,7 +112,7 @@ endif;
 
 
 
-<!-- Get the section for installation addons -->
+<!-- Get the sections for installation and delivery addons, before or after the post code -->
 <?php 
 set_query_var('ppq', $ppq);
 set_query_var('installCost', $installCost);
@@ -120,26 +123,22 @@ set_query_var('installationStatus', $installationStatus);
  *
  */
 if ( false === $ppq->getDeliveryCostRegardless() ) {
-
     get_template_part('/template-parts/shop/postcode', 'search');
     get_template_part('/template-parts/shop/addons/installation', 'addon');
-    get_template_part('/template-parts/shop/addons/delivery', 'addon');
-
-
+    if ( $deliveryStatus ) {
+        get_template_part('/template-parts/shop/addons/delivery', 'addon');
+    } else {
+        $ppq->defineNationwideDeliveryConst();
+    }
 } else {
-
     get_template_part('/template-parts/shop/addons/installation', 'addon');
-    get_template_part('/template-parts/shop/addons/delivery', 'regardless');
+    if ( $deliveryStatus ) {
+        get_template_part('/template-parts/shop/addons/delivery', 'regardless');
+    } else {
+        $ppq->defineNationwideDeliveryConst();
+    }
     get_template_part('/template-parts/shop/postcode', 'search');
-
 }
-?>
-<!-- Get the section for delivery addons -->
-<?php
-set_query_var('ppq', $ppq);
-set_query_var('deliveryStatus', $deliveryStatus);
-//get_template_part('/template-parts/shop/addons/delivery', 'addon');
-
 ?>
 
 <!-- Get the section for base addons -->
