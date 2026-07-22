@@ -3,8 +3,8 @@
 * Contributors: automattic, Hotbox Studios, bobbingwide
 * Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 * Requires at least: 4.5
-* Tested up to: 6.9
-* Stable tag: 2.0.0-RC3
+* Tested up to: 7.0.2
+* Stable tag: 2.0.0
 * License: GNU General Public License v2 or later
 * License URI: LICENSE
 
@@ -16,7 +16,7 @@ VGC is the theme for gardenvista.co.uk.
 
 - It uses/supports Elementor with Elementor-Pro for some of the main pages
 - and WooCommerce for the online shop.
-- Aadvanced Custom Fields Pro for custom fields (incl. repeater fields) and a global options page
+- Advanced Custom Fields Pro for custom fields (incl. repeater fields) and a global options page
 - Search and Filter Pro v2.5 for WooCommerce filters
 - or Search and Filter Pro v3.2.0-beta-7 for WooCommerce filters and Load more pagination
 - Some of the templates include hardcoded logic which refer to background images.
@@ -30,6 +30,9 @@ VGC is the theme for gardenvista.co.uk.
 3. Click Activate to use your new theme right away.
 
 ## Changelog 
+# 2.0.0 
+* Changed: Support Delivery as optional upgrade #104
+
 # 2.0.0-RC3 
 * Changed: Reduce USP slider max-width to 40px #97
 
